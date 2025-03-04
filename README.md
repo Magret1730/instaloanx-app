@@ -1,1 +1,1 @@
-# InstaloanX App
+# InstaloanX Application
