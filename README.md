@@ -59,17 +59,17 @@ Many individuals and small businesses struggle with accessing and managing loans
 
 
 ### Mockups
-![](./images/register.png)
-![](./images/login.png)
-![](./images/home-page.png)
-![](./images/user-dashboard.png)
-![](./images/admin-loan-dashboard.png)
-![](./images/admin-user-dashboard.png)
-![](./images/admin-single-user-dashboard.png)
-![](./images/loan-form.png)
+![](./readme-images/register.png)
+![](./readme-images/login.png)
+![](./readme-images/home-page.png)
+![](./readme-images/user-dashboard.png)
+![](./readme-images/admin-loan-dashboard.png)
+![](./readme-images/admin-user-dashboard.png)
+![](./readme-images/admin-single-user-dashboard.png)
+![](./readme-images/loan-form.png)
 
 ### Data
-![](./images/db_diagram.png)
+![](./readme-images/db_diagram.png)
 
 ### Endpoints
 **User Endpoints:**
