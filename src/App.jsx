@@ -1,10 +1,15 @@
-import './App.scss'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './App.scss';
 
 function App() {
 
   return (
     <>
-      <h1>Welcome to InstaloanX Application</h1>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<h1>Welcome to InstaloanX Application</h1>}/>
+        </Routes>
+    </BrowserRouter>
     </>
   )
 }
