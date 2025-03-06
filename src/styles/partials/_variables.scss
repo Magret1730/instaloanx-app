@@ -1,16 +1,12 @@
-// @use "./typography" as *;
+@use "./typography" as *;
 
-// $typeface-primary: "Newsreader";
-// $typeface-secondary: "Outfit";
+$typeface-primary: "Lato";
 
-// $primary-text-color: #0C1E1A; // black
-// $primary-accent-color: #1E6655; // Forest Green
-// $primary-background-color: #EFFAF7; //Pistachio
-// $border-color: #B7CEC9; // sea-green
-// $alternate-background-color: #E4EFEC; //sage
-// $alternate-text-color: #FFFFFF; // white
-// $primary-error-color: #B10606;
-// $primary-error-background-color: #ffe2e2;
+$secondary-bg-color: rgb(0 134 111); // Green
+$primary-text-color: rgb(45 151 131); // Green
+$secondary-text-color: rgb(32 30 31); // Black
+$primary-bg-color: rgb(255 255 255); // White
+$alternate-bg-color: rgb(240 240 240); // Grey
 
-// $tablet-breakpoint: 48rem;
-// $desktop-breakpoint: 80rem;
+$tablet-breakpoint: 48rem;
+$desktop-breakpoint: 80rem;
