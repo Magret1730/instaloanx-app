@@ -1,0 +1,16 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./typography" as *;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// body {
+    // font-family: $typeface-primary;
+    // background-color: $primary-background-color;
+// }

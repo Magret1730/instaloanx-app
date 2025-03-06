@@ -1,0 +1,27 @@
+// @use "./variables" as *;
+
+// @mixin flex($direction, $justify, $align) {
+//     display: flex;
+//     flex-direction: $direction;
+//     justify-content: $justify;
+//     align-items: $align;
+// }
+
+// @mixin typeKit($size, $height, $weight, $style) {
+//     font-size: $size;
+//     line-height: $height;
+//     font-weight: $weight;
+//     font-style: $style;
+// }
+
+// @mixin tablet-breakpoint {
+//     @media (min-width: $tablet-breakpoint) {
+//         @content
+//     }
+// }
+
+// @mixin desktop-breakpoint {
+//     @media (min-width: $desktop-breakpoint) {
+//         @content
+//     }
+// }
