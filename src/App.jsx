@@ -4,9 +4,9 @@ function App() {
 
   return (
     <>
-      <h1>Welcome to App.jsx</h1>
+      <h1>Welcome to InstaloanX Application</h1>
     </>
   )
 }
 
-export default App
+export default App;
