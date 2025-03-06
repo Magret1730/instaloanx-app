@@ -1,10 +1,19 @@
-import './App.scss'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Admin from "./pages/Admin/Admin";
+import Loans from "./pages/Loans/Loans";
+import './App.scss';
 
 function App() {
-
   return (
     <>
-      <h1>Welcome to InstaloanX Application</h1>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />}/>
+            <Route path="/admin" element={<Admin />}/>
+            <Route path="/loans" element={<Loans />}/>
+        </Routes>
+    </BrowserRouter>
     </>
   )
 }
