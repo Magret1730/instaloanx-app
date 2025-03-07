@@ -1,0 +1,31 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.footer {
+    background-color: $secondary-text-color;
+    color: $primary-bg-color;
+    padding: 3rem 1rem;
+    text-align: center;
+
+    &__social {
+        @include flex(row, center, center);
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    &__social-image {
+        width: 24px;
+        height: 24px;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__text {
+        font-size: 0.6rem;
+        margin: 0;
+        font-weight: 300;
+    }
+}

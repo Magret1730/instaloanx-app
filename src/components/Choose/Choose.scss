@@ -8,24 +8,28 @@
 
     &__box {
 
+        &-width {
+            padding-right: 0.7rem;
+        }
+
         &-title {
             font-size: 0.5rem;
             color: $primary-text-color;
             font-style: italic;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         &-subtitle {
             font-size: 0.7rem;
             color: $primary-text-color;
             font-style: italic;
-            font-weight: 400;
+            font-weight: 700;
             padding-top: 0.3rem;
             padding-bottom: 1rem;
         }
 
         &-image {
-            width: 95%;
+            width: 100%;
             height: 17vh;
             border-radius: .3125rem;
         }
