@@ -1,0 +1,50 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.choose {
+    @include flex (row, flex-start, center);
+    padding: 1rem;
+    // gap: 1.5rem;
+
+    &__box {
+
+        &-title {
+            font-size: 0.5rem;
+            color: $primary-text-color;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        &-subtitle {
+            font-size: 0.7rem;
+            color: $primary-text-color;
+            font-style: italic;
+            font-weight: 400;
+            padding-top: 0.3rem;
+            padding-bottom: 1rem;
+        }
+
+        &-image {
+            width: 95%;
+            height: 17vh;
+            border-radius: .3125rem;
+        }
+
+        &-container {
+            border-left: 1px solid $secondary-text-color;
+            padding: 0 1rem;
+        }
+
+        &-content {
+            @include flex (column, center, center);
+            border-bottom: 1px solid $secondary-text-color;
+            padding: 1rem 1rem;
+        }
+
+        &-text {
+            font-size: 0.3rem;
+            font-weight: 400;
+            padding-top: 0.2rem;
+        }
+    }
+}
