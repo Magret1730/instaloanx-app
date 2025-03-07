@@ -4,14 +4,28 @@
 .research {
     padding: 1.5rem 1rem;
 
+    @include tablet-breakpoint {
+        padding: 2rem 2.5rem;
+    }
+
     &__header {
         width: 70%;
+
+        @include tablet-breakpoint {
+            width: 50%;
+        }
 
         &-title {
             font-size: 0.8rem;
             font-weight: 700;
             font-style: italic;
             color: $primary-text-color;
+            letter-spacing: 0.01rem;
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
+                letter-spacing: 0.02rem;
+            }
         }
 
         &-subtitle {
@@ -20,46 +34,82 @@
             font-style: italic;
             color: $primary-text-color;
             padding-top: 0.3rem;
+
+            @include tablet-breakpoint {
+                font-size: 1rem;
+            }
         }
     }
 
     &__container {
         @include flex(column, center, center);
-        // border: 0.05px solid $secondary-text-color;
-        // border: 0.05px solid $alternate-bg-color;
         border: 0.05px solid $primary-text-color;
         margin-top: 1rem;
+
+        @include tablet-breakpoint {
+            @include flex(row, null, center);
+            margin-top: 2rem;
+        }
     }
 
-    // &__box-contents {
-    //     // padding-top: 0.5rem;
-    // }
-
     &__box {
-        @include flex(row, space-between, flex-start);
-        // border: 0.05px solid $secondary-text-color;
-        // border: 0.05px solid $alternate-bg-color;
-        border: 0.05px solid $primary-text-color;
+        @include flex(row, flex-start, flex-start);
+        border-top: 0.05px solid $primary-text-color;
         padding: 1rem 0;
+        width: 100%;
+        gap: 0.5rem;
+
+        &-border {
+            @include tablet-breakpoint {
+                border-right: 0.05px solid $primary-text-color;
+            }
+        }
+
+        &-space:first-child {
+            border-top: none;
+        } 
+
+        &-spaced:first-child {
+            @include tablet-breakpoint {
+                border-top: none;
+            }
+        }
+
+        @include tablet-breakpoint {
+            padding: 2rem 1rem;
+        }
 
         &-icon {
             width: 7%;
-            margin-left: 0.5rem;
-        }
+            margin-left: 1rem;
 
-        &-content {
-            margin-left: 0.5rem;
+            @include tablet-breakpoint {
+                width: 8%;
+            }
         }
 
         &-header {
             text-decoration: underline;
             font-size: .6rem;
+
+            @include tablet-breakpoint {
+                font-size: 0.8rem;
+            }
         }
 
         &-text {
             font-size: 0.5rem;
             font-weight: 300;
             padding-top: 0.2rem;
+
+            @include tablet-breakpoint {
+                font-size: 0.7rem;
+                padding-top: 0.5rem;
+            }
         }
     }
 }
+
+// .choose box:first-child {
+//     border-top: none;
+// }

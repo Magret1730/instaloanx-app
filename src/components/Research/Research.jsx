@@ -15,8 +15,8 @@ export default function Research() {
             </section>
 
             <section className="research__container">
-                <section className="research__box-contents">
-                     <section className="research__box">
+                <section className="research__box-contents research__box-border">
+                    <section className="research__box research__box-space">
                         <img className="research__box-icon" src={Person1} alt="Person Icon" />
                         <div className="research__box-content">
                             <p className="research__box-header">Personal Loan</p>
@@ -40,7 +40,7 @@ export default function Research() {
                 </section>
 
                 <section className="research__box-contents">
-                    <section className="research__box">
+                    <section className="research__box research__box-spaced">
                         <img className="research__box-icon" src={Education} alt="Person Icon" />
                         <div className="research__box-content">
                             <p className="research__box-header">Education Loan</p>

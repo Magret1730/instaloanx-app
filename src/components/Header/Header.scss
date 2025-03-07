@@ -2,16 +2,31 @@
 @use "../../styles/partials/variables" as *;
 
 .header {
-    @include flex(row, space-between, center);
-    padding: 1rem;
-    position: relative;
+    @include tablet-breakpoint {
+        @include flex(row, space-between, center);
+        padding: 1rem 1.5rem;
+    }
+
+    &__container {
+        @include flex(row, space-between, center);
+        padding: 1rem;
+        position: relative;
+    }
 
     &__logo {
         width: 12%;
+
+        @include tablet-breakpoint {
+            width: 13%;
+        }
     }
 
     &__ellipsis {
         cursor: pointer;
+
+        @include tablet-breakpoint {
+            display: none;
+        }
     }
 
     &__images {
@@ -21,6 +36,10 @@
 
     &__links {
         display: none;
+
+        @include tablet-breakpoint {
+            @include flex(row, space-between, center);
+        }
 
         &--display {
             @include flex(column, flex-end, center);
@@ -34,6 +53,10 @@
             right: 0;
             z-index: 1000;
             border-top: 1px solid $primary-text-color;
+
+            @include tablet-breakpoint {
+                display: none;
+            }
         }
     }
 
@@ -49,6 +72,10 @@
         color: $primary-text-color;
         padding: 0.5rem 1rem;
         transition: all 2s ease-in-out;
+
+        @include tablet-breakpoint {
+            font-size: 1.15rem;
+        }
 
         &:hover {
             background-color: rgb(234 245 243);

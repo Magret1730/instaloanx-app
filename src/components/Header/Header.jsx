@@ -5,8 +5,8 @@ import Logo from "../../assets/icons/logo.png";
 
 export default function Header({ handleEllipsisClick, ellipsisCLick }) {
     return (
-        <article>
-            <section className="header">
+        <article className="header">
+            <section className="header__container">
                 <img className="header__logo" src={Logo} alt="logo" />
 
                 <section className="header__ellipsis"  onClick={handleEllipsisClick}>
