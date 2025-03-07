@@ -4,12 +4,13 @@
 .choose {
     @include flex (row, flex-start, center);
     padding: 1rem;
-    // gap: 1.5rem;
+    margin-bottom: 1rem;
 
     &__box {
 
         &-width {
             padding-right: 0.7rem;
+            width: 65%;
         }
 
         &-title {
@@ -42,11 +43,11 @@
         &-content {
             @include flex (column, center, center);
             border-bottom: 1px solid $secondary-text-color;
-            padding: 1rem 1rem;
+            padding: 1rem 0rem;
         }
 
         &-text {
-            font-size: 0.3rem;
+            font-size: 0.4rem;
             font-weight: 400;
             padding-top: 0.2rem;
         }

@@ -7,7 +7,6 @@ export default function Header({ handleEllipsisClick, ellipsisCLick }) {
     return (
         <article>
             <section className="header">
-                {/* <h1 className="header__title">InstaloanX</h1> */}
                 <img className="header__logo" src={Logo} alt="logo" />
 
                 <section className="header__ellipsis"  onClick={handleEllipsisClick}>

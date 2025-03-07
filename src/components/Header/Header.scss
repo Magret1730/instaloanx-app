@@ -25,13 +25,12 @@
         &--display {
             @include flex(column, flex-end, center);
             gap: 0.5rem;
-            transition: all 2s ease-out;
+            transition: all 2s ease-in-out;
             background-color: $primary-bg-color;
-            padding: 1.5rem 1rem 1.5rem 1rem;
+            padding: 1.5rem 1.2rem 1.5rem 1.2rem;
             border-bottom-right-radius: .375rem;
             border-bottom-left-radius: .375rem;
             position: absolute;
-            top: 100;
             right: 0;
             z-index: 1000;
             border-top: 1px solid $primary-text-color;
@@ -48,10 +47,14 @@
         cursor: pointer;
         font-size: .9375rem;
         color: $primary-text-color;
+        padding: 0.5rem 1rem;
+        transition: all 2s ease-in-out;
 
         &:hover {
-            // color: blue;
-            // font-weight: 600;
+            background-color: rgb(234 245 243);
+            border-radius: .625rem;
+            display: block;
+            box-sizing: border-box;
         }
     }
 }

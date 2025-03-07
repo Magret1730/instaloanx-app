@@ -25,7 +25,9 @@
 
     &__container {
         @include flex(column, center, center);
-        border: 0.05px solid $secondary-text-color;
+        // border: 0.05px solid $secondary-text-color;
+        // border: 0.05px solid $alternate-bg-color;
+        border: 0.05px solid $primary-text-color;
         margin-top: 1rem;
     }
 
@@ -35,7 +37,9 @@
 
     &__box {
         @include flex(row, space-between, flex-start);
-        border: 0.05px solid $secondary-text-color;
+        // border: 0.05px solid $secondary-text-color;
+        // border: 0.05px solid $alternate-bg-color;
+        border: 0.05px solid $primary-text-color;
         padding: 1rem 0;
 
         &-icon {
