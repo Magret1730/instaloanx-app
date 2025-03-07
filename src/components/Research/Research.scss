@@ -1,0 +1,61 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.research {
+    padding: 1.5rem 1rem;
+
+    &__header {
+        width: 70%;
+
+        &-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-style: italic;
+            color: $primary-text-color;
+        }
+
+        &-subtitle {
+            font-size: 0.8rem;
+            font-weight: 300;
+            font-style: italic;
+            color: $primary-text-color;
+            padding-top: 0.3rem;
+        }
+    }
+
+    &__container {
+        @include flex(column, center, center);
+        border: 0.05px solid $secondary-text-color;
+        margin-top: 1rem;
+    }
+
+    // &__box-contents {
+    //     // padding-top: 0.5rem;
+    // }
+
+    &__box {
+        @include flex(row, space-between, flex-start);
+        border: 0.05px solid $secondary-text-color;
+        padding: 1rem 0;
+
+        &-icon {
+            width: 7%;
+            margin-left: 0.5rem;
+        }
+
+        &-content {
+            margin-left: 0.5rem;
+        }
+
+        &-header {
+            text-decoration: underline;
+            font-size: .6rem;
+        }
+
+        &-text {
+            font-size: 0.5rem;
+            font-weight: 300;
+            padding-top: 0.2rem;
+        }
+    }
+}

@@ -3,6 +3,8 @@ import Header from "../../components/Header/Header";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Footer/Footer";
 import { useState } from 'react';
+import Research from "../../components/Research/Research";
+import Choose from "../../components/Choose/Choose";
 
 export default function Home() {
     const [ ellipsisCLick, setEllipsisClick ] = useState(false);
@@ -15,7 +17,8 @@ export default function Home() {
         <section>
             <Header handleEllipsisClick={handleEllipsisClick} ellipsisCLick={ellipsisCLick}/>
             <Hero ellipsisCLick={ellipsisCLick}/>
-            
+            <Research />
+            <Choose />
             <Footer />
         </section>
     )
