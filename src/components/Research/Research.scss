@@ -5,7 +5,11 @@
     padding: 1.5rem 1rem;
 
     @include tablet-breakpoint {
-        padding: 2rem 2.5rem;
+        padding: 3.5rem 2.5rem 2rem;
+    }
+
+    @include desktop-breakpoint {
+        padding: 3.5rem 4rem 3rem 4rem;
     }
 
     &__header {
@@ -26,6 +30,11 @@
                 font-size: 1.2rem;
                 letter-spacing: 0.02rem;
             }
+
+            @include desktop-breakpoint {
+                font-size: 1.5rem;
+                letter-spacing: 0.04rem;
+            }
         }
 
         &-subtitle {
@@ -37,6 +46,10 @@
 
             @include tablet-breakpoint {
                 font-size: 1rem;
+            }
+
+            @include desktop-breakpoint {
+                font-size: 1.5rem;
             }
         }
     }
@@ -59,6 +72,14 @@
         width: 100%;
         gap: 0.5rem;
 
+        @include tablet-breakpoint {
+            padding: 2rem 1rem;
+        }
+
+        @include desktop-breakpoint {
+            padding: 3rem 1rem;
+        }
+
         &-border {
             @include tablet-breakpoint {
                 border-right: 0.05px solid $primary-text-color;
@@ -75,16 +96,22 @@
             }
         }
 
-        @include tablet-breakpoint {
-            padding: 2rem 1rem;
-        }
-
         &-icon {
             width: 7%;
             margin-left: 1rem;
 
             @include tablet-breakpoint {
                 width: 8%;
+            }
+
+            // @include desktop-breakpoint {
+            //     width: 8%;
+            // }
+        }
+
+        &-content {
+            @include desktop-breakpoint {
+                margin-left: 1rem;
             }
         }
 
@@ -94,6 +121,10 @@
 
             @include tablet-breakpoint {
                 font-size: 0.8rem;
+            }
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
             }
         }
 
@@ -106,10 +137,11 @@
                 font-size: 0.7rem;
                 padding-top: 0.5rem;
             }
+
+            @include desktop-breakpoint {
+                font-size: 1rem;
+                padding-top: 0.5rem;
+            }
         }
     }
 }
-
-// .choose box:first-child {
-//     border-top: none;
-// }

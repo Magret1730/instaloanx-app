@@ -7,6 +7,10 @@
         padding: 1rem 1.5rem;
     }
 
+    @include desktop-breakpoint {
+        padding: 1.5rem 3rem;
+    }
+
     &__container {
         @include flex(row, space-between, center);
         padding: 1rem;
@@ -39,6 +43,10 @@
 
         @include tablet-breakpoint {
             @include flex(row, space-between, center);
+        }
+
+        @include desktop-breakpoint {
+            gap: 2rem;
         }
 
         &--display {
@@ -75,6 +83,10 @@
 
         @include tablet-breakpoint {
             font-size: 1.15rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.5rem;
         }
 
         &:hover {

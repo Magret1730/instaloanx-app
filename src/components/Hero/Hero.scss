@@ -15,6 +15,10 @@
         height: 45vh;
     }
 
+    @include desktop-breakpoint {
+        height: 60vh;
+    }
+
     &__container {
         width: 70%;
         margin: 1rem auto 0;
@@ -22,11 +26,23 @@
         @include tablet-breakpoint {
             margin: 2.5rem auto 0;
         }
+
+        @include desktop-breakpoint {
+            margin: 6rem auto 0;
+        }
     }
 
     &__box {
         color: $primary-bg-color;
         padding-bottom: 0.5rem;
+
+        @include tablet-breakpoint {
+            padding-bottom: 1rem;
+        }
+    
+        // @include desktop-breakpoint {
+        //     padding-bottom: 1.5rem;
+        // }
     }
 
     &__texts {
@@ -37,12 +53,24 @@
         @include tablet-breakpoint {
             font-size: 2rem;
         }
+
+        @include desktop-breakpoint {
+            font-size: 2.5rem;
+        }
     }
 
     &__boxe {
         color: $primary-bg-color;
         border-top: 1px solid $primary-bg-color;
         padding-top: 0.5rem;
+
+        @include tablet-breakpoint {
+            padding-top: 1rem;
+        }
+
+        // @include desktop-breakpoint {
+        //     padding-top: 1.5rem;
+        // }
     }
 
     &__text {
@@ -52,6 +80,10 @@
 
         @include tablet-breakpoint {
             font-size: 1rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.5rem;
         }
     }
 
@@ -70,6 +102,14 @@
             font-size: 1.2rem;
             padding: 1rem 1.5rem;
             border-radius: .625rem;
+            margin-top: 2rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.5rem;
+            // padding: 1.5rem 2rem;
+            padding: .5rem 2rem;
+            border-radius: .9375rem;
             margin-top: 2rem;
         }
 
