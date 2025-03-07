@@ -1,0 +1,58 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.hero {
+  @include flex(column, flex-start, flex-start);
+  background-image: url("../../assets/images/money1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+  background-position: center;
+  height: 30vh;
+  background-color: #25171f;
+
+  &__container {
+      width: 70%;
+      margin: 1rem auto 0;
+  }
+
+  &__box {
+    color: $primary-bg-color;
+    padding-bottom: 0.5rem;
+  }
+
+  &__texts {
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  &__boxe {
+    color: $primary-bg-color;
+    border-top: 1px solid $primary-bg-color;
+    padding-top: 0.5rem;
+  }
+
+  &__text {
+    font-size: 0.8rem;
+    font-weight: 300;
+    font-size: italic;
+  }
+
+  &__button {
+    background-color: $primary-text-color; 
+    color: $primary-bg-color;
+    border: none;
+    margin-top: 1rem;
+    padding: 0.5rem 0.5rem; 
+    font-size: 1rem;
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+
+    &:hover {
+      color: $alternate-bg-color;
+    }
+  }
+
+}
