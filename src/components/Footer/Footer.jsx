@@ -7,7 +7,6 @@ export default function Footer() {
         <footer className="footer">
             <div className="footer__content">
 
-                {/* <section className="footer__box"> */}
                     {/* Social Media Icons */}
                     <div className="footer__social">
                         <a
@@ -38,7 +37,6 @@ export default function Footer() {
                             taskifyhubproject@gmail.com
                         </a>
                     </div>
-                {/* </section> */}
 
                 {/* Copyright Notice */}
                 <p className="footer__text">
