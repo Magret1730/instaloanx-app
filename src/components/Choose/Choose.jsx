@@ -3,7 +3,7 @@ import ChooseImage from "../../assets/images/money2.jpg";
 
 export default function Choose() {
     return (
-        <article className="choose">
+        <article className="choose" id="About">
             <section className="choose__box choose__box-width">
                 <p className="choose__box-title">Why Choose Us</p>
                 <p className="choose__box-subtitle">Your trusted partner for personalized loan solutions, expert financial guidance</p>
