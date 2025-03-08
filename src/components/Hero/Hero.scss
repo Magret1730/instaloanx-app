@@ -1,0 +1,121 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.hero {
+    @include flex(column, flex-start, flex-start);
+    background-image: url("../../assets/images/money1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    background-position: center;
+    height: 30vh;
+    background-color: #25171f;
+
+    @include tablet-breakpoint {
+        height: 45vh;
+    }
+
+    @include desktop-breakpoint {
+        height: 60vh;
+    }
+
+    &__container {
+        width: 70%;
+        margin: 1rem auto 0;
+
+        @include tablet-breakpoint {
+            margin: 2.5rem auto 0;
+        }
+
+        @include desktop-breakpoint {
+            margin: 6rem auto 0;
+        }
+    }
+
+    &__box {
+        color: $primary-bg-color;
+        padding-bottom: 0.5rem;
+
+        @include tablet-breakpoint {
+            padding-bottom: 1rem;
+        }
+    
+        // @include desktop-breakpoint {
+        //     padding-bottom: 1.5rem;
+        // }
+    }
+
+    &__texts {
+        font-size: 1.2rem;
+        font-weight: 700;
+        font-style: italic;
+
+        @include tablet-breakpoint {
+            font-size: 2rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 2.5rem;
+        }
+    }
+
+    &__boxe {
+        color: $primary-bg-color;
+        border-top: 1px solid $primary-bg-color;
+        padding-top: 0.5rem;
+
+        @include tablet-breakpoint {
+            padding-top: 1rem;
+        }
+
+        // @include desktop-breakpoint {
+        //     padding-top: 1.5rem;
+        // }
+    }
+
+    &__text {
+        font-size: 0.8rem;
+        font-weight: 300;
+        font-size: italic;
+
+        @include tablet-breakpoint {
+            font-size: 1rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.5rem;
+        }
+    }
+
+    &__button {
+        background-color: $primary-text-color; 
+        color: $primary-bg-color;
+        border: none;
+        margin-top: 1rem;
+        padding: 0.5rem; 
+        font-size: 1rem;
+        border-radius: 5px; 
+        cursor: pointer;
+        transition: background-color 0.3s ease; 
+
+        @include tablet-breakpoint {
+            font-size: 1.2rem;
+            padding: 1rem 1.5rem;
+            border-radius: .625rem;
+            margin-top: 2rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.5rem;
+            // padding: 1.5rem 2rem;
+            padding: .5rem 2rem;
+            border-radius: .9375rem;
+            margin-top: 2rem;
+        }
+
+        &:hover {
+        color: $alternate-bg-color;
+        }
+    }
+
+}

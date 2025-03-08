@@ -1,0 +1,134 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.choose {
+    @include flex (row, flex-start, center);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    gap: 1rem;
+
+    @include tablet-breakpoint {
+        padding: 1.5rem 2.5rem;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    @include desktop-breakpoint {
+        padding: 3rem 4rem;
+    }
+
+    &__box {
+
+        &-width {
+            padding-right: 0.7rem;
+            width: 65%;
+
+            @include tablet-breakpoint {
+                width: 70%;
+                padding-right: 3rem;
+            }
+        }
+
+        &-title {
+            font-size: 0.5rem;
+            color: $primary-text-color;
+            font-style: italic;
+            font-weight: 400;
+
+            @include tablet-breakpoint {
+                font-size: 0.8rem;
+            }
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
+            }
+        }
+
+        &-subtitle {
+            font-size: 0.7rem;
+            color: $primary-text-color;
+            font-style: italic;
+            font-weight: 700;
+            padding-top: 0.3rem;
+            padding-bottom: 1rem;
+
+            @include tablet-breakpoint {
+                font-size: 1rem;
+                padding-top: 0.5rem;
+                padding-bottom: 1.5rem;
+            }
+
+            @include desktop-breakpoint {
+                font-size: 1.5rem;
+                padding-top: 0.7rem;
+                padding-bottom: 3rem;
+            }
+        }
+
+        &-image {
+            width: 100%;
+            height: 17vh;
+            border-radius: .3125rem;
+
+            @include tablet-breakpoint {
+                height: 30vh;
+            }
+            @include desktop-breakpoint {
+                height: 60vh;
+            }
+        }
+
+        &-container {
+            border-left: 1px solid $secondary-text-color;
+            padding: 0 1rem;
+
+            @include tablet-breakpoint {
+                padding: 2.5rem 2.5rem;
+            }
+
+            @include desktop-breakpoint {
+                padding: 3rem 4rem;
+                margin-top: 1rem;
+            }
+        }
+
+        &-content {
+            @include flex (column, center, center);
+            border-bottom: 1px solid $secondary-text-color;
+            padding: 1rem 0rem;
+
+            @include desktop-breakpoint {
+                padding: 3rem 0rem;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+}
+
+        &-number {
+            @include tablet-breakpoint {
+                font-size: 1.5rem;
+            }
+
+            @include desktop-breakpoint {
+                font-size: 2rem;
+                padding-bottom: 0.7rem;
+            }
+        }
+
+        &-text {
+            font-size: 0.4rem;
+            font-weight: 400;
+            padding-top: 0.2rem;
+
+            @include tablet-breakpoint {
+                font-size: 0.6rem;
+            }
+
+            @include desktop-breakpoint {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

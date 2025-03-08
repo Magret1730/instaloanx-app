@@ -1,0 +1,107 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.footer {
+    background-color: $secondary-text-color;
+    color: $primary-bg-color;
+    text-align: center;
+    height: 30vh;
+    @include flex(column, space-around, center);
+
+    @include tablet-breakpoint {
+        @include flex(column, space-around, space-around);
+        height: 40vh;
+    }
+
+    @include desktop-breakpoint {
+        height: 50vh;
+    }
+
+    &__social {
+        @include flex(row, center, center);
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        @include tablet-breakpoint {
+            margin-bottom: 3rem;
+        }
+    }
+
+    &__social-image {
+        width: 1.5rem;
+        height: 1.5rem;
+        transition: opacity 0.3s ease;
+
+        @include desktop-breakpoint {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__contact {
+        margin-top: 1.25rem;
+        text-align: center;
+        line-height: 0.5rem;
+
+        @include tablet-breakpoint {
+            line-height: 1rem;
+        }
+
+        @include desktop-breakpoint {
+            margin-bottom: 3rem;
+            line-height: 1.5rem;
+        }
+    
+        &-text {
+            font-size: 0.6rem;
+            font-weight: 300;
+            
+            @include tablet-breakpoint {
+                font-size: 0.8rem;
+            }
+        
+            @include desktop-breakpoint {
+                font-size: 1rem;
+            }
+        }
+    
+        &-email {
+            color: rgb(45, 151, 131);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.7rem;
+
+            @include tablet-breakpoint {
+                font-size: 0.9rem;
+            }
+        
+            @include desktop-breakpoint {
+                font-size: 1.2rem;
+            }
+    
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &__text {
+        font-size: 0.6rem;
+        font-weight: 300;
+        margin-top: 2rem;
+
+        @include tablet-breakpoint {
+            font-size: 0.8rem;
+            margin-top: 3rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1rem;
+            margin-top: 4rem;
+        }
+    }
+}
