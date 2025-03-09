@@ -2,6 +2,8 @@
 @use "../../styles/partials/variables" as *;
 
 .header {
+    background-color: $primary-bg-color;
+
     @include tablet-breakpoint {
         @include flex(row, space-between, center);
         padding: 1rem 1.5rem;
@@ -11,14 +13,21 @@
         padding: 1.5rem 3rem;
     }
 
+    &--notHome {
+        background-color: $alternate-bg-color;
+        color: $primary-bg-color;
+    }
+
     &__container {
         @include flex(row, space-between, center);
         padding: 1rem;
         position: relative;
     }
 
+
     &__logo {
         width: 12%;
+        cursor: pointer;
 
         @include tablet-breakpoint {
             width: 13%;

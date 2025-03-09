@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Research from "../../components/Research/Research";
 import Choose from "../../components/Choose/Choose";
 
-export default function Home() {
+export default function Home({isHome}) {
     const [ ellipsisCLick, setEllipsisClick ] = useState(false);
     
     const handleEllipsisClick = () => {
@@ -15,7 +15,7 @@ export default function Home() {
 
     return (
         <section>
-            <Header handleEllipsisClick={handleEllipsisClick} ellipsisCLick={ellipsisCLick}/>
+            <Header handleEllipsisClick={handleEllipsisClick} ellipsisCLick={ellipsisCLick} isHome={isHome}/>
             <Hero ellipsisCLick={ellipsisCLick}/>
             <Research />
             <Choose />

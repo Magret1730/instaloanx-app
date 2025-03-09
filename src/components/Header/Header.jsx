@@ -4,7 +4,7 @@ import EllipsisClose from "../../assets/icons/ecclipsisClose.png";
 import Logo from "../../assets/icons/logo.png";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ handleEllipsisClick, ellipsisCLick }) {
+export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
     const navigate = useNavigate();
 
     function HomeLogoClick() {
@@ -12,7 +12,8 @@ export default function Header({ handleEllipsisClick, ellipsisCLick }) {
     }
 
     return (
-        <article className="header">
+        <article className={ `header ${isHome ? "" : "header--notHome"}` }>
+        {/* <article className="header"> */}
             <section className="header__container">
                 <img className="header__logo" src={Logo} alt="logo" onClick={HomeLogoClick} />
 
