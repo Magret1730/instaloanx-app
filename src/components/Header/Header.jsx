@@ -13,7 +13,6 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
 
     return (
         <article className={ `header ${isHome ? "" : "header--notHome"}` }>
-        {/* <article className="header"> */}
             <section className="header__container">
                 <img className="header__logo" src={Logo} alt="logo" onClick={HomeLogoClick} />
 
