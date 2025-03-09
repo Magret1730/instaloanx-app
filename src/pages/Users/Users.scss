@@ -1,0 +1,120 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.users {
+
+    &__box {
+        margin: 1rem 0 0 0;
+    }
+
+    &__header {
+        @include flex(row, space-between, center);
+        margin-left: 1rem;
+        margin-right: 1rem;
+
+        &-header {
+            font-size: 1.7rem;
+            font-style: italic;
+        }
+
+        &-button {
+            background-color: $secondary-bg-color;
+            // background-color: $primary-bgg-color;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: .375rem;
+            color: $primary-bg-color;
+            font-weight: 700;
+        }
+    }
+
+    &__active {
+        margin-top: 1.5rem;
+        // background-color: $alternate-bg-color;
+        padding: 1.5rem 1rem;
+        background-color: $secondary-bg-color;
+
+        &-title {
+            // border: 2px solid red;
+            @include flex(row, flex-start, center);
+            width: 100%;
+            font-size: 1.25rem;
+            color: $primary-bg-color;
+            font-weight: 700;
+            padding-bottom: 1rem;
+        }
+
+        &-container {
+            @include flex(column, center, center);
+            gap: 1rem;
+            color: $primary-bg-color;
+        }
+
+        &-box {
+            @include flex(column, center, center);
+        }
+
+        &-header {
+            font-style: italic;
+            font-size: 1rem;
+            font-size: .6rem;
+        }
+
+        &-text {
+            font-size: 1rem;
+            padding-top: 0.2rem;
+            font-weight: 700;
+        }
+
+        &-head {
+            display: none;
+        }
+    }
+
+    &__history {
+        // margin-top: 1.5rem;
+        // background-color: $alternate-bg-color;
+        // background-color: $primary-bgg-color;
+        padding: 1.5rem 0 1.5rem 0;
+
+
+        &-title {
+            @extend .users__active-title;
+            color: $secondary-text-color;
+            border-bottom: 1px solid $secondary-bg-color;
+            padding-top: 1.5rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        &-container {
+            @include flex(column, center, center);
+            gap: 1rem;
+            // border-bottom: 20px solid $primary-bg-color;
+            border-bottom: 1px solid $secondary-bg-color;
+            padding: 1rem;
+            // background-color: $primary-bgg-color;
+            // gap: 0.5rem;
+        }
+
+        &-box {
+            @include flex(column, center, center);
+        }
+
+        &-header {
+            font-style: italic;
+            font-size: 1rem;
+            font-size: .6rem;
+        }
+
+        &-text {
+            font-size: 1rem;
+            padding-top: 0.2rem;
+            font-weight: 700;
+        }
+
+        &-head {
+            display: none;
+        }
+    }
+}
