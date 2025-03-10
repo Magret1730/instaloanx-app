@@ -1,0 +1,177 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.admin {
+
+    &__box {
+        margin: 1rem 0 0 0;
+    }
+
+    &__title {
+        @include flex(row, flex-start, center);
+        // width: 100%;
+        font-size: 1.7rem;
+        // font-size: 1.25rem;
+        // color: $primary-bg-color;
+        font-weight: 700;
+        padding-bottom: 1rem;
+        color: $secondary-text-color;
+        // border-bottom: 1px solid $secondary-bg-color;
+        padding-top: 1.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        @include tablet-breakpoint {
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+            border-bottom: 0;
+        }
+
+        @include desktop-breakpoint {
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+    }
+
+    &__history {
+        padding: 1rem 0 1.5rem 0;
+
+        &-up {
+            @include flex(row, flex-end, center);
+            // @include flex(row, space-between, center);
+            margin: 1.5rem 1rem 1rem 1rem;
+            // height: 10vh;
+            // border-bottom: 1px solid $secondary-bg-color;
+
+            @include tablet-breakpoint {
+                margin: 1.5rem 2.5rem 1rem 2.5rem;
+                // padding: 0 2.5rem;
+                // height: 15vh;
+                // @include flex(row, space-between, center);
+            }
+    
+            // @include desktop-breakpoint {
+            //     padding: 0 4rem;
+            // }
+    
+            &-search {
+                border: 2px solid $secondary-bg-color;
+                // border: none;
+                padding: 0.5rem 1.25rem;
+                border-radius: 1.25rem;
+                color: $primary-bg-color;
+                // font-weight: 700;
+                font-family: $typeface-primary, sans-serif;
+                width: 40%;
+                // vertical-align: right;
+
+                @include tablet-breakpoint {
+                    padding: 0.7rem 1rem;
+                    font-size: 1.2rem;
+                }
+
+                @include desktop-breakpoint {
+                    padding: 1.5rem 1.5rem;
+                }
+            }
+        }
+
+        &-head {
+            display: none;
+
+            @include tablet-breakpoint {
+                background-color: $secondary-bg-color;
+                @include flex(row, flex-start, center);
+                padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+                border-bottom: 1px solid $secondary-bg-color;
+                font-style: italic;
+                width: 100%;
+                margin-top: 2rem;
+            }
+
+            @include desktop-breakpoint {
+                padding: 2rem 4rem;
+            }
+
+            &-text {
+                width: 16.5%;
+                display: flex;
+                font-weight: 700;
+
+                // S/N column takes less space
+                &:first-child {
+                    flex: 0.5;
+                }
+            
+                &:nth-child(5) {
+                    flex: 1.5;
+                }
+            }
+        }
+
+        &-text {
+            // border: 2px solid red;
+            flex: 1;
+            text-align: start;
+
+        }
+
+        &-container {
+            @include flex(column, center, center);
+            gap: 1rem;
+            border-bottom: 1px solid $secondary-bg-color;
+            padding: 1.5rem 1rem 1rem 1rem;
+
+            @include tablet-breakpoint {
+                @include flex(row, flex-start, center);
+                padding: 2rem 2.5rem;
+                gap: 0;
+            }
+
+            @include desktop-breakpoint {
+                padding: 2rem 4rem;
+            }
+        }
+
+        &-box {
+            @include flex(column, center, center);
+
+            @include tablet-breakpoint {
+                width: 16.5%;
+                @include flex(row, flex-start, center);
+                gap: 0;
+
+                // S/N column takes less space
+                &:first-child {
+                    flex: 0.5;
+                }
+            
+                &:nth-child(5) {
+                    flex: 1.5;
+                }
+            }
+        }
+
+        &-header {
+            font-style: italic;
+            font-size: 1rem;
+            font-size: .6rem;
+
+            @include tablet-breakpoint {
+                display: none;
+            }
+        }
+
+        &-text {
+            font-size: 1rem;
+            padding-top: 0.2rem;
+            font-weight: 700;
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
+                font-weight: 300;
+            }
+        }
+    }
+
+}

@@ -32,7 +32,7 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
                     <a className="header__link" href="/users">Login</a>
                 </div>
                 <div className="header__link-container">
-                    <a className="header__link" href="#">Register</a>
+                    <a className="header__link" href="/admin">Register</a>
                 </div>
             </section>
         </article>
