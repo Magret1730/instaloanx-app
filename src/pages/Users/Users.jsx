@@ -9,15 +9,16 @@ export default function Users() {
 
             <article className="users__box">
                 <section className="users__box-header">
-                    <section className="users__header"> {/* Same styling across views */}
+                    <section className="users__header">
                         <p className="users__header-header">Hi User,</p>
                         <button className="users__header-button">PAY LOAN</button>
                     </section>
 
+                    {/* active loan section */}
                     <section className="users__active">
                         <p className="users__active-title">CURRENT LOAN</p>
 
-                        <section className="users__active-head"> {/* Heading to be displayed for only mobile and desktop */}
+                        <section className="users__active-head">
                             <p className="users__active-headd">AMOUNT</p>    
                             <p className="users__active-headd">DATE BORROWED</p>    
                             <p className="users__active-headd">DATE PAID</p>    
@@ -42,13 +43,14 @@ export default function Users() {
                                 <p className="users__active-text">PENDING</p>   
                             </div>    
                         </section>
-                    </section> {/* MAke column in mobile and rows in tablet/desktop. Heading for mobile view only */}
+                    </section>
                 </section>
 
+                {/* loan history section */}
                 <section className="users__history">
                     <h3 className="users__history-title">LOAN HISTORY</h3>
 
-                    <section className="users__history-head"> {/* Heading to be displayed for only mobile and desktop */}
+                    <section className="users__history-head">
                         <p className="users__history-head-text">NUM</p>
                         <p className="users__history-head-text">AMOUNT</p>    
                         <p className="users__history-head-text">BORROWED ON</p>    
@@ -56,7 +58,7 @@ export default function Users() {
                         <p className="users__history-head-text">STATUS</p>
                     </section>
 
-                    <section className="users__history-container"> {/* MAke column in mobile and rows in tablet/desktop */}
+                    <section className="users__history-container">
                         <div className="users__history-box">
                             <p className="users__history-header">NUM</p>
                             <p className="users__history-text">1</p>   
