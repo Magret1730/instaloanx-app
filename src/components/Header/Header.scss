@@ -3,6 +3,7 @@
 
 .header {
     background-color: $primary-bg-color;
+    // border-bottom: 1px solid $primary-text-color;
 
     @include tablet-breakpoint {
         @include flex(row, space-between, center);
