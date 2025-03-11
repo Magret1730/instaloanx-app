@@ -7,7 +7,7 @@ export default function UserDetails() {
             <section className="user-details__header">
                 <h1 className="user-details__header-title">User Details</h1>
                 <Link to="/admin" className="user-details__header-link">
-                    &larr; Back to History
+                    &larr; Back
                 </Link>
             </section>
 
