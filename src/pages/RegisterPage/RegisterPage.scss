@@ -5,6 +5,12 @@
     margin: 1rem;
     padding: 1rem 0;
 
+    @include tablet-breakpoint {
+        margin: 3rem 10rem 5rem;
+        border-radius: .125rem;
+        box-shadow: 0.5rem 0.5rem 1rem rgba($secondary-bg-color, 0.5);
+    }
+
     &__header {
         @include flex(column, center, center);
 
@@ -12,10 +18,18 @@
             font-size: 1.8rem;
             color: $secondary-bg-color;
             font-weight: 700;
+
+            @include tablet-breakpoint {
+                font-size: 2.2rem;
+            }
         }
 
         &-subtitle {
             font-style: italic;
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
+            }
         }
 
         &-link {
@@ -31,7 +45,6 @@
 
         &-label {
             width: 100%;
-            color: $secondary-bg-color;
         }
 
         &-input {
@@ -42,6 +55,12 @@
             padding: 0.5rem 1rem;
             border-radius: .375rem;
             border: 1px solid $secondary-bg-color;
+
+            @include tablet-breakpoint {
+                margin-bottom: 1.5rem;
+                padding: 0.7rem 1.2rem;
+                border-radius: .5rem;
+            }
         }
     }
 
