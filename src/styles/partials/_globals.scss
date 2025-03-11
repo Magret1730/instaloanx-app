@@ -13,4 +13,5 @@
 body {
     font-family: $typeface-primary, sans-serif;
     background-color: $primary-bg-color;
+    transition: all 2s ease-in-out;
 }

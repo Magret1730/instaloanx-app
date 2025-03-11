@@ -27,11 +27,16 @@ export default function Admin() {
                         <p className="admin__history-head-text">STATUS</p>
                     </section>
 
+                    {/* A details page for each of the users to see full details e.g purpose and loan history */}
                     <section>
                         <section className="admin__history-container">
                             <div className="admin__history-box">
                                 <p className="admin__history-header">S/N</p>
                                 <p className="admin__history-text">1</p>   
+                            </div>
+                            <div className="admin__history-box">
+                                <p className="admin__history-header">NAME</p>
+                                <p className="admin__history-text">John Doe</p>   
                             </div>
                             <div className="admin__history-box">
                                 <p className="admin__history-header">AMOUNT</p>
@@ -44,10 +49,6 @@ export default function Admin() {
                             <div className="admin__history-box">
                                 <p className="admin__history-header">PAID</p>
                                 <p className="admin__history-text">03-07-2021</p>   
-                            </div>
-                            <div className="admin__history-box">
-                                <p className="admin__history-header">PURPOSE</p>
-                                <p className="admin__history-text">Education purpose</p>   
                             </div>
                             <div className="admin__history-box">
                                 <p className="admin__history-header">STATUS</p>

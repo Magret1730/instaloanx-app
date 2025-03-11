@@ -23,10 +23,10 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
 
             <section className={ ellipsisCLick ? "header__links--display" : "header__links"}>
                 <div className="header__link-container">
-                    <a className="header__link" href="#About">About</a>
+                    <a className="header__link" href="/register">About</a>
                 </div>
                 <div className="header__link-container">
-                    <a className="header__link" href="#Contact">Contact</a>
+                    <a className="header__link" href="/login">Contact</a>
                 </div>
                 <div className="header__link-container">
                     <a className="header__link" href="/users">Login</a>
