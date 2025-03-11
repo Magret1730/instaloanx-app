@@ -8,6 +8,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import UsersDetailsPage from "./pages/UsersDetailsPage/UsersDetailsPage";
 import './App.scss';
+import LoanFormPage from "./pages/LoanFormPage/LoanFormPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/admin" element={<AdminPage />}/>
             <Route path="/users" element={<UsersPage />}/>
             <Route path="/usersDetails" element={<UsersDetailsPage />} />
+            <Route path="/loanForm" element={<LoanFormPage />} />
         </Routes>
     </BrowserRouter>
     </>
