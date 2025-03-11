@@ -1,4 +1,5 @@
 import "./Hero.scss";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
     return (
@@ -11,7 +12,7 @@ export default function Hero() {
 
                 <div className="hero__boxe">
                     <p className="hero__text">You are one step away from accessing that loan you need</p>
-                    <button className="hero__button">Apply loan</button>
+                    <Link to="/loanForm"><button className="hero__button">Apply loan</button></Link>
                 </div>
             </section>
         </section>

@@ -1,5 +1,6 @@
 import "./Users.scss";
 import UsersHistory from "../UsersHistory/UsersHistory";
+import { Link } from "react-router-dom";
 
 export default function Users() {
     return (
@@ -7,7 +8,10 @@ export default function Users() {
             <section className="users__box-header">
                 <section className="users__header">
                     <p className="users__header-header">Hi User,</p>
-                    <button className="users__header-button">PAY LOAN</button>
+                    <div className="users__header-links">
+                        <Link to="/loanForm"><button className="users__header-button">APPLY LOAN</button></Link>
+                        <Link><button className="users__header-button">PAY LOAN</button></Link>
+                    </div>
                 </section>
 
                 {/* active loan section */}

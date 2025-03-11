@@ -1,0 +1,144 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.loan-form {
+    margin: 1rem;
+    padding: 1rem 0;
+
+    @include tablet-breakpoint {
+        margin: 3rem 10rem 5rem;
+        border-radius: 0.125rem;
+        box-shadow: 0.5rem 0.5rem 1rem rgba($secondary-bg-color, 0.5);
+    }
+
+    @include desktop-breakpoint {
+        margin: 5rem 30rem 15rem;
+        padding: 2rem 0 3rem 0;
+    }
+
+    &__header {
+        @include flex(column, center, center);
+        margin-bottom: 2rem;
+
+        &-title {
+            font-size: 1.8rem;
+            color: $secondary-bg-color;
+            font-weight: 700;
+
+            @include tablet-breakpoint {
+                font-size: 2.2rem;
+            }
+        }
+
+        &-subtitle {
+            font-style: italic;
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+    &__body {
+        margin: 2rem;
+
+        &-label {
+            width: 100%;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: $secondary-text-color;
+            margin-bottom: 1rem;
+        }
+
+        &-input {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid $secondary-bg-color;
+            border-radius: 0.5rem;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1.2rem;
+
+            @include tablet-breakpoint {
+                padding: 0.7rem 1.2rem;
+            }
+        }
+
+        &-dropdown {
+            display: block;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid $secondary-bg-color;
+            border-radius: 0.5rem;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            background-color: white;
+            appearance: none; // Remove default dropdown arrow
+            cursor: pointer;
+
+            @include tablet-breakpoint {
+                padding: 0.7rem 1.2rem;
+            }
+
+            // &-lists {
+            //     @include flex(column, center, flex-end);
+                
+            // }
+
+            &-list {
+                align-items: end;
+                position: absolute;
+                width: 40%;
+                background-color: white;
+                // border: 1px solid $secondary-bg-color;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                z-index: 1;
+                margin-top: 0.5rem;
+                box-shadow: 0.5rem 0.5rem 1rem rgba($secondary-bg-color, 0.5);
+
+                @include tablet-breakpoint {
+                    width: 20%;
+                }
+
+                @include desktop-breakpoint {
+                    width: 10%;
+                }
+            }
+
+            &-option {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+                color: $secondary-text-color;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                font-weight: 300;
+
+                &:hover {
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
+    &__button {
+        @include flex(row, center, center);
+
+        &-button {
+            padding: 0.7rem 2.5rem;
+            border: none;
+            background-color: $secondary-bg-color;
+            border-radius: 0.5rem;
+            color: $primary-bg-color;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: $hover-button-color;
+            }
+        }
+    }
+}

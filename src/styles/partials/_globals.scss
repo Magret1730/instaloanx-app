@@ -13,7 +13,7 @@
 body {
     font-family: $typeface-primary, sans-serif;
     background-color: $primary-bg-color;
-    transition: all 2s ease-in-out;
+    // transition: all 2s ease-in-out;
 }
 
 a {
@@ -26,4 +26,11 @@ a:active,
 a:hover {
     text-decoration: none;
     color: inherit;
+}
+
+input {
+    &:focus {
+        border: .125rem solid $primary-text-color;
+        outline: none;
+    }
 }
