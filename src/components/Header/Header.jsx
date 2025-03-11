@@ -2,7 +2,7 @@ import "./Header.scss";
 import Ellipsis from "../../assets/icons/ellipsis.png";
 import EllipsisClose from "../../assets/icons/ecclipsisClose.png";
 import Logo from "../../assets/icons/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
     const navigate = useNavigate();
@@ -23,16 +23,16 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
 
             <section className={ ellipsisCLick ? "header__links--display" : "header__links"}>
                 <div className="header__link-container">
-                    <a className="header__link" href="/users">About</a>
+                    <NavLink className="header__link" to="/users">ABOUT</NavLink>
                 </div>
                 <div className="header__link-container">
-                    <a className="header__link" href="/admin">Contact</a>
+                    <NavLink className="header__link" to="/admin">CONTACT</NavLink>
                 </div>
                 <div className="header__link-container">
-                    <a className="header__link" href="/usersDetails">Login</a>
+                    <NavLink className="header__link" to="/usersDetails">LOGIN</NavLink>
                 </div>
                 <div className="header__link-container">
-                    <a className="header__link" href="/resetPassword">Register</a>
+                    <NavLink className="header__link" to="/resetPassword">REGISTER</NavLink>
                 </div>
             </section>
         </article>

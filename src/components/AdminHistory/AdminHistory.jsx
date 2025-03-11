@@ -1,4 +1,5 @@
 import "./AdminHistory.scss";
+import { Link } from "react-router-dom";
 
 export default function AdminHistory() {
     return (
@@ -25,7 +26,7 @@ export default function AdminHistory() {
                     </div>
                     <div className="admin__history-box">
                         <p className="admin__history-header">NAME</p>
-                        <p className="admin__history-text">John Doe</p>   
+                        <Link to="/usersDetails"><p className="admin__history-text admin__history-text--name">John Doe</p></Link> 
                     </div>
                     <div className="admin__history-box">
                         <p className="admin__history-header">AMOUNT</p>
@@ -51,7 +52,7 @@ export default function AdminHistory() {
                     </div>
                     <div className="admin__history-box">
                         <p className="admin__history-header">NAME</p>
-                        <p className="admin__history-text">Joseph Wait</p>   
+                        <Link to="/usersDetails"><p className="admin__history-text admin__history-text--name">Joseph Wait</p></Link>
                     </div>
                     <div className="admin__history-box">
                         <p className="admin__history-header">AMOUNT</p>
@@ -77,7 +78,7 @@ export default function AdminHistory() {
                     </div>
                     <div className="admin__history-box">
                         <p className="admin__history-header">NAME</p>
-                        <p className="admin__history-text">Adam Smith</p>   
+                        <Link to="/usersDetails"><p className="admin__history-text admin__history-text--name">Adam Smith</p></Link>
                     </div>
                     <div className="admin__history-box">
                         <p className="admin__history-header">AMOUNT</p>
