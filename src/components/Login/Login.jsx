@@ -13,10 +13,10 @@ export default function Login() {
 
             <section className="login__body">
                 <label className="login__body-label">EMAIL
-                    <input className="login__body-input" type="email" name="" id="" />
+                    <input className="login__body-input" type="email" name="email" id="email" />
                 </label>
                 <label className="login__body-label">PASSWORD
-                    <input className="login__body-input" type="password" name="" id="" />
+                    <input className="login__body-input" type="password" name="password" id="password" />
                 </label>
             </section>
 
