@@ -86,6 +86,7 @@
                 width: 16.5%;
                 display: flex;
                 font-weight: 700;
+                color: $primary-bg-color;
 
                 // S/N column takes less space
                 &:first-child {
