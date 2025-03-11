@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
+import UsersDetailsPage from "./pages/UsersDetailsPage/UsersDetailsPage";
 import './App.scss';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
             <Route path="/admin" element={<AdminPage />}/>
             <Route path="/users" element={<UsersPage />}/>
+            <Route path="/usersDetails" element={<UsersDetailsPage />} />
         </Routes>
     </BrowserRouter>
     </>

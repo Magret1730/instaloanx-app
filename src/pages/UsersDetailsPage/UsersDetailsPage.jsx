@@ -1,3 +1,16 @@
-//  - Make it into a Component. describng each users <details>
-//  </details>
-// - make users/admin page into components
+import "./UsersDetailsPage.scss";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import UsersDetails from "../../components/UsersDetails/UsersDetails";
+
+export default function UsersDetailsPage() {
+    return (
+        <section>
+            <Header />
+
+            <UsersDetails />
+
+            <Footer />
+        </section>
+    )
+}

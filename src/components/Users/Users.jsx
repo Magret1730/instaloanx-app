@@ -1,4 +1,5 @@
 import "./Users.scss";
+import UsersHistory from "../UsersHistory/UsersHistory";
 
 export default function Users() {
     return (
@@ -41,7 +42,7 @@ export default function Users() {
                 </section>
             </section>
 
-            {/* loan history section */}
+            {/* users history */}
             <section className="users__history">
                 <h3 className="users__history-title">LOAN HISTORY</h3>
 
@@ -54,7 +55,6 @@ export default function Users() {
                 </section>
 
                 <section>
-                    {/* Make each history-container a component during functionality */}
                     <section className="users__history-container">
                         <div className="users__history-box">
                             <p className="users__history-header">NUM</p>
@@ -77,7 +77,7 @@ export default function Users() {
                             <p className="users__history-text">FULLY PAID</p>   
                         </div>
                     </section> 
-                    <section className="users__history-container"> {/* MAke column in mobile and rows in tablet/desktop */}
+                    <section className="users__history-container"> 
                         <div className="users__history-box">
                             <p className="users__history-header">NUM</p>
                             <p className="users__history-text">1</p>   
@@ -99,7 +99,7 @@ export default function Users() {
                             <p className="users__history-text">FULLY PAID</p>   
                         </div>
                     </section> 
-                    <section className="users__history-container"> {/* MAke column in mobile and rows in tablet/desktop */}
+                    <section className="users__history-container">
                         <div className="users__history-box">
                             <p className="users__history-header">NUM</p>
                             <p className="users__history-text">1</p>   
@@ -123,6 +123,7 @@ export default function Users() {
                     </section>
                 </section>
             </section>
+            <UsersHistory />
         </article>
     )
 }
