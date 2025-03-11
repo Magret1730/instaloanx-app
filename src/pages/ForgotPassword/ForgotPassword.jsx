@@ -1,7 +1,7 @@
-import "./Register.scss";
+import "./ForgotPassword.scss";
 import {Link} from "react-router-dom";
 
-export default function Register() {
+export default function ForgotPassword() {
     return (
         <section className="register">
             <section className="register__header">

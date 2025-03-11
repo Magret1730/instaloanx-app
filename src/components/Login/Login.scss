@@ -1,18 +1,18 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
-.register {
-    margin: 1rem;
+.login {
+    margin: 2rem 1rem 7rem 1rem;
     padding: 1rem 0;
 
     @include tablet-breakpoint {
-        margin: 3rem 10rem 5rem;
+        margin: 5rem 12rem 8rem 12rem;
         border-radius: .125rem;
         box-shadow: 0.5rem 0.5rem 1rem rgba($secondary-bg-color, 0.5);
     }
 
     @include desktop-breakpoint {
-        margin: 5rem 30rem 15rem;
+        margin: 5rem 32rem 15rem 32rem;
         padding: 2rem 0 3rem 0;
     }
 
