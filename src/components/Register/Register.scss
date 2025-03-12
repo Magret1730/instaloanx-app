@@ -68,6 +68,10 @@
                 padding: 0.7rem 1.2rem;
                 border-radius: .5rem;
             }
+
+            &--error {
+                border: .125rem solid $error-red;
+            }
         }
     }
 
@@ -89,4 +93,12 @@
             }
         }
     }
+
+    // &__success {
+    //     display: block;
+    //     @include flex(row, center, center);
+    //     color: $supporting-green;
+    //     padding: 0.5rem 0.8rem;
+    //     margin-top: 0.25rem;
+    // }
 }
