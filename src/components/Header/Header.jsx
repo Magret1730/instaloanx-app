@@ -11,13 +11,6 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
         navigate("/");
     }
 
-    // function isAuthenticate() {
-    //     const isAuth = localStorage.getItem("token");
-    //     console.log(isAuth);
-    // }
-
-    // isAuthenticate();
-
     return (
         <article className={ `header ${isHome ? "" : "header--notHome"}` }>
             <section className="header__container">
@@ -30,10 +23,10 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
 
             <section className={ ellipsisCLick ? "header__links--display" : "header__links"}>
                 <div className="header__link-container">
-                    <NavLink className="header__link" to="/users">ABOUT</NavLink>
+                    <NavLink className="header__link" to="#About">ABOUT</NavLink>
                 </div>
                 <div className="header__link-container">
-                    <NavLink className="header__link" to="/admin">CONTACT</NavLink>
+                    <NavLink className="header__link" to="#Contact">CONTACT</NavLink>
                 </div>
                 <div className="header__link-container">
                     <NavLink className="header__link" to="/login">LOGIN</NavLink>

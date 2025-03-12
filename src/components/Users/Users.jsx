@@ -8,15 +8,15 @@ import { Link } from "react-router-dom";
 // if no active loan: display - No active loan in the active loan section
 // if no history: display - No history in the loan history section
 
-export default function Users() {
+export default function Users({isAuthenticated}) {
     return (
         <article className="users__box">
             <section className="users__box-header">
                 <section className="users__header">
                     <p className="users__header-header">Hi User,</p>
                     <div className="users__header-links">
-                        <Link to="/loanForm"><button className="users__header-button">APPLY LOAN</button></Link>
-                        <Link><button className="users__header-button">PAY LOAN</button></Link>
+                        <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
+                        <Link to={isAuthenticated ? "/" : "/login"}><button className="users__header-button">PAY LOAN</button></Link> {/*protect this route in app.js*/}
                     </div>
                 </section>
 
