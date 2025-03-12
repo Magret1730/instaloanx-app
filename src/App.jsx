@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
@@ -10,12 +10,25 @@ import UsersDetailsPage from "./pages/UsersDetailsPage/UsersDetailsPage";
 import './App.scss';
 import LoanFormPage from "./pages/LoanFormPage/LoanFormPage";
 
+
 function App() {
+  // const navigate = useNavigate();
+
+  const isAuthenticated = () => {
+    const tokenResp = localStorage.getItem("token");
+
+    console.log(tokenResp);
+    
+    return !!tokenResp; // converts to boolean
+  }
+
+  // isAuthenticated();
+
   return (
     <>
-      <BrowserRouter>
+      {/* <BrowserRouter> */}
         <Routes>
-            <Route path="/" element={<HomePage isHome={"true"}/>}/>
+            <Route path="/" element={<HomePage isHome={"true"} isAuthenticated={isAuthenticated} />}/>
             <Route path="/register" element={<RegisterPage />}/>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
@@ -25,7 +38,7 @@ function App() {
             <Route path="/usersDetails" element={<UsersDetailsPage />} />
             <Route path="/loanForm" element={<LoanFormPage />} />
         </Routes>
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
     </>
   )
 }

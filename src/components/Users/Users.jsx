@@ -2,6 +2,12 @@ import "./Users.scss";
 import UsersHistory from "../UsersHistory/UsersHistory";
 import { Link } from "react-router-dom";
 
+
+// Check if user is authenticated, if not: redirect to login page
+// else open the user dashboard
+// if no active loan: display - No active loan in the active loan section
+// if no history: display - No history in the loan history section
+
 export default function Users() {
     return (
         <article className="users__box">

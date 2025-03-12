@@ -83,6 +83,16 @@ export default function Login() {
             if (isFormValid()) {
                 const newUser = { email: email, password: password };
 
+                const existingUserToken = localStorage.getItem("token");
+
+                if (existingUserToken) {
+                    setTimeout(() => { // I am not seeing this messege before navigating
+                        setSuccessMessage("You are already logged in!");
+                    }, 5000);
+                
+                    navigate("/users");
+                }
+
                 const response = await InstaloanxApi.login(newUser);
 
                 if (response.success) {

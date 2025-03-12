@@ -1,16 +1,22 @@
 import axios from "axios";
+// import { useNavigate } from "react-router-dom";
 
 class InstaloanxApi {
     // Backend API base URL
     static BASE_URL = import.meta.env.VITE_BASE_URL;
+    // static navigate = useNavigate();
 
     // Register user
     static async register(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/register`, newUser);
+            // console.log(response.data.data);
             if (response.status !== 201) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
+
+            // sets token to local storage
+            localStorage.setItem("token", response.data.data);
 
             // Return the response data
             return { success: true, data: response.data };
@@ -28,13 +34,17 @@ class InstaloanxApi {
     static async login(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/login`, newUser);
-            console.log(response);
+            // console.log(response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
+            // sets token to local storage
+            localStorage.setItem("token", response.data.token);
+
             // Return the response data
             return { success: true, data: response.data };
+            // }
         } catch (err) {
             console.error("Login error", err);
 
