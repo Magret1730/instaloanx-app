@@ -1,7 +1,9 @@
 import "./Users.scss";
 import UsersHistory from "../UsersHistory/UsersHistory";
 import { Link } from "react-router-dom";
-
+// import {getUserById, getUserIdFromToken} from "../../api/InstaloanxApi";
+import InstaloanxApi from "../../api/InstaloanxApi";
+import { useState, useEffect } from "react";
 
 // Check if user is authenticated, if not: redirect to login page
 // else open the user dashboard
@@ -9,11 +11,47 @@ import { Link } from "react-router-dom";
 // if no history: display - No history in the loan history section
 
 export default function Users({isAuthenticated}) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const userId = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
+            // console.log(userId);
+            if (!userId) {
+                setError("User ID not found");
+                setLoading(false);
+                return;
+            }
+
+            try {
+                // const response = await InstaloanxApi.login(newUser);
+                const response = await InstaloanxApi.getLoansByUserId(userId); // Call the backend function
+                // console.log(response);
+                if (response.success) {
+                    setUser(response.data); // Set the user data
+                } else {
+                    setError(response.message); // Handle error
+                }
+            } catch (err) {
+                setError("Failed to fetch user data", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
     return (
         <article className="users__box">
             <section className="users__box-header">
                 <section className="users__header">
-                    <p className="users__header-header">Hi User,</p>
+                    <p className="users__header-header">Hi {user.firstname},</p>
                     <div className="users__header-links">
                         <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
                         <Link to={isAuthenticated ? "/" : "/login"}><button className="users__header-button">PAY LOAN</button></Link> {/*protect this route in app.js*/}

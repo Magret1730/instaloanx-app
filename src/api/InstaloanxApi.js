@@ -1,4 +1,5 @@
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 // import { useNavigate } from "react-router-dom";
 
 class InstaloanxApi {
@@ -83,8 +84,29 @@ class InstaloanxApi {
                 return { success: false, message: "Invalid user ID" };
             }
 
-            const response = await axios.get(`${this.BASE_URL}/users/${id}`);
-            if (!response.ok) {
+            // console.log("ID from instaloanapi.js", id);
+
+            // Gets the token from localStorage 
+            const token = localStorage.getItem("token");
+            // console.log("token from instaloanapi.js", token);
+            if (!token) {
+                return { success: false, message: "No token found" };
+            }
+            // const response = await axios.get(`${this.BASE_URL}/users/${id}`);
+            // console.log(response);
+            // if (!response.ok) {
+            //     throw new Error(`HTTP error! Status: ${response.status}`);
+            // }
+
+            // Make the request with the token in the Authorization header
+            const response = await axios.get(`${this.BASE_URL}/users/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            // Check if the response is successful
+            if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
@@ -121,15 +143,27 @@ class InstaloanxApi {
     }
 
     // Fetch a single loan by user_id
-    static async getLoanById(id) {
+    static async getLoansByUserId(id) {
         try {
             // Validates ID
             if (isNaN(id) || id <= 0) {
                 return { success: false, message: "Invalid loan ID" };
             }
 
-            const response = await axios.get(`${this.BASE_URL}/loans/${id}`);
-            if (!response.ok) {
+            // Gets the token from localStorage 
+            const token = localStorage.getItem("token");
+            // console.log("token from instaloanapi.js line 155", token);
+            if (!token) {
+                return { success: false, message: "No token found" };
+            }
+
+            const response = await axios.get(`${this.BASE_URL}/users/${id}/loans`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            // console.log("token from instaloanapi.js line 165", response);
+            if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
@@ -143,6 +177,22 @@ class InstaloanxApi {
                 message: err.response ? err.response.data.message : "Get Loans By ID: Internal server error"
             };
         }
+    }
+
+    // Function to get the user ID from the token
+    static async getUserIdFromToken() {
+        const token = localStorage.getItem("token");
+        // console.log(token);
+
+        if (!token) {
+            return null;
+        }
+
+        const decoded = jwtDecode(token);
+        // console.log(decoded);
+        // console.log(decoded.id);
+        // console.log(decoded.user.id);
+        return decoded.id; // Assuming the ID is stored in the token as `userId`
     }
 }
 
