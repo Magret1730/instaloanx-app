@@ -32,7 +32,7 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
                     <NavLink className="header__link" to="/usersDetails">LOGIN</NavLink>
                 </div>
                 <div className="header__link-container">
-                    <NavLink className="header__link" to="/resetPassword">REGISTER</NavLink>
+                    <NavLink className="header__link" to="/register">REGISTER</NavLink>
                 </div>
             </section>
         </article>

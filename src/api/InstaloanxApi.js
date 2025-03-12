@@ -1,19 +1,46 @@
+import axios from "axios";
+
 class InstaloanxApi {
     // Backend API base URL
     static BASE_URL = import.meta.env.VITE_BASE_URL;
 
+    // Register user
+    static async register(newUser) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/register`, newUser);
+            if (response.status !== 201) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Return the response data
+            return { success: true, data: response.data };
+        } catch (err) {
+            console.error("Register error", err);
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.error || err.response.data.message : "Register: Internal server error",
+            };
+        }
+    }
+
     // Fetch all users
     static async getAllUsers() {
         try {
-            const response = await fetch(`${this.BASE_URL}/users`);
+            const response = await axios.get(`${this.BASE_URL}/users`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const data = await response.json();
-            return data;
+
+            // Return the response data
+            return { success: true, data: response.data };  
         } catch (err) {
             console.error(err);
-            return { success: false, message: "Internal server error" };
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.message : "Get All Users: Internal server error"
+            };
         }
     }
 
@@ -25,30 +52,40 @@ class InstaloanxApi {
                 return { success: false, message: "Invalid user ID" };
             }
 
-            const response = await fetch(`${this.BASE_URL}/users/${id}`);
+            const response = await axios.get(`${this.BASE_URL}/users/${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error(error);
-            return { success: false, message: "Internal server error" };
+
+            // Return the response data
+            return { success: true, data: response.data };
+        } catch (err) {
+            console.error(err);
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.message : "Get Users by ID: Internal server error"
+            };
         }
     }
 
     // Fetch all loans
     static async getAllLoans() {
         try {
-            const response = await fetch(`${this.BASE_URL}/loans`);
+            const response = await axios.get(`${this.BASE_URL}/loans`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const data = await response.json();
-            return data;
+
+            // Return the response data
+            return { success: true, data: response.data };
         } catch (err) {
             console.error(err);
-            return { success: false, message: "Internal server error" };
+            
+            return {
+                success: false,
+                message: err.response ? err.response.data.message : "Get All Loans: Internal server error"
+            };
         }
     }
 
@@ -60,15 +97,20 @@ class InstaloanxApi {
                 return { success: false, message: "Invalid loan ID" };
             }
 
-            const response = await fetch(`${this.BASE_URL}/loans/${id}`);
+            const response = await axios.get(`${this.BASE_URL}/loans/${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error(error);
-            return { success: false, message: "Internal server error" };
+
+            // Return the response data
+            return { success: true, data: response.data };
+        } catch (err) {
+            console.error(err);
+            
+            return {
+                success: false,
+                message: err.response ? err.response.data.message : "Get Loans By ID: Internal server error"
+            };
         }
     }
 }
