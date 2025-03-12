@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-// import axios from "axios";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 
@@ -141,6 +140,7 @@ export default function Register() {
                 const response = await InstaloanxApi.register(newUser);
 
                 if (response.success) {
+                    setErrorMessage("");
                     setSuccessMessage("User registered successfully!");
                     resetForm();
 
@@ -149,6 +149,7 @@ export default function Register() {
                         navigate("/users");
                     }, 3000);
                 } else {
+                    setSuccessMessage("");
                     if (response.message.includes("User already exist")) {
                         setErrorMessage("Email is already in use. Please use a different email.");
                     } else {
@@ -158,11 +159,10 @@ export default function Register() {
             }
         } catch (error) {
             console.error("Error in register:", error.message);
-            // setErrorMessage(error.message);
             setErrorMessage(error.response?.data?.message || "Registration error. Please try again.");
             setTimeout(() => {
                 setErrorMessage("");
-            }, 5000);
+            }, 3000);
         }
     };
 
@@ -184,7 +184,12 @@ export default function Register() {
                         name="firstname"
                         id="firstname"
                         value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
+                        onChange={(e) => {
+                            setFirstName(e.target.value);
+                            if (firstNameError && isFirstNameValid(e.target.value)) {
+                                setFirstNameError(""); // Clears error if firstName is now valid
+                            }
+                        }}
                     />
                 </label>
                 <ErrorMessage messageError={firstNameError}/>
@@ -196,7 +201,12 @@ export default function Register() {
                         name="lastname"
                         id="lastname"
                         value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
+                        onChange={(e) => {
+                            setLastName(e.target.value);
+                            if (lastNameError && isLastNameValid(e.target.value)) {
+                                setLastNameError(""); // Clears error if lastName is now valid
+                            }
+                        }}
                     />
                 </label>
                 <ErrorMessage messageError={lastNameError}/>
@@ -208,7 +218,12 @@ export default function Register() {
                         name="email"
                         id="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            if (emailError && isEmailValid(e.target.value)) {
+                                setEmailError(""); // Clears error if email is now valid
+                            }
+                        }}
                     />
                 </label>
                 <ErrorMessage messageError={emailError}/>
@@ -220,7 +235,12 @@ export default function Register() {
                         name="password"
                         id="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            if (passwordError && isPasswordValid(e.target.value)) {
+                                setPasswordError(""); // Clears error if password is now valid
+                            }
+                        }}
                     />
                 </label>
             </section>

@@ -24,6 +24,27 @@ class InstaloanxApi {
         }
     }
 
+    // Login user
+    static async login(newUser) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/login`, newUser);
+            console.log(response);
+            if (response.status !== 200) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Return the response data
+            return { success: true, data: response.data };
+        } catch (err) {
+            console.error("Login error", err);
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.error || err.response.data.message : "Login: Internal server error",
+            };
+        }
+    }
+
     // Fetch all users
     static async getAllUsers() {
         try {

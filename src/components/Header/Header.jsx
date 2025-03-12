@@ -29,7 +29,7 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
                     <NavLink className="header__link" to="/admin">CONTACT</NavLink>
                 </div>
                 <div className="header__link-container">
-                    <NavLink className="header__link" to="/usersDetails">LOGIN</NavLink>
+                    <NavLink className="header__link" to="/login">LOGIN</NavLink>
                 </div>
                 <div className="header__link-container">
                     <NavLink className="header__link" to="/register">REGISTER</NavLink>
