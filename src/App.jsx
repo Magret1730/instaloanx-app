@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
@@ -9,25 +9,45 @@ import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import UsersDetailsPage from "./pages/UsersDetailsPage/UsersDetailsPage";
 import './App.scss';
 import LoanFormPage from "./pages/LoanFormPage/LoanFormPage";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Logout from "./components/Logout/Logout";
+
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
+    const isAuthenticated = () => {
+        const tokenResp = localStorage.getItem("token");
+        
+        return !!tokenResp;
+    }
+
+    // Handle * routes
+    return (
+        <>
         <Routes>
-            <Route path="/" element={<HomePage isHome={"true"}/>}/>
+            <Route path="/" element={ <HomePage isAuthenticated={isAuthenticated} /> }/>
             <Route path="/register" element={<RegisterPage />}/>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
             <Route path="/admin" element={<AdminPage />}/>
-            <Route path="/users" element={<UsersPage />}/>
+
+            <Route path="/users"  element={
+                <ProtectedRoute >
+                    <UsersPage isAuthenticated={isAuthenticated}/>
+                </ProtectedRoute>
+            }/>
+
             <Route path="/usersDetails" element={<UsersDetailsPage />} />
-            <Route path="/loanForm" element={<LoanFormPage />} />
+
+            <Route path="/loanForm" element={
+                <ProtectedRoute>
+                    <LoanFormPage />
+                </ProtectedRoute>
+            }/>
         </Routes>
-    </BrowserRouter>
-    </>
-  )
+        </>
+    )
 }
 
 export default App;
