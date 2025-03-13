@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import Research from "../../components/Research/Research";
 import Choose from "../../components/Choose/Choose";
 
-export default function Home({isHome, isAuthenticated}) {
+export default function Home({isAuthenticated}) {
     // const [ ellipsisCLick, setEllipsisClick ] = useState(false);
     
     // const handleEllipsisClick = () => {
@@ -15,7 +15,7 @@ export default function Home({isHome, isAuthenticated}) {
 
     return (
         <section>
-            <Header isHome={isHome}/>
+            <Header isAuthenticated={isAuthenticated}/>
             <Hero  isAuthenticated={isAuthenticated}/>
             <Research />
             <Choose />

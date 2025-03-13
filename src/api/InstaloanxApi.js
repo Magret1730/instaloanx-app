@@ -1,11 +1,9 @@
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-// import { useNavigate } from "react-router-dom";
 
 class InstaloanxApi {
     // Backend API base URL
     static BASE_URL = import.meta.env.VITE_BASE_URL;
-    // static navigate = useNavigate();
 
     // Register user
     static async register(newUser) {
@@ -137,7 +135,7 @@ class InstaloanxApi {
         }
     }
 
-    // Fetch a single loan by user_id
+    // Fetch a single user loan details
     static async getLoansByUserId(id) {
         try {
             // Validates ID
