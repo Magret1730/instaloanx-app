@@ -22,10 +22,10 @@ function App() {
     }
 
     // use notification toastify to handle logout and the rest error/success message
-    // Handle admin page and routes
+    // Handle admin page // search query on admin page // Loan details page (1)
     // Handle NavBar issue
-    // Handle apply loan -apply loan cant work if any loan status is active
-    // Handle loan repayment
+    // Handle apply loan -apply loan cant work if any loan status is active (2)
+    // Handle loan repayment (4)
     // Handle forgotPassword and resetPassword. (Do this first or the next)
     // Go back and restyle the whole pages especially error messages
     // Ensure all data are not exposed in backend return statements
@@ -33,6 +33,7 @@ function App() {
     // Resetyle no loan history or no active loan styling.
     // Users loan history can be in its own component
     // Admin page: users details can be in its own conponent also
+    // Admin will get loan request and then change status to "active" (3)
     return (
         <>
         <Routes>
@@ -45,7 +46,7 @@ function App() {
 
             <Route path="/admin" element={
                 <AdminProtectedRoute>
-                    <AdminPage />
+                    <AdminPage isAuthenticated={isAuthenticated} />
                 </AdminProtectedRoute>
             }/>
 

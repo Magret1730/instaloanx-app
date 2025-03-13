@@ -119,7 +119,7 @@ class InstaloanxApi {
     static async getAllLoans() {
         try {
             const response = await axios.get(`${this.BASE_URL}/loans`);
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
@@ -195,30 +195,6 @@ class InstaloanxApi {
             };
         }
     }
-
-    // // Function to check isAdmin
-    // static async isAdminFunc() {
-    //     try {
-    //         const token = localStorage.getItem("token");
-    //     // console.log(token);
-
-    //     if (!token) {
-    //         return null;
-    //     }
-
-    //     const decoded = jwtDecode(token);
-
-    //     return decoded.is_admin === true; // Checks if the user is an admin
-
-    //     } catch (err) {
-    //         console.error(err);
-            
-    //         return {
-    //             success: false,
-    //             message: err.response ? err.response.data.message : "isAdminFunc: Internal server error"
-    //         };
-    //     }
-    // }
 }
 
 export default InstaloanxApi;

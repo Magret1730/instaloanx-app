@@ -15,15 +15,16 @@ export default function Users({isAuthenticated}) {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const {id} = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
-            // console.log(userId);
-            if (!id) {
-                setError("User ID not found");
-                setLoading(false);
-                return;
-            }
-
             try {
+                const {id} = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
+                // console.log(userId);
+                if (!id) {
+                    setError("User ID not found");
+                    setLoading(false);
+                    return;
+                }
+
+            
                 // const response = await InstaloanxApi.login(newUser);
                 const response = await InstaloanxApi.getLoansByUserId(id); // Call the backend function
                 const respData = await InstaloanxApi.getUserIdFromToken(); 
@@ -185,7 +186,8 @@ export default function Users({isAuthenticated}) {
                                     <p className="users__history-text">
                                         {singleLoan.remaining_balance === 0
                                             ? "Fully Paid"
-                                            : "Not Yet"}
+                                            : "Not Yet"
+                                        }
                                     </p>
                                 </div>
                                 <div className="users__history-box">
