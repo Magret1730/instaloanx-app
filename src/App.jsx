@@ -11,6 +11,7 @@ import './App.scss';
 import LoanFormPage from "./pages/LoanFormPage/LoanFormPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Logout from "./components/Logout/Logout";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 
 function App() {
@@ -21,6 +22,12 @@ function App() {
     }
 
     // Handle * routes
+    // Handle admin page and routes
+    // Handle NavBar issue
+    // Handle apply loan
+    // Handle loan repayment
+    // Handle forgotPassword and resetPassword
+    // Go back and restyle the whole pages especially error messages
     return (
         <>
         <Routes>
@@ -45,6 +52,9 @@ function App() {
                     <LoanFormPage />
                 </ProtectedRoute>
             }/>
+
+            {/* Catch-all route for unmatched paths */}
+            <Route path="*" element={<ErrorPage />} />
         </Routes>
         </>
     )
