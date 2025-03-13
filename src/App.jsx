@@ -22,7 +22,7 @@ function App() {
     }
 
     // use notification toastify to handle logout and the rest error/success message
-    // Handle admin page // search query on admin page // Loan details page (1)
+    // Handle search query on admin page // Loan details page (1)
     // Handle NavBar issue
     // Handle apply loan -apply loan cant work if any loan status is active (2)
     // Handle loan repayment (4)
