@@ -77,15 +77,15 @@ export default function Login() {
 
 
     // Checks if user is already logged in
-    useEffect(() => {
-        const existingUserToken = localStorage.getItem("token");
-        if (existingUserToken) {
-            setSuccessMessage("You are already logged in!");
-            setTimeout(() => {
-                navigate("/users");
-            }, 3000);
-        }
-    }, [navigate]);
+    // useEffect(() => {
+    //     const existingUserToken = localStorage.getItem("token");
+    //     if (existingUserToken) {
+    //         setSuccessMessage("You are already logged in!");
+    //         setTimeout(() => {
+    //             navigate("/users");
+    //         }, 3000);
+    //     }
+    // }, [navigate]);
 
     // handles submit form
     const handleSubmit = async (e) => {
@@ -134,7 +134,7 @@ export default function Login() {
             <section className="login__header">
                 <h1 className="login__header-title">LOGIN</h1>
                 <p className="login__header-subtitle">Don't have an account?
-                    <Link className="login__header-link" to="/login">Register</Link>
+                    <Link className="login__header-link" to="/register">Register</Link>
                 </p>
             </section>
 
