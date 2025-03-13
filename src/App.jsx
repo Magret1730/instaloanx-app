@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
@@ -14,7 +14,6 @@ import Logout from "./components/Logout/Logout";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import AdminProtectedRoute from "./components/AdminProtectedRoute/AdminProtectedRoute";
 
-
 function App() {
     const isAuthenticated = () => {
         const tokenResp = localStorage.getItem("token");
@@ -22,12 +21,18 @@ function App() {
         return !!tokenResp;
     }
 
+    // use notification toastify to handle logout and the rest error/success message
     // Handle admin page and routes
     // Handle NavBar issue
-    // Handle apply loan
+    // Handle apply loan -apply loan cant work if any loan status is active
     // Handle loan repayment
-    // Handle forgotPassword and resetPassword
+    // Handle forgotPassword and resetPassword. (Do this first or the next)
     // Go back and restyle the whole pages especially error messages
+    // Ensure all data are not exposed in backend return statements
+    // Click to see passowrd feature
+    // Resetyle no loan history or no active loan styling.
+    // Users loan history can be in its own component
+    // Admin page: users details can be in its own conponent also
     return (
         <>
         <Routes>
