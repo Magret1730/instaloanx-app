@@ -37,9 +37,6 @@ export default function Users({isAuthenticated}) {
                 // console.log( "respdata: ", respData);
 
                 if (response.success) {
-                // if (response) {
-                    // setUser(response.data.data, respData); // Set the user data
-                    // setUser(...response.data.data, ...respData);
 
                 // Combine response.data.data and respData into a single object
                 const combinedData = {
@@ -75,7 +72,7 @@ export default function Users({isAuthenticated}) {
                 if (response.success) {
                     // set loans
                     setLoans(response.data.data);
-                    console.log(response.data.data);
+                    // console.log(response.data.data);
                     // Find the active loan
                     const active = response.data.data.find(loan => loan.status === "Active");
                     setActiveLoan(active || null); // Set active loan or null if none

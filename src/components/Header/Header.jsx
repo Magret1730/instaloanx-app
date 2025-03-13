@@ -11,6 +11,9 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
         navigate("/");
     }
 
+    // I need a dashboard navlink for when users are authenticated
+    // authenticated, LOGOUT("/logout") and DASHBOARD("/users")
+    // not authenticated, LOGIN and REGISTER
     return (
         <article className={ `header ${isHome ? "" : "header--notHome"}` }>
             <section className="header__container">
@@ -31,11 +34,14 @@ export default function Header({ handleEllipsisClick, ellipsisCLick, isHome }) {
                 <div className="header__link-container">
                     <NavLink className="header__link" to="/login">LOGIN</NavLink>
                 </div>
+                <div className="header__link-container">
+                    <NavLink className="header__link" to="/register">REGISTER</NavLink>
+                </div>
                 <div className="header__link-container header__link-container--display">
                     <NavLink className="header__link" to="/login">LOGOUT</NavLink>
                 </div>
-                <div className="header__link-container">
-                    <NavLink className="header__link" to="/register">REGISTER</NavLink>
+                <div className="header__link-container header__link-container--display">
+                    <NavLink className="header__link" to="/login">DASHBOARD</NavLink>
                 </div>
             </section>
         </article>

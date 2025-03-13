@@ -12,7 +12,7 @@ export default function Hero({ isAuthenticated }) {
 
                 <div className="hero__boxe">
                     <p className="hero__text">You are one step away from accessing that loan you need</p>
-                    <Link to={isAuthenticated() ? "/users" : "/login"}><button className="hero__button">Apply loan</button></Link>
+                    <Link to={isAuthenticated() ? "/loanForm" : "/login"}><button className="hero__button">Apply loan</button></Link>
                 </div>
             </section>
         </section>
