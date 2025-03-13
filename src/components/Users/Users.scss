@@ -314,5 +314,25 @@
                 font-size: 1.2rem;
             }
         }
+
+        &-no-loan {
+            // @include flex(row, center, center);
+            // height: 100%;
+            // gap: 1rem;
+
+                font-size: 1.5rem;
+                padding-top: 4rem;
+                padding-bottom: 10rem;
+                // color: $primary-bg-color;
+                text-align: center;
+
+                // @include tablet-breakpoint {
+                //     font-size: 1.5rem;
+                // }
+
+                // @include desktop-breakpoint {
+                //     font-size: 2rem;
+                // }
+        }
     }
 }

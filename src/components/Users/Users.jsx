@@ -75,6 +75,7 @@ export default function Users({isAuthenticated}) {
                 if (response.success) {
                     // set loans
                     setLoans(response.data.data);
+                    console.log(response.data.data);
                     // Find the active loan
                     const active = response.data.data.find(loan => loan.status === "Active");
                     setActiveLoan(active || null); // Set active loan or null if none
@@ -91,9 +92,10 @@ export default function Users({isAuthenticated}) {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
+    if (!loans) return <div>loading...</div>;
 
     // console.log(user);
-    console.log(loans);
+    // console.log(loans);
 
     return (
         <article className="users__box">
@@ -157,75 +159,54 @@ export default function Users({isAuthenticated}) {
             <section className="users__history">
                 <h3 className="users__history-title">LOAN HISTORY</h3>
 
-                {/* { loans.map((singleLoan) => {
-                <>
-                    <section className="users__history-head">
-                        <p className="users__history-head-text">NUM</p>
-                        <p className="users__history-head-text">AMOUNT</p>    
-                        <p className="users__history-head-text">BORROWED</p>    
-                        <p className="users__history-head-text">PAID</p>    
-                        <p className="users__history-head-text">STATUS</p>
-                    </section>
+                {/* Loan History Section */}
+                {loans.length > 0 ? (
+                    <>
+                        {/* Render the table header */}
+                        <section className="users__history-head">
+                            <p className="users__history-head-text">NUM</p>
+                            <p className="users__history-head-text">AMOUNT</p>
+                            <p className="users__history-head-text">BORROWED</p>
+                            <p className="users__history-head-text">PAID</p>
+                            <p className="users__history-head-text">STATUS</p>
+                        </section>
 
-                    <section>
-                        <section className="users__history-container">
-                            <div className="users__history-box">
-                                <p className="users__history-header">NUM</p>
-                                <p className="users__history-text">1</p>   
-                            </div>
-                            <div className="users__history-box">
-                                <p className="users__history-header">AMOUNT</p>
-                                <p className="users__history-text">$35,000</p>   
-                            </div>
-                            <div className="users__history-box">
-                                <p className="users__history-header">BORROWED</p>
-                                <p className="users__history-text">01-12-2021</p>   
-                            </div>
-                            <div className="users__history-box">
-                                <p className="users__history-header">PAID</p>
-                                <p className="users__history-text">03-07-2021</p>   
-                            </div>
-                            <div className="users__history-box">
-                                <p className="users__history-header">STATUS</p>
-                                <p className="users__history-text">FULLY PAID</p>   
-                            </div>
-                        </section> 
-                    </section>
-                </>
-                })} */}
-
-                {/* <section className="users__history-head">
-                    <p className="users__history-head-text">NUM</p>
-                    <p className="users__history-head-text">AMOUNT</p>    
-                    <p className="users__history-head-text">BORROWED</p>    
-                    <p className="users__history-head-text">PAID</p>    
-                    <p className="users__history-head-text">STATUS</p>
-                </section>
-
-                <section>
-                    <section className="users__history-container">
-                        <div className="users__history-box">
-                            <p className="users__history-header">NUM</p>
-                            <p className="users__history-text">1</p>   
-                        </div>
-                        <div className="users__history-box">
-                            <p className="users__history-header">AMOUNT</p>
-                            <p className="users__history-text">$35,000</p>   
-                        </div>
-                        <div className="users__history-box">
-                            <p className="users__history-header">BORROWED</p>
-                            <p className="users__history-text">01-12-2021</p>   
-                        </div>
-                        <div className="users__history-box">
-                            <p className="users__history-header">PAID</p>
-                            <p className="users__history-text">03-07-2021</p>   
-                        </div>
-                        <div className="users__history-box">
-                            <p className="users__history-header">STATUS</p>
-                            <p className="users__history-text">FULLY PAID</p>   
-                        </div>
-                    </section> 
-                </section> */}
+                        {/* Map through loans and render each loan */}
+                        {loans.map((singleLoan, index) => (
+                            <section key={singleLoan.id} className="users__history-container">
+                                <div className="users__history-box">
+                                    <p className="users__history-header">NUM</p>
+                                    <p className="users__history-text">{index + 1}</p>
+                                </div>
+                                <div className="users__history-box">
+                                    <p className="users__history-header">AMOUNT</p>
+                                    <p className="users__history-text">${singleLoan.loan_amount}</p>
+                                </div>
+                                <div className="users__history-box">
+                                    <p className="users__history-header">BORROWED</p>
+                                    <p className="users__history-text">
+                                        {new Date(singleLoan.created_at).toLocaleDateString()}
+                                    </p>
+                                </div>
+                                <div className="users__history-box">
+                                    <p className="users__history-header">PAID</p>
+                                    <p className="users__history-text">
+                                        {singleLoan.remaining_balance === 0
+                                            ? "Fully Paid"
+                                            : "Not Yet"}
+                                    </p>
+                                </div>
+                                <div className="users__history-box">
+                                    <p className="users__history-header">STATUS</p>
+                                    <p className="users__history-text">{singleLoan.status}</p>
+                                </div>
+                            </section>
+                        ))}
+                    </>
+                ) : (
+                    <p className="users__history-no-loan">You have no loan history.</p>
+                )
+                }
             </section>
             <UsersHistory />
         </article>

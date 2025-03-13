@@ -26,11 +26,15 @@
 
 
     &__logo {
-        width: 12%;
+        width: 30px;
         cursor: pointer;
 
         @include tablet-breakpoint {
-            width: 13%;
+            width: 40px;
+        }
+
+        @include tablet-breakpoint {
+            width: 55px;
         }
     }
 
