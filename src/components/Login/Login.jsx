@@ -2,7 +2,7 @@ import "./Login.scss";
 import {Link} from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
 
@@ -75,23 +75,25 @@ export default function Login() {
             setPasswordError("");
     };
 
-        // handles submit form
+
+    // Checks if user is already logged in
+    // useEffect(() => {
+    //     const existingUserToken = localStorage.getItem("token");
+    //     if (existingUserToken) {
+    //         setSuccessMessage("You are already logged in!");
+    //         setTimeout(() => {
+    //             navigate("/users");
+    //         }, 3000);
+    //     }
+    // }, [navigate]);
+
+    // handles submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             if (isFormValid()) {
                 const newUser = { email: email, password: password };
-
-                const existingUserToken = localStorage.getItem("token");
-
-                if (existingUserToken) {
-                    setTimeout(() => { // I am not seeing this messege before navigating
-                        setSuccessMessage("You are already logged in!");
-                    }, 5000);
-                
-                    navigate("/users");
-                }
 
                 const response = await InstaloanxApi.login(newUser);
 
@@ -100,10 +102,14 @@ export default function Login() {
                     setSuccessMessage("User login successfully!");
                     resetForm();
 
+                    // Fetches user role after login
+                    const isAdminLogin = await InstaloanxApi.getUserIdFromToken();
+                    // setIsAdminState(!!isAdminLogin.is_admin); //converts to boolean
+
+                    // Timeout function navigates based on is_admin
                     setTimeout(() => {
-                        setSuccessMessage("");
-                        navigate("/users");
-                    }, 3000);
+                        navigate(isAdminLogin.is_admin ? "/admin" : "/users");
+                    }, 2000);
                 } else {
                     setSuccessMessage("");
                     if (response.message.includes("Invalid email or password")) {
@@ -128,7 +134,7 @@ export default function Login() {
             <section className="login__header">
                 <h1 className="login__header-title">LOGIN</h1>
                 <p className="login__header-subtitle">Don't have an account?
-                    <Link className="login__header-link" to="/login">Register</Link>
+                    <Link className="login__header-link" to="/register">Register</Link>
                 </p>
             </section>
 

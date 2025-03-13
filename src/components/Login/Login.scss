@@ -43,7 +43,15 @@
             font-style: normal;
             padding-left: 0.5rem;
             text-decoration: none;
-            color: $secondary-bg-color;
+            color: $primary-text-color;
+    
+            &:visited {
+                color: $primary-text-color;
+            }
+    
+            &:hover {
+                font-weight: 700;
+            }
         }
     }
 

@@ -3,11 +3,11 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Admin from "../../components/Admin/Admin";
 
-export default function AdminPage() {
+export default function AdminPage({isAuthenticated}) {
     return (
         <section className="admin-page">
             <Header />
-            <Admin />
+            <Admin isAuthenticated={isAuthenticated}/>
             <Footer />
         </section>
     )

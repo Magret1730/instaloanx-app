@@ -1,14 +1,8 @@
 import "./Users.scss";
 import UsersHistory from "../UsersHistory/UsersHistory";
 import { Link, useNavigate } from "react-router-dom";
-// import {getUserById, getUserIdFromToken} from "../../api/InstaloanxApi";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
-
-// Check if user is authenticated, if not: redirect to login page
-// else open the user dashboard
-// if no active loan: display - No active loan in the active loan section
-// if no history: display - No history in the loan history section
 
 export default function Users({isAuthenticated}) {
     const [user, setUser] = useState(null);
@@ -21,15 +15,16 @@ export default function Users({isAuthenticated}) {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const {id} = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
-            // console.log(userId);
-            if (!id) {
-                setError("User ID not found");
-                setLoading(false);
-                return;
-            }
-
             try {
+                const {id} = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
+                // console.log(userId);
+                if (!id) {
+                    setError("User ID not found");
+                    setLoading(false);
+                    return;
+                }
+
+            
                 // const response = await InstaloanxApi.login(newUser);
                 const response = await InstaloanxApi.getLoansByUserId(id); // Call the backend function
                 const respData = await InstaloanxApi.getUserIdFromToken(); 
@@ -44,7 +39,10 @@ export default function Users({isAuthenticated}) {
                     ...respData, // Spread user data
                 };
 
+                // console.log(combinedData);
+
                 setUser(combinedData); // Set the combined data
+
                 } else {
                     setError(response.message); // Handle error
                 }
@@ -73,7 +71,8 @@ export default function Users({isAuthenticated}) {
                     // set loans
                     setLoans(response.data.data);
                     // console.log(response.data.data);
-                    // Find the active loan
+
+                    // Finds the active loan
                     const active = response.data.data.find(loan => loan.status === "Active");
                     setActiveLoan(active || null); // Set active loan or null if none
                 } else {
@@ -90,9 +89,6 @@ export default function Users({isAuthenticated}) {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     if (!loans) return <div>loading...</div>;
-
-    // console.log(user);
-    // console.log(loans);
 
     return (
         <article className="users__box">
@@ -190,7 +186,8 @@ export default function Users({isAuthenticated}) {
                                     <p className="users__history-text">
                                         {singleLoan.remaining_balance === 0
                                             ? "Fully Paid"
-                                            : "Not Yet"}
+                                            : "Not Yet"
+                                        }
                                     </p>
                                 </div>
                                 <div className="users__history-box">
