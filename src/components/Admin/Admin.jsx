@@ -65,36 +65,6 @@ export default function Admin({isAuthenticated}) {
         fetchUser();
     }, []);
 
-    // useEffect(() => {
-    //     const fetchActiveLoan = async () => {
-    //         try {
-    //             const { id } = await InstaloanxApi.getUserIdFromToken(); // Get the user ID
-    //             if (!id) {
-    //                 setError("User ID not found");
-    //                 return;
-    //             }
-
-    //             const response = await InstaloanxApi.getLoansByUserId(id); // Fetch loans
-    //             // console.log(response.data.data);
-    //             if (response.success) {
-    //                 // set loans
-    //                 setLoans(response.data.data);
-    //                 // console.log(response.data.data);
-
-    //                 // Finds the active loan
-    //                 const active = response.data.data.find(loan => loan.status === "Active");
-    //                 setActiveLoan(active || null); // Set active loan or null if none
-    //             } else {
-    //                 setError(response.message);
-    //             }
-    //         } catch (err) {
-    //             setError(`Failed to fetch active loan: ${err.message}`);
-    //         }
-    //     };
-
-    //     fetchActiveLoan();
-    // }, []);
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     // if (!loans) return <div>loading...</div>;
