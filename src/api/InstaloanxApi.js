@@ -92,11 +92,6 @@ class InstaloanxApi {
             if (!token) {
                 return { success: false, message: "No token found" };
             }
-            // const response = await axios.get(`${this.BASE_URL}/users/${id}`);
-            // console.log(response);
-            // if (!response.ok) {
-            //     throw new Error(`HTTP error! Status: ${response.status}`);
-            // }
 
             // Make the request with the token in the Authorization header
             const response = await axios.get(`${this.BASE_URL}/users/${id}`, {
