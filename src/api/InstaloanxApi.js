@@ -33,7 +33,7 @@ class InstaloanxApi {
     static async login(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/login`, newUser);
-            // console.log(response.data);
+            // console.log(response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -119,7 +119,7 @@ class InstaloanxApi {
     static async getAllLoans() {
         try {
             const response = await axios.get(`${this.BASE_URL}/loans`);
-            if (response.status !== 200) {
+            if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
@@ -174,7 +174,6 @@ class InstaloanxApi {
 
     // Function to get the user ID from the token
     static async getUserIdFromToken() {
-        try {
         const token = localStorage.getItem("token");
         // console.log(token);
 
@@ -185,15 +184,8 @@ class InstaloanxApi {
         const decoded = jwtDecode(token);
         // console.log(decoded);
         // console.log(decoded.id);
+        // console.log(decoded.user.id);
         return decoded; // Assuming the ID is stored in the token as `userId`
-        } catch (err) {
-            console.error(err);
-            
-            return {
-                success: false,
-                message: err.response ? err.response.data.message : "getUserIdFromToken: Internal server error"
-            };
-        }
     }
 }
 

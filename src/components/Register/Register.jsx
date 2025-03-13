@@ -141,12 +141,12 @@ export default function Register() {
 
                 if (response.success) {
                     setErrorMessage("");
-                    setSuccessMessage("User registered successfully. Please login!");
+                    setSuccessMessage("User registered successfully!");
                     resetForm();
 
                     setTimeout(() => {
                         setSuccessMessage("");
-                        navigate("/login");
+                        navigate("/users");
                     }, 3000);
                 } else {
                     setSuccessMessage("");
