@@ -12,6 +12,7 @@ import LoanFormPage from "./pages/LoanFormPage/LoanFormPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Logout from "./components/Logout/Logout";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import AdminProtectedRoute from "./components/AdminProtectedRoute/AdminProtectedRoute";
 
 
 function App() {
@@ -21,7 +22,6 @@ function App() {
         return !!tokenResp;
     }
 
-    // Handle * routes
     // Handle admin page and routes
     // Handle NavBar issue
     // Handle apply loan
@@ -37,7 +37,12 @@ function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
-            <Route path="/admin" element={<AdminPage />}/>
+
+            <Route path="/admin" element={
+                <AdminProtectedRoute>
+                    <AdminPage />
+                </AdminProtectedRoute>
+            }/>
 
             <Route path="/users"  element={
                 <ProtectedRoute >
