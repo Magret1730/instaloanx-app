@@ -162,7 +162,7 @@ class InstaloanxApi {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // console.log("token from instaloanapi.js line 165", response);
+            console.log("token from instaloanapi.js line 165", response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -192,7 +192,7 @@ class InstaloanxApi {
         // console.log(decoded);
         // console.log(decoded.id);
         // console.log(decoded.user.id);
-        return decoded.id; // Assuming the ID is stored in the token as `userId`
+        return decoded; // Assuming the ID is stored in the token as `userId`
     }
 }
 
