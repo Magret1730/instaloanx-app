@@ -22,8 +22,7 @@ function App() {
     }
 
     // Submit LinkedIn/CV feedback - Friday
-    // Handle search input query on admin page // User Loan details page (1) - Friday
-    // Handle apply loan -apply loan cant work if any loan status is active (2) - Saturday
+    // Handle apply loan -apply loan cant work if any loan status is active (2) - Friday
     // Admin will get loan request and then change status to "active" (3) - Saturday
     // Handle loan repayment (4) - Sunday
     // Handle NavBar issue - Monday
