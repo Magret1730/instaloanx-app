@@ -55,7 +55,7 @@ export default function AdminHistory({ loanData }) {
                     </div>
                     <div className="admin__history-box">
                         <p className="admin__history-header">NAME</p>
-                        <Link to="/usersDetails">
+                        <Link to={`/usersDetails/${loan.user_id}`}>
                             <p className="admin__history-text admin__history-text--name">
                                 {users[loan.user_id] 
                                     ? `${users[loan.user_id].data.first_name} ${users[loan.user_id].data.last_name}` 

@@ -23,7 +23,6 @@ export default function Users({isAuthenticated}) {
                     setLoading(false);
                     return;
                 }
-
             
                 // const response = await InstaloanxApi.login(newUser);
                 const response = await InstaloanxApi.getLoansByUserId(id); // Call the backend function
