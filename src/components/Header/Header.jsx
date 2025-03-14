@@ -3,20 +3,30 @@ import Ellipsis from "../../assets/icons/ellipsis.png";
 import EllipsisClose from "../../assets/icons/ecclipsisClose.png";
 import Logo from "../../assets/icons/logo.png";
 import { useNavigate, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import InstaloanxApi from "../../api/InstaloanxApi";
 
-export default function Header({ isHome, isAuthenticated }) {
+export default function Header() {
     const [ ellipsisCLick, setEllipsisClick ] = useState(false);
+    const [ dashboardLink, setDashboardLink ] = useState("/users");
+
+
+    const navigate = useNavigate();
 
     const handleEllipsisClick = () => {
         setEllipsisClick(!ellipsisCLick);
     }
 
-    const navigate = useNavigate();
-
     function HomeLogoClick() {
         navigate("/");
     }
+
+    // Function authenticates users
+    // useCallback hook is used to memorize isAuth, ensuring that it
+    // doesn't change unless localStorage itself changes.
+    const isAuth = useCallback(() => {
+        return !!localStorage.getItem("token");
+    }, []);
 
     // Detect viewport changes and reset ellipsisCLick state
     useEffect(() => {
@@ -34,10 +44,26 @@ export default function Header({ isHome, isAuthenticated }) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // function logout clears token and redirects to home page
+    useEffect(() => {
+            const fetchUserRole = async () => {
+            try {
+                const res = await InstaloanxApi.getUserIdFromToken();
+                // console.log(res);
+                if (!!res.is_admin === true) { // converts to boolean
+                    setDashboardLink("/admin");
+                }
+            } catch (err) {
+                console.error("Invalid token:", err);
+            }
+        };
+
+        if (isAuth()) {
+            fetchUserRole();
+        }
+    }, [isAuth]);
+
     return (
         <article className="header">
-        {/* <article className={ `header ${isHome ? "" : "header--notHome"}` }> */}
             <section className="header__container">
                 <img className="header__logo" src={Logo} alt="logo" onClick={HomeLogoClick} />
 
@@ -47,54 +73,21 @@ export default function Header({ isHome, isAuthenticated }) {
             </section>
 
             <section className={ ellipsisCLick ? "header__links--display" : "header__links"}>
-                <div className="header__link-container">
-                    <Link className="header__link" to="#About">ABOUT</Link>
-                </div>
-                <div className="header__link-container">
-                    <Link className="header__link" to="#Contact">CONTACT</Link>
-                </div>
+                <Link className="header__link" to="#About">ABOUT</Link>
+                <Link className="header__link" to="#Contact">CONTACT</Link>
 
-                <div className="header__link-container">
-                {/* <div className={ isAuthenticated ? "header__link-container--display" : "header__link-container"}> */}
-                    <Link className={ !isAuthenticated ? "header__link" : "header__link--display"}  to="/login">LOGIN</Link>
-                </div>
-                <div className="header__link-container">
-                {/* <div className={ isAuthenticated ? "header__link-container--display" : "header__link-container"}> */}
-                    {/* <NavLink className="header__link" to="/register">REGISTER</NavLink> */}
-                    <Link className={ !isAuthenticated ? "header__link" : "header__link--display"} to="/register">REGISTER</Link>
-                </div>
-
-                {/* <div className={ isAuthenticated ? "header__link-container--container" : "header__link-display"}> */}
-                <div className="header__link-container">
-                    {/* <NavLink className="header__link" to="/logout">LOGOUT</NavLink> */}
-                    <Link className={ isAuthenticated ? "header__link" : "header__link--display"} to="/logout">LOGOUT</Link>
-                </div>
-                <div className="header__link-container ">
-                {/* <div className={ isAuthenticated ? "header__link-container--container" : "header__link-display"}> */}
-                    {/* <NavLink className="header__link" to="/users">DASHBOARD</NavLink> */}
-                    <Link className={ isAuthenticated ? "header__link" : "header__link--display"} to="/users">DASHBOARD</Link>
-                </div>
-
-                {/* { isAuthenticated ? (
+                {/* {isAuthenticated ? ( */}
+                {isAuth() ? (
                     <>
-                        <div className="header__link-container">
-                            <NavLink className="header__link" to="/login">LOGIN</NavLink>
-                        </div>
-                        <div className="header__link-container">
-                            <NavLink className="header__link" to="/register">REGISTER</NavLink>
-                        </div>
+                        <Link className="header__link" to="/logout">LOGOUT</Link>
+                        <Link className="header__link" to={dashboardLink}>DASHBOARD</Link>
                     </>
-                    )  :  (
+                ) : (
                     <>
-                        <div className="header__link-container">
-                            <NavLink className="header__link" to="/logout">LOGOUT</NavLink>
-                        </div>
-                        <div className="header__link-container ">
-                            <NavLink className="header__link" to="/users">DASHBOARD</NavLink>
-                        </div>
-
+                        <Link className="header__link" to="/login">LOGIN</Link>
+                        <Link className="header__link" to="/register">REGISTER</Link>
                     </>
-                )} */}
+                )}
             </section>
         </article>
     )

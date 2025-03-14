@@ -7,15 +7,10 @@ import Research from "../../components/Research/Research";
 import Choose from "../../components/Choose/Choose";
 
 export default function Home({isAuthenticated}) {
-    // const [ ellipsisCLick, setEllipsisClick ] = useState(false);
-    
-    // const handleEllipsisClick = () => {
-    //     setEllipsisClick(!ellipsisCLick); handleEllipsisClick={handleEllipsisClick} ellipsisCLick={ellipsisCLick} 
-    // } ellipsisCLick={ellipsisCLick}
 
     return (
         <section>
-            <Header isAuthenticated={isAuthenticated}/>
+            <Header />
             <Hero  isAuthenticated={isAuthenticated}/>
             <Research />
             <Choose />

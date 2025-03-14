@@ -17,27 +17,10 @@ import AdminProtectedRoute from "./components/AdminProtectedRoute/AdminProtected
 function App() {
     const isAuthenticated = () => {
         const tokenResp = localStorage.getItem("token");
+        // console.log(tokenResp);
         
         return !!tokenResp;
     }
-
-    // Submit LinkedIn/CV feedback - Friday
-    // Handle NavBar issue - Friday
-    // Handle apply loan -apply loan cant work if any loan status is active (2) - Friday
-    // Admin will get loan request and then change status to "active" (3) - Saturday
-    // Handle loan repayment (4) - Sunday
-    // Go back and restyle the whole pages especially error messages (Not full styling but something to soubmit) - Monday
-    // Resetyle no loan history or no active loan styling. - Monday
-    // Restyle userDetails page for tablet/desktop
-    // use notification toastify to handle logout and the rest error/success message - Monday
-    // Handle forgotPassword and resetPassword. (Do this first or the next) - Tuesday
-    // Ensure all data are not exposed in backend return statements - Tuesday
-    // Click to see passowrd feature - Tuesday
-    // ReadMe/License/Submission/Make demo video for linkedin - Saturday
-    // Presentation slides/Practise/Demo - Saturday
-    // Deployment - Saturday/Sunday
-    // Users loan history can be in its own component
-    // Admin page: users details can be in its own conponent also
 
     return (
         <>
