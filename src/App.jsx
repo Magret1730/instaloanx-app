@@ -22,10 +22,10 @@ function App() {
     }
 
     // Submit LinkedIn/CV feedback - Friday
+    // Handle NavBar issue - Friday
     // Handle apply loan -apply loan cant work if any loan status is active (2) - Friday
     // Admin will get loan request and then change status to "active" (3) - Saturday
     // Handle loan repayment (4) - Sunday
-    // Handle NavBar issue - Monday
     // Go back and restyle the whole pages especially error messages (Not full styling but something to soubmit) - Monday
     // Resetyle no loan history or no active loan styling. - Monday
     // Restyle userDetails page for tablet/desktop
