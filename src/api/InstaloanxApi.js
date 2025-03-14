@@ -9,13 +9,14 @@ class InstaloanxApi {
     static async register(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/register`, newUser);
+            // console.log(response);
             // console.log(response.data.data);
             if (response.status !== 201) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             // sets token to local storage
-            localStorage.setItem("token", response.data.data);
+            localStorage.setItem("token", response.data.data.token);
 
             // Return the response data
             return { success: true, data: response.data };

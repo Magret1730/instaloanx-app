@@ -19,7 +19,7 @@ export default function Users({isAuthenticated}) {
                 const {id} = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
                 // console.log(userId);
                 if (!id) {
-                    setError("User ID not found");
+                    setError("User ID not found from users fetchUser");
                     setLoading(false);
                     return;
                 }
@@ -58,9 +58,12 @@ export default function Users({isAuthenticated}) {
     useEffect(() => {
         const fetchActiveLoan = async () => {
             try {
+                // const re = await InstaloanxApi.getUserIdFromToken();
+                // console.log(re);
+
                 const { id } = await InstaloanxApi.getUserIdFromToken(); // Get the user ID
                 if (!id) {
-                    setError("User ID not found");
+                    setError("User ID not found from fetchActiveLoan from users.jsx");
                     return;
                 }
 
