@@ -136,6 +136,7 @@ class InstaloanxApi {
     }
 
     // Fetch a single user loan details
+    // http://localhost:8080/api/v1/users/6/loans
     static async getLoansByUserId(id) {
         try {
             // Validates ID

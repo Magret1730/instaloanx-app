@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
@@ -21,19 +21,24 @@ function App() {
         return !!tokenResp;
     }
 
-    // use notification toastify to handle logout and the rest error/success message
-    // Handle search query on admin page // Loan details page (1)
-    // Handle NavBar issue
-    // Handle apply loan -apply loan cant work if any loan status is active (2)
-    // Handle loan repayment (4)
-    // Handle forgotPassword and resetPassword. (Do this first or the next)
-    // Go back and restyle the whole pages especially error messages
-    // Ensure all data are not exposed in backend return statements
-    // Click to see passowrd feature
-    // Resetyle no loan history or no active loan styling.
+    // Submit LinkedIn/CV feedback - Friday
+    // Handle apply loan -apply loan cant work if any loan status is active (2) - Friday
+    // Admin will get loan request and then change status to "active" (3) - Saturday
+    // Handle loan repayment (4) - Sunday
+    // Handle NavBar issue - Monday
+    // Go back and restyle the whole pages especially error messages (Not full styling but something to soubmit) - Monday
+    // Resetyle no loan history or no active loan styling. - Monday
+    // Restyle userDetails page for tablet/desktop
+    // use notification toastify to handle logout and the rest error/success message - Monday
+    // Handle forgotPassword and resetPassword. (Do this first or the next) - Tuesday
+    // Ensure all data are not exposed in backend return statements - Tuesday
+    // Click to see passowrd feature - Tuesday
+    // ReadMe/License/Submission/Make demo video for linkedin - Saturday
+    // Presentation slides/Practise/Demo - Saturday
+    // Deployment - Saturday/Sunday
     // Users loan history can be in its own component
     // Admin page: users details can be in its own conponent also
-    // Admin will get loan request and then change status to "active" (3)
+
     return (
         <>
         <Routes>
@@ -56,7 +61,7 @@ function App() {
                 </ProtectedRoute>
             }/>
 
-            <Route path="/usersDetails" element={<UsersDetailsPage />} />
+            <Route path="/usersDetails/:id" element={<UsersDetailsPage />} />
 
             <Route path="/loanForm" element={
                 <ProtectedRoute>

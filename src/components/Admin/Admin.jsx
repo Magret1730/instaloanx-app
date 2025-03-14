@@ -35,20 +35,20 @@ export default function Admin({isAuthenticated}) {
 
                 if (loanDatas.success) {
 
-                // console.log(loanDatas.data.data);
+                    // console.log(loanDatas.data.data);
 
-                // sets loanData into state
-                setLoanData(loanDatas.data.data);
+                    // sets loanData into state
+                    setLoanData(loanDatas.data.data);
 
-                // Combine response.data.data and respData into a single object
-                // const combinedData = {
-                //     // ...response.data.data, // Spread loan data
-                //     ...respData, // Spread user data
-                // };
+                    // Combine response.data.data and respData into a single object
+                    // const combinedData = {
+                    //     // ...response.data.data, // Spread loan data
+                    //     ...respData, // Spread user data
+                    // };
 
-                // console.log(respData);
+                    // console.log(respData);
 
-                setUser(respData);
+                    setUser(respData);
 
                 } else {
                     // setError(response.message); // Handle error
