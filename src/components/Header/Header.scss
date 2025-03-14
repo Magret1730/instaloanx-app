@@ -73,20 +73,11 @@
             position: absolute;
             right: 0;
             z-index: 1000;
-            border-top: 1px solid $primary-text-color;
+            border: 1px solid $primary-text-color;
 
             @include tablet-breakpoint {
                 display: none;
             }
-        }
-    }
-
-    &__link-container {
-        font-size: 1.25rem;
-        transition: all 2s ease-out;
-
-        &--display {
-            display: none;
         }
     }
 
@@ -113,8 +104,8 @@
             box-sizing: border-box;
         }
 
-        &--display {
-            display: none;
-        }
+        // &--display {
+        //     display: none;
+        // }
     }
 }
