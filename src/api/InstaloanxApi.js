@@ -42,6 +42,8 @@ class InstaloanxApi {
             // sets token to local storage
             localStorage.setItem("token", response.data.token);
 
+            // console.log(response.data);
+
             // Return the response data
             return { success: true, data: response.data };
             // }
@@ -119,7 +121,20 @@ class InstaloanxApi {
     // Fetch all loans
     static async getAllLoans() {
         try {
-            const response = await axios.get(`${this.BASE_URL}/loans`);
+            const token = localStorage.getItem("token");
+            // console.log(token);
+
+            if (!token) {
+                return null;
+            }
+
+            const response = await axios.get(`${this.BASE_URL}/loans`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token to request headers,
+                },
+            });
+            // console.log(response);
+
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

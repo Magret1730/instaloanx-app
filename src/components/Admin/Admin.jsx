@@ -28,7 +28,7 @@ export default function Admin({isAuthenticated}) {
                 const loanDatas = await InstaloanxApi.getAllLoans(); // gets all loans
                 // console.log(response);
                 // console.log(respData);
-                // console.log(loanData);
+                // console.log(loanDatas);
                 // console.log("response.data: ", response.data.data);
                 // console.log( "respdata: ", respData);
                 // response.success
