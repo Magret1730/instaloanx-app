@@ -76,7 +76,6 @@ export default function Header() {
                 <Link className="header__link" to="#About">ABOUT</Link>
                 <Link className="header__link" to="#Contact">CONTACT</Link>
 
-                {/* {isAuthenticated ? ( */}
                 {isAuth() ? (
                     <>
                         <Link className="header__link" to="/logout">LOGOUT</Link>

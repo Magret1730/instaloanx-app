@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import "./AdminHistory.scss";
+import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 
 export default function AdminHistory({ loanData }) {
     const [users, setUsers] = useState({});
@@ -34,22 +35,20 @@ export default function AdminHistory({ loanData }) {
         }
     }, [loanData]);
 
-    // Filter loans based on search query
+    // / Filter out pending loans and apply search query
     const filterLoans = (loanData, query) => {
-        if (!query) return loanData; // Returns all loans if the query is empty
+        if (!query) return loanData.filter(loan => loan.status !== "Pending"); // Exclude pending loans from query search
 
-        const lowerCaseQuery = query.toLowerCase(); // Makes the search case-insensitive
+        const lowerCaseQuery = query.toLowerCase();
 
         return loanData.filter((loan) => {
-            // Gets user details for the loan
-            // If users[loan.user_id] is undefined or null, the expression will stop evaluating
-            // and return undefined instead of throwing an error. (?)
-            const user = users[loan.user_id]?.data; 
+            if (loan.status === "Pending") return false; // Exclude pending loans from been displayed on admin history
+
+            const user = users[loan.user_id]?.data;
             const firstName = user?.first_name?.toLowerCase() || "";
             const lastName = user?.last_name?.toLowerCase() || "";
             const status = loan.status?.toLowerCase() || "";
 
-            // Checks if the query matches first name, last name, or status
             return (
                 firstName.includes(lowerCaseQuery) ||
                 lastName.includes(lowerCaseQuery) ||
@@ -60,6 +59,7 @@ export default function AdminHistory({ loanData }) {
 
     // // Get the filtered loans
     const filteredLoans = filterLoans(loanData, searchQuery);
+    // const firstName = users[loan.user_id].data.first_name;
 
     return (
         <section className="admin__history">
@@ -71,6 +71,9 @@ export default function AdminHistory({ loanData }) {
                     onChange={e => setSearchQuery(e.target.value)}
                 />
             </section>
+
+            {/* Admin Pending Loans section */}
+            <AdminPendingLoans />
 
             <section className="admin__history-head">
                 <p className="admin__history-head-text">S/N</p>
@@ -92,7 +95,7 @@ export default function AdminHistory({ loanData }) {
                         <Link to={`/usersDetails/${loan.user_id}`}>
                             <p className="admin__history-text admin__history-text--name">
                                 {users[loan.user_id] 
-                                    ? `${users[loan.user_id].data.first_name} ${users[loan.user_id].data.last_name}` 
+                                    ? `${users[loan.user_id].data.first_name} ${users[loan.user_id].data.last_name}`
                                     : "Loading..."}
                             </p>
                         </Link>

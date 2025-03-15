@@ -19,7 +19,7 @@ export default function Users({isAuthenticated}) {
                 const {id} = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
                 // console.log(userId);
                 if (!id) {
-                    setError("User ID not found");
+                    setError("User ID not found from users fetchUser");
                     setLoading(false);
                     return;
                 }
@@ -60,7 +60,7 @@ export default function Users({isAuthenticated}) {
             try {
                 const { id } = await InstaloanxApi.getUserIdFromToken(); // Get the user ID
                 if (!id) {
-                    setError("User ID not found");
+                    setError("User ID not found from fetchActiveLoan from users.jsx");
                     return;
                 }
 
@@ -139,7 +139,7 @@ export default function Users({isAuthenticated}) {
                         // Render a message and "Apply Loan" button if there's no active loan
                         <section className="users__active-no-loan">
                             <p className="users__active-no-loan-text">You have no active loan.</p>
-                            <button className="users__active-no-loan-button" onClick={() => navigate("/apply-loan")}>
+                            <button className="users__active-no-loan-button" onClick={() => navigate("/loanForm")}>
                                 Apply for a Loan
                             </button>
                         </section>

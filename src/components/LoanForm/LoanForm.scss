@@ -3,7 +3,7 @@
 
 .loan-form {
     margin: 1rem;
-    padding: 1rem 0;
+    padding: 1rem 0 10rem 0;
 
     @include tablet-breakpoint {
         margin: 3rem 10rem 5rem;
@@ -62,6 +62,10 @@
 
             @include tablet-breakpoint {
                 padding: 0.7rem 1.2rem;
+            }
+
+            &--error {
+                border: .0625rem solid $error-red;
             }
         }
 
@@ -139,6 +143,27 @@
             &:hover {
                 background-color: $hover-button-color;
             }
+        }
+    }
+
+    &__success {
+        display: block;
+        @include flex(row, center, center);
+        color: $success-color;
+        padding: 0.5rem 0.8rem;
+        font-size: 1rem;
+        margin-top: 0.25rem;
+    }
+
+    &-error {
+        @include flex(row, flex-start, center);
+        // @include body-small;
+        color: $error-red;
+        margin-top: -0.5rem;
+        border-radius: .375rem;
+
+        @include tablet-breakpoint {
+            margin-top: -1rem;
         }
     }
 }

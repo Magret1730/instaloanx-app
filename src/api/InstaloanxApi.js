@@ -9,13 +9,14 @@ class InstaloanxApi {
     static async register(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/register`, newUser);
+            // console.log(response);
             // console.log(response.data.data);
             if (response.status !== 201) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             // sets token to local storage
-            localStorage.setItem("token", response.data.data);
+            localStorage.setItem("token", response.data.data.token);
 
             // Return the response data
             return { success: true, data: response.data };
@@ -40,6 +41,8 @@ class InstaloanxApi {
 
             // sets token to local storage
             localStorage.setItem("token", response.data.token);
+
+            // console.log(response.data);
 
             // Return the response data
             return { success: true, data: response.data };
@@ -118,7 +121,20 @@ class InstaloanxApi {
     // Fetch all loans
     static async getAllLoans() {
         try {
-            const response = await axios.get(`${this.BASE_URL}/loans`);
+            const token = localStorage.getItem("token");
+            // console.log(token);
+
+            if (!token) {
+                return null;
+            }
+
+            const response = await axios.get(`${this.BASE_URL}/loans`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token to request headers,
+                },
+            });
+            // console.log(response);
+
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -140,6 +156,7 @@ class InstaloanxApi {
     static async getLoansByUserId(id) {
         try {
             // Validates ID
+            // console.log("Id from getLoansByUserId", id);
             if (isNaN(id) || id <= 0) {
                 return { success: false, message: "Invalid loan ID" };
             }
@@ -156,7 +173,7 @@ class InstaloanxApi {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // console.log("token from instaloanapi.js line 165", response);
+            // console.log("response from instaloanapi.js line 165", response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -186,13 +203,54 @@ class InstaloanxApi {
         const decoded = jwtDecode(token);
         // console.log(decoded);
         // console.log(decoded.id);
-        return decoded; // Assuming the ID is stored in the token as `userId`
+        return decoded;
         } catch (err) {
             console.error(err);
             
             return {
                 success: false,
                 message: err.response ? err.response.data.message : "getUserIdFromToken: Internal server error"
+            };
+        }
+    }
+
+    // http://localhost:8080/api/v1/loans/applyLoan
+    // Function posts loan application
+    static async postLoans(newLoan) {
+        try {
+            const token = localStorage.getItem("token");
+            // console.log(token);
+
+            if (!token) {
+                return null;
+            }
+
+            // const response = await axios.post(`${this.BASE_URL}/loans/applyLoan`, newLoan);
+
+            const response = await axios.post(`${this.BASE_URL}/loans/applyLoan`, newLoan, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token to request headers
+                },
+            });
+            // console.log(response);
+            // console.log(response.data);
+            if (response.status !== 201) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // sets token to local storage
+            // localStorage.setItem("token", response.data.token);
+            // console.log("InstaloanXAPi", response);
+
+            // Return the response data
+            return { success: true, data: response.data };
+            // }
+        } catch (err) {
+            console.error("PostLoans Error", err);
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.error || err.response.data.message : "Login: Internal server error",
             };
         }
     }
