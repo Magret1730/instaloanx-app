@@ -4,62 +4,77 @@ import InstaloanxApi from "../../api/InstaloanxApi";
 import "./AdminHistory.scss";
 import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 
-export default function AdminHistory({ loanData }) {
-    const [users, setUsers] = useState({});
+export default function AdminHistory() {
+    const [loans, setLoans] = useState([]);
+    const [pendingLoans, setPendingLoans] = useState([]);
+    // const [history, setHistory] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     // console.log(loanData);
 
     useEffect(() => {
-        async function fetchUsers() {
-            const userMap = {};
-            for (const loan of loanData) {
-                // console.log(loan);
-                // console.log(loan.user_id);
-                if (!userMap[loan.user_id]) {
-                    const response = await InstaloanxApi.getUserById(loan.user_id);
-                    // console.log(response);
-                    if (response.success) {
-                        // console.log(response.data);
-                        userMap[loan.user_id] = response.data;
-                    }
+        const fetchLaons = async () => {
+            try {
+                // Calls the backend function to get loan history
+                const response = await InstaloanxApi.getLoanHistory(); 
+                // console.log(response);
+                // console.log(response.data);
+                // console.log(response.data.data);
+                // console.log(response.data.data);
+
+                if (response.success) {
+                    const usersData = response.data.data;
+                    // console.log(usersData);
+                    // setHistory(usersData); // Store all user data
+                    // Flatten loans data from users and update the loans state
+                    const allLoans = usersData.flatMap(user => 
+                        user.loans.map(loan => ({
+                            ...loan,
+                            userId: user.userId,
+                            userName: `${user.firstName} ${user.lastName}`
+                        }))
+                    );
+                    // console.log(allLoans);
+
+                    // Finds pending loans
+                    const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
+                    setPendingLoans(pendingLoan);
+                    // console.log(pendingLoan);
+
+                    // Stores all loans EXCLUDING pending ones
+                    const filteredLoans = allLoans.filter(loan => loan.status !== "Pending");
+                    setLoans(filteredLoans); // Stores all loans except pending loans
+                    console.log("All Loans (excluding Pending):", filteredLoans);
+                } else {
+                    setError(response.message);
                 }
+            } catch (err) {
+                setError("Failed to fetch user data", err);
+            } finally {
+                setLoading(false);
             }
+        };
 
-            // console.log(userMap);
-            setUsers(userMap);
-        }
+        fetchLaons();
+    }, []);
 
-        if (loanData.length) {
-            fetchUsers();
-        }
-    }, [loanData]);
 
-    // / Filter out pending loans and apply search query
-    const filterLoans = (loanData, query) => {
-        if (!query) return loanData.filter(loan => loan.status !== "Pending"); // Exclude pending loans from query search
+    // Filters out pending loans and apply search query
+    const filteredLoans = loans.filter(loan => {
+        if (!searchQuery) return true; // If no search query, returns all loans
 
-        const lowerCaseQuery = query.toLowerCase();
+        const lowerCaseQuery = searchQuery.toLowerCase();
+        const userName = loan.userName.toLowerCase();
+        const loanStatus = loan.status.toLowerCase();
 
-        return loanData.filter((loan) => {
-            if (loan.status === "Pending") return false; // Exclude pending loans from been displayed on admin history
+        return (
+            userName.includes(lowerCaseQuery) || loanStatus.includes(lowerCaseQuery)
+        );
+    });
 
-            const user = users[loan.user_id]?.data;
-            const firstName = user?.first_name?.toLowerCase() || "";
-            const lastName = user?.last_name?.toLowerCase() || "";
-            const status = loan.status?.toLowerCase() || "";
-
-            return (
-                firstName.includes(lowerCaseQuery) ||
-                lastName.includes(lowerCaseQuery) ||
-                status.includes(lowerCaseQuery)
-            );
-        });
-    };
-
-    // // Get the filtered loans
-    const filteredLoans = filterLoans(loanData, searchQuery);
-    // const firstName = users[loan.user_id].data.first_name;
+    if (loading) return <div>Loading...</div>;
 
     return (
         <section className="admin__history">
@@ -73,7 +88,9 @@ export default function AdminHistory({ loanData }) {
             </section>
 
             {/* Admin Pending Loans section */}
-            <AdminPendingLoans />
+            <AdminPendingLoans pendingLoans={pendingLoans}/>
+
+            {error && <p className="error-message">{error}</p>} {/* Displays error message */}
 
             <section className="admin__history-head">
                 <p className="admin__history-head-text">S/N</p>
@@ -84,42 +101,44 @@ export default function AdminHistory({ loanData }) {
                 <p className="admin__history-head-text">STATUS</p>
             </section>
 
-            {filteredLoans.map((loan, index) => (
-                <section key={loan.id} className="admin__history-container">
-                    <div className="admin__history-box">
-                        <p className="admin__history-header">S/N</p>
-                        <p className="admin__history-text">{index + 1}</p>
-                    </div>
-                    <div className="admin__history-box">
-                        <p className="admin__history-header">NAME</p>
-                        <Link to={`/usersDetails/${loan.user_id}`}>
-                            <p className="admin__history-text admin__history-text--name">
-                                {users[loan.user_id] 
-                                    ? `${users[loan.user_id].data.first_name} ${users[loan.user_id].data.last_name}`
-                                    : "Loading..."}
+            {loans.length === 0 && !error ? (
+                <p>No loans found.</p>
+            ) : (
+                filteredLoans.map((loan, index) => (
+                    <section key={index} className="admin__history-container">
+                        <div className="admin__history-box">
+                            <p className="admin__history-header">S/N</p>
+                            <p className="admin__history-text">{index + 1}</p>
+                        </div>
+                        <div className="admin__history-box">
+                            <p className="admin__history-header">NAME</p>
+                            <Link to={`/usersDetails/${loan.userId}`}>
+                                <p className="admin__history-text admin__history-text--name">
+                                    {loan.userName}
+                                </p>
+                            </Link>
+                        </div>
+                        <div className="admin__history-box">
+                            <p className="admin__history-header">AMOUNT</p>
+                            <p className="admin__history-text">${loan.loanAmount}</p>
+                        </div>
+                        <div className="admin__history-box">
+                            <p className="admin__history-header">BORROWED</p>
+                            <p className="admin__history-text">{new Date(loan.createdAt).toLocaleDateString()}</p>
+                        </div>
+                        <div className="admin__history-box">
+                            <p className="admin__history-header">PAID</p>
+                            <p className="admin__history-text">
+                                {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"}
                             </p>
-                        </Link>
-                    </div>
-                    <div className="admin__history-box">
-                        <p className="admin__history-header">AMOUNT</p>
-                        <p className="admin__history-text">${loan.loan_amount}</p>
-                    </div>
-                    <div className="admin__history-box">
-                        <p className="admin__history-header">BORROWED</p>
-                        <p className="admin__history-text">{new Date(loan.created_at).toLocaleDateString()}</p>
-                    </div>
-                    <div className="admin__history-box">
-                        <p className="admin__history-header">PAID</p>
-                        <p className="admin__history-text">
-                            {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"}
-                        </p>
-                    </div>
-                    <div className="admin__history-box">
-                        <p className="admin__history-header">STATUS</p>
-                        <p className="admin__history-text">{loan.status}</p>
-                    </div>
-                </section>
-            ))}
+                        </div>
+                        <div className="admin__history-box">
+                            <p className="admin__history-header">STATUS</p>
+                            <p className="admin__history-text">{loan.status}</p>
+                        </div>
+                    </section>
+                ))
+            )}
         </section>
     );
 }

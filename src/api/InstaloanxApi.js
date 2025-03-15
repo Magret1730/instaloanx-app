@@ -107,6 +107,8 @@ class InstaloanxApi {
                 },
             });
 
+            // console.log(response);
+
             // Check if the response is successful
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -196,47 +198,6 @@ class InstaloanxApi {
         }
     }
 
-    // Function to get the user ID from the token
-    // static async getUserIdFromToken() {
-    //     try {
-    //     // const {id} = useParams()
-    //     // const token = localStorage.getItem("token");
-    //     // // console.log(token);
-
-    //     // if (!token) {
-    //     //     return null;
-    //     // }
-
-    //     // const decoded = jwtDecode(token);
-    //     // // console.log(decoded);
-    //     // // console.log(decoded.id);
-    //     // return decoded;
-
-    //         const token = localStorage.getItem("token");  
-    //         if (!token) {
-    //             throw new Error("No token found");
-    //         }
-
-    //         // Send request to backend to get user details
-    //         const response = await axios.get(`${this.BASE_URL}/auth/user/`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`  // Send token in headers
-    //             }
-    //         });
-
-    //         console.log(response.data);
-
-    //         return response.data; 
-    //     } catch (err) {
-    //         console.error(err);
-            
-    //         return {
-    //             success: false,
-    //             message: err.response ? err.response.data.message : "getUserIdFromToken: Internal server error"
-    //         };
-    //     }
-    // }
-
     // http://localhost:8080/api/v1/loans/applyLoan
     // Function posts loan application
     static async postLoans(newLoan) {
@@ -252,7 +213,7 @@ class InstaloanxApi {
 
             const response = await axios.post(`${this.BASE_URL}/loans/applyLoan`, newLoan, {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Attach token to request headers
+                    Authorization: `Bearer ${token}`, // Attached token to request headers
                 },
             });
             // console.log(response);
@@ -274,6 +235,40 @@ class InstaloanxApi {
             return {
                 success: false,
                 message: err.response ? err.response.data.error || err.response.data.message : "Login: Internal server error",
+            };
+        }
+    }
+
+    // http://localhost:8080/api/v1/loans/loanHistory
+    // Fetch loanHistory of all users
+    static async getLoanHistory() {
+        try {
+            const token = localStorage.getItem("token");
+            // console.log(token);
+
+            if (!token) {
+                return null;
+            }
+
+            const response = await axios.get(`${this.BASE_URL}/loans/loanHistory`, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attach token to request headers
+                }
+            });
+
+            // console.log(response);
+            if (response.status !== 200) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Return the response data
+            return { success: true, data: response.data };  
+        } catch (err) {
+            console.error(err);
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.message : "Get All Users: Internal server error"
             };
         }
     }

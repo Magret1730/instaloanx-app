@@ -100,6 +100,9 @@ export default function Login() {
 
                 const data = response.data.data
 
+                // console.log(data);
+                // console.log(data.id);
+
                 if (response.success) {
                     setErrorMessage("");
                     setSuccessMessage("User login successfully!");
