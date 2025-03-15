@@ -4,7 +4,7 @@ import InstaloanxApi from "../../api/InstaloanxApi";
 import "./AdminHistory.scss";
 import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 
-export default function AdminHistory() {
+export default function AdminHistory({adminId}) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
     // const [history, setHistory] = useState([]);
@@ -46,7 +46,7 @@ export default function AdminHistory() {
                     // Stores all loans EXCLUDING pending ones
                     const filteredLoans = allLoans.filter(loan => loan.status !== "Pending");
                     setLoans(filteredLoans); // Stores all loans except pending loans
-                    console.log("All Loans (excluding Pending):", filteredLoans);
+                    // console.log("All Loans (excluding Pending):", filteredLoans);
                 } else {
                     setError(response.message);
                 }
@@ -88,7 +88,7 @@ export default function AdminHistory() {
             </section>
 
             {/* Admin Pending Loans section */}
-            <AdminPendingLoans pendingLoans={pendingLoans}/>
+            <AdminPendingLoans pendingLoans={pendingLoans} adminId={adminId}/>
 
             {error && <p className="error-message">{error}</p>} {/* Displays error message */}
 
@@ -112,7 +112,7 @@ export default function AdminHistory() {
                         </div>
                         <div className="admin__history-box">
                             <p className="admin__history-header">NAME</p>
-                            <Link to={`/usersDetails/${loan.userId}`}>
+                            <Link to={`/usersDetails/${loan.userId}?adminId=${adminId}`}>
                                 <p className="admin__history-text admin__history-text--name">
                                     {loan.userName}
                                 </p>

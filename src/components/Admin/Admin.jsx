@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Admin({isAuthenticated}) {
+    const [adminId, setAdminId] = useState("");
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -13,6 +14,7 @@ export default function Admin({isAuthenticated}) {
 
     const {id} = useParams();
     // console.log(id);
+    // setAdminId(id);
 
 
     // useEffect(() => {
@@ -79,6 +81,7 @@ export default function Admin({isAuthenticated}) {
 
                 if (response.success) {
                     setUser(response.data.data);
+                    setAdminId(id);
                     // setLoanData(response.data.data.loans);
 
                     // Find active loan
@@ -110,7 +113,7 @@ export default function Admin({isAuthenticated}) {
             <h1 className="admin__title">Hi {user.first_name},</h1>
 
             {/* loan history section */}
-            <AdminHistory />
+            <AdminHistory adminId={adminId}/>
         </article>
     )
 }

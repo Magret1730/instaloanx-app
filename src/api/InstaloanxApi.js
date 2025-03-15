@@ -181,7 +181,7 @@ class InstaloanxApi {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("response from instaloanapi.js line 182", response);
+            // console.log("response from instaloanapi.js line 182", response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

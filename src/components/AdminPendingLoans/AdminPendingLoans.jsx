@@ -1,10 +1,9 @@
 import "./AdminPendingLoans.scss";
-import { useState, useEffect } from "react";
-import InstaloanxApi from "../../api/InstaloanxApi";
+// import { useState, useEffect } from "react";
+// import InstaloanxApi from "../../api/InstaloanxApi";
+import { Link, useLocation } from "react-router-dom";
 
-export default function AdminPendingLoans({pendingLoans}) {
-
-    // console.log(pendingLoans);
+export default function AdminPendingLoans({pendingLoans, adminId}) {
 
     return (
         <section className="admin-pend">
@@ -29,9 +28,13 @@ export default function AdminPendingLoans({pendingLoans}) {
                             </div>
                             <div className="admin-pend-box">
                                 <p className="admin-pend-header">NAME</p>
-                                <p className="admin-pend-text">
-                                    {loan.userName}
-                                </p>   
+                                {/* <Link to={`/usersDetails/${loan.userId}?adminId=${adminId}`}> */}
+                                    <p className="admin-pend-text">
+                                        <Link className="admin-pend-text--name" to={`/usersDetails/${loan.userId}?adminId=${adminId}`}>
+                                        {loan.userName}
+                                        </Link>
+                                    </p>
+                                {/* </Link> */}
                             </div> 
                             <div className="admin-pend-box">
                                 <p className="admin-pend-header">AMOUNT</p>

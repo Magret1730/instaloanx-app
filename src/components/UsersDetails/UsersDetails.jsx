@@ -2,26 +2,34 @@ import "./UsersDetails.scss";
 import { Link, useParams } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 
 export default function UserDetails() {
+    // gets user id
     const {id} = useParams();
 
     const [user, setUser] = useState(null);
     const [loans, setLoans] = useState([]);
 
+    // gets admin id from query parameter
+    const { search } = useLocation();
+    // console.log(search);
+    const queryParams = new URLSearchParams(search);
+    const adminId = queryParams.get("adminId");
+    // console.log(adminId);
+
     useEffect(() => {
         async function fetchUserDetails() {
-            const userResponse = await InstaloanxApi.getUserById(id);
-            if (userResponse.success) {
-                // console.log(userResponse.data.data);
-                setUser(userResponse.data.data);
-            }
-
             const loanResponse = await InstaloanxApi.getLoansByUserId(id);
+            // console.log(loanResponse);
             if (loanResponse.success) {
                 // console.log(loanResponse.data.data);
-                setLoans(loanResponse.data.data);
+                setLoans(loanResponse.data.data.loans);
+                setUser(loanResponse.data.data.user);
+                // console.log(loanResponse.data.data);
+                // console.log(loanResponse.data.data.loans);
+                // console.log(loanResponse.data.data.user);
             }
         }
 
@@ -34,7 +42,7 @@ export default function UserDetails() {
         <section className="user-details">
             <section className="user-details__header">
                 <h1 className="user-details__header-title">User Details</h1>
-                <Link to="/admin" className="user-details__header-link">
+                <Link to={`/admin/${adminId}`} className="user-details__header-link">
                     &larr; Back
                 </Link>
             </section>
