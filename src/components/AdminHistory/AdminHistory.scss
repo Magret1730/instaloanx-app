@@ -18,13 +18,13 @@
                 }
     
                 &-search {
-                    margin: null auto;
+                    // margin: null auto;
                     border: 2px solid $secondary-bg-color;
                     padding: 0.5rem 1.25rem;
                     border-radius: 1.25rem;
                     color: $secondary-text-color;
                     font-family: $typeface-primary, sans-serif;
-                    width: 80%;
+                    // width: 80%;
     
                     @include tablet-breakpoint {
                         padding: 0.7rem 1rem;
@@ -47,14 +47,14 @@
                 display: none;
     
                 @include tablet-breakpoint {
-                    border: 2px solid $secondary-bg-color;
+                    // border-top: 1px solid $secondary-bg-color;
                     // background-color: $secondary-bg-color;
                     @include flex(row, flex-start, center);
                     padding: 1.5rem 2.5rem 1.5rem 2.5rem;
                     border-bottom: 1px solid $secondary-bg-color;
                     font-style: italic;
                     width: 100%;
-                    margin-top: 2rem;
+                    margin-top: 4rem;
                 }
     
                 @include desktop-breakpoint {
@@ -65,7 +65,7 @@
                     width: 16.5%;
                     display: flex;
                     font-weight: 700;
-                    color: $primary-bg-color;
+                    color: $primary-text-color;
     
                     // S/N column takes less space
                     &:first-child {

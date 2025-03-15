@@ -59,6 +59,7 @@ export default function AdminHistory({ loanData }) {
 
     // // Get the filtered loans
     const filteredLoans = filterLoans(loanData, searchQuery);
+    // const firstName = users[loan.user_id].data.first_name;
 
     return (
         <section className="admin__history">
@@ -94,7 +95,7 @@ export default function AdminHistory({ loanData }) {
                         <Link to={`/usersDetails/${loan.user_id}`}>
                             <p className="admin__history-text admin__history-text--name">
                                 {users[loan.user_id] 
-                                    ? `${users[loan.user_id].data.first_name} ${users[loan.user_id].data.last_name}` 
+                                    ? `${users[loan.user_id].data.first_name} ${users[loan.user_id].data.last_name}`
                                     : "Loading..."}
                             </p>
                         </Link>
