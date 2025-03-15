@@ -1,9 +1,11 @@
 import "./Users.scss";
 import UsersHistory from "../UsersHistory/UsersHistory";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
 
+// Fetch singer user, fetch loan history
+// /users/:id/loans
 export default function Users({isAuthenticated}) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -12,38 +14,22 @@ export default function Users({isAuthenticated}) {
     const [loans, setLoans] = useState(null);
 
     const navigate = useNavigate();
+    const {id} = useParams();
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const {id} = await InstaloanxApi.getUserIdFromToken(); // Get the ID from the token
-                // console.log(userId);
-                if (!id) {
-                    setError("User ID not found from users fetchUser");
-                    setLoading(false);
-                    return;
-                }
-            
-                // const response = await InstaloanxApi.login(newUser);
-                const response = await InstaloanxApi.getLoansByUserId(id); // Call the backend function
-                const respData = await InstaloanxApi.getUserIdFromToken(); 
-                // console.log("response.data: ", response.data.data);
-                // console.log( "respdata: ", respData);
+                const response = await InstaloanxApi.getLoansByUserId(id); // Calls the backend function
 
                 if (response.success) {
+                    setUser(response.data.data.user);
+                    setLoans(response.data.data.loans);
 
-                // Combine response.data.data and respData into a single object
-                const combinedData = {
-                    ...response.data.data, // Spread loan data
-                    ...respData, // Spread user data
-                };
-
-                // console.log(combinedData);
-
-                setUser(combinedData); // Set the combined data
-
+                    // Find active loan
+                    const active = response.data.data.loans.find(loan => loan.status === "Active");
+                    setActiveLoan(active || null);
                 } else {
-                    setError(response.message); // Handle error
+                    setError(response.message);
                 }
             } catch (err) {
                 setError("Failed to fetch user data", err);
@@ -53,41 +39,11 @@ export default function Users({isAuthenticated}) {
         };
 
         fetchUser();
-    }, []);
-
-    useEffect(() => {
-        const fetchActiveLoan = async () => {
-            try {
-                const { id } = await InstaloanxApi.getUserIdFromToken(); // Get the user ID
-                if (!id) {
-                    setError("User ID not found from fetchActiveLoan from users.jsx");
-                    return;
-                }
-
-                const response = await InstaloanxApi.getLoansByUserId(id); // Fetch loans
-                // console.log(response.data.data);
-                if (response.success) {
-                    // set loans
-                    setLoans(response.data.data);
-                    // console.log(response.data.data);
-
-                    // Finds the active loan
-                    const active = response.data.data.find(loan => loan.status === "Active");
-                    setActiveLoan(active || null); // Set active loan or null if none
-                } else {
-                    setError(response.message);
-                }
-            } catch (err) {
-                setError(`Failed to fetch active loan: ${err.message}`);
-            }
-        };
-
-        fetchActiveLoan();
-    }, []);
+    }, [id]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-    if (!loans) return <div>loading...</div>;
+    // if (!loans) return <div>loading...</div>;
 
     return (
         <article className="users__box">

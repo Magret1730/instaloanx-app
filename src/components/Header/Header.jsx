@@ -47,8 +47,9 @@ export default function Header() {
     useEffect(() => {
             const fetchUserRole = async () => {
             try {
-                const res = await InstaloanxApi.getUserIdFromToken();
+                // const res = await InstaloanxApi.getUserIdFromToken();
                 // console.log(res);
+                const res = localStorage.getItem("is_admin");
                 if (!!res.is_admin === true) { // converts to boolean
                     setDashboardLink("/admin");
                 }

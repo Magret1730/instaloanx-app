@@ -96,6 +96,9 @@ export default function Login() {
                 const newUser = { email: email, password: password };
 
                 const response = await InstaloanxApi.login(newUser);
+                // console.log(response.data.data);
+
+                const data = response.data.data
 
                 if (response.success) {
                     setErrorMessage("");
@@ -103,12 +106,13 @@ export default function Login() {
                     resetForm();
 
                     // Fetches user role after login
-                    const isAdminLogin = await InstaloanxApi.getUserIdFromToken();
+                    // const isAdminn = 
+                    // const isAdminLogin = await InstaloanxApi.getUserIdFromToken();
                     // setIsAdminState(!!isAdminLogin.is_admin); //converts to boolean
 
                     // Timeout function navigates based on is_admin
                     setTimeout(() => {
-                        navigate(isAdminLogin.is_admin ? "/admin" : "/users");
+                        navigate(data.is_admin ? `/admin/${data.id}` : `/users/${data.id}`);
                     }, 2000);
                 } else {
                     setSuccessMessage("");

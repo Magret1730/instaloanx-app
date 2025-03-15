@@ -1,5 +1,6 @@
 import axios from "axios";
-import {jwtDecode} from "jwt-decode";
+// import { useParams } from "react-router-dom";
+// import {jwtDecode} from "jwt-decode";
 
 class InstaloanxApi {
     // Backend API base URL
@@ -17,6 +18,8 @@ class InstaloanxApi {
 
             // sets token to local storage
             localStorage.setItem("token", response.data.data.token);
+            localStorage.setItem("id", response.data.data.id);
+            localStorage.setItem("is_admin", response.data.data.is_admin);
 
             // Return the response data
             return { success: true, data: response.data };
@@ -34,14 +37,17 @@ class InstaloanxApi {
     static async login(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/login`, newUser);
-            // console.log(response.data);
+            // console.log(response.data.data);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
             // sets token to local storage
-            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("token", response.data.data.token);
+            localStorage.setItem("id", response.data.data.id);
+            localStorage.setItem("is_admin", response.data.data.is_admin);
 
+            // console.log(response);
             // console.log(response.data);
 
             // Return the response data
@@ -173,7 +179,7 @@ class InstaloanxApi {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // console.log("response from instaloanapi.js line 165", response);
+            console.log("response from instaloanapi.js line 182", response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -191,28 +197,45 @@ class InstaloanxApi {
     }
 
     // Function to get the user ID from the token
-    static async getUserIdFromToken() {
-        try {
-        const token = localStorage.getItem("token");
-        // console.log(token);
+    // static async getUserIdFromToken() {
+    //     try {
+    //     // const {id} = useParams()
+    //     // const token = localStorage.getItem("token");
+    //     // // console.log(token);
 
-        if (!token) {
-            return null;
-        }
+    //     // if (!token) {
+    //     //     return null;
+    //     // }
 
-        const decoded = jwtDecode(token);
-        // console.log(decoded);
-        // console.log(decoded.id);
-        return decoded;
-        } catch (err) {
-            console.error(err);
+    //     // const decoded = jwtDecode(token);
+    //     // // console.log(decoded);
+    //     // // console.log(decoded.id);
+    //     // return decoded;
+
+    //         const token = localStorage.getItem("token");  
+    //         if (!token) {
+    //             throw new Error("No token found");
+    //         }
+
+    //         // Send request to backend to get user details
+    //         const response = await axios.get(`${this.BASE_URL}/auth/user/`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`  // Send token in headers
+    //             }
+    //         });
+
+    //         console.log(response.data);
+
+    //         return response.data; 
+    //     } catch (err) {
+    //         console.error(err);
             
-            return {
-                success: false,
-                message: err.response ? err.response.data.message : "getUserIdFromToken: Internal server error"
-            };
-        }
-    }
+    //         return {
+    //             success: false,
+    //             message: err.response ? err.response.data.message : "getUserIdFromToken: Internal server error"
+    //         };
+    //     }
+    // }
 
     // http://localhost:8080/api/v1/loans/applyLoan
     // Function posts loan application

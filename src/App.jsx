@@ -38,7 +38,7 @@ function App() {
                 </AdminProtectedRoute>
             }/>
 
-            <Route path="/users"  element={
+            <Route path="/users/:id"  element={
                 <ProtectedRoute >
                     <UsersPage isAuthenticated={isAuthenticated}/>
                 </ProtectedRoute>
