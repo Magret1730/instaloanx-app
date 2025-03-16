@@ -32,13 +32,13 @@ function App() {
             <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
 
-            <Route path="/admin" element={
+            <Route path="/admin/:id" element={
                 <AdminProtectedRoute>
                     <AdminPage isAuthenticated={isAuthenticated} />
                 </AdminProtectedRoute>
             }/>
 
-            <Route path="/users"  element={
+            <Route path="/users/:id"  element={
                 <ProtectedRoute >
                     <UsersPage isAuthenticated={isAuthenticated}/>
                 </ProtectedRoute>
