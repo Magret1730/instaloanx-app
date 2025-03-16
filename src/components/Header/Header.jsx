@@ -4,12 +4,13 @@ import EllipsisClose from "../../assets/icons/ecclipsisClose.png";
 import Logo from "../../assets/icons/logo.png";
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
-import InstaloanxApi from "../../api/InstaloanxApi";
+// import InstaloanxApi from "../../api/InstaloanxApi";
 
 export default function Header() {
-    const [ ellipsisCLick, setEllipsisClick ] = useState(false);
-    const [ dashboardLink, setDashboardLink ] = useState("/users");
+    const id = localStorage.getItem("id");
 
+    const [ ellipsisCLick, setEllipsisClick ] = useState(false);
+    const [ dashboardLink, setDashboardLink ] = useState(`/users/${id}`);
 
     const navigate = useNavigate();
 
@@ -50,8 +51,11 @@ export default function Header() {
                 // const res = await InstaloanxApi.getUserIdFromToken();
                 // console.log(res);
                 const res = localStorage.getItem("is_admin");
-                if (!!res.is_admin === true) { // converts to boolean
-                    setDashboardLink("/admin");
+                // console.log(res);
+                // const id = localStorage.getItem("id");
+                // console.log(id);
+                if (!!res === true) { // converts to boolean
+                    setDashboardLink(`/admin/${id}`);
                 }
             } catch (err) {
                 console.error("Invalid token:", err);

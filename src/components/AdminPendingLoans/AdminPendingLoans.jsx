@@ -28,13 +28,11 @@ export default function AdminPendingLoans({pendingLoans, adminId}) {
                             </div>
                             <div className="admin-pend-box">
                                 <p className="admin-pend-header">NAME</p>
-                                {/* <Link to={`/usersDetails/${loan.userId}?adminId=${adminId}`}> */}
                                     <p className="admin-pend-text">
                                         <Link className="admin-pend-text--name" to={`/usersDetails/${loan.userId}?adminId=${adminId}`}>
                                         {loan.userName}
                                         </Link>
                                     </p>
-                                {/* </Link> */}
                             </div> 
                             <div className="admin-pend-box">
                                 <p className="admin-pend-header">AMOUNT</p>
