@@ -8,6 +8,7 @@ import { useState, useEffect, useCallback } from "react";
 
 export default function Header() {
     const id = localStorage.getItem("id");
+    // console.log(id);
 
     const [ ellipsisCLick, setEllipsisClick ] = useState(false);
     const [ dashboardLink, setDashboardLink ] = useState(`/users/${id}`);
@@ -26,6 +27,7 @@ export default function Header() {
     // useCallback hook is used to memorize isAuth, ensuring that it
     // doesn't change unless localStorage itself changes.
     const isAuth = useCallback(() => {
+        // console.log(!!localStorage.getItem("token"));
         return !!localStorage.getItem("token");
     }, []);
 
@@ -48,14 +50,15 @@ export default function Header() {
     useEffect(() => {
             const fetchUserRole = async () => {
             try {
-                // const res = await InstaloanxApi.getUserIdFromToken();
-                // console.log(res);
-                const res = localStorage.getItem("is_admin");
-                // console.log(res);
-                // const id = localStorage.getItem("id");
-                // console.log(id);
-                if (!!res === true) { // converts to boolean
+                const isAdmin = localStorage.getItem("is_admin") === "true";
+                const id = localStorage.getItem("id");
+
+                if (isAdmin) {
+                    // console.log(`/admin/${id}`);
                     setDashboardLink(`/admin/${id}`);
+                } else {
+                    // console.log(`/users/${id}`);
+                    setDashboardLink(`/users/${id}`);
                 }
             } catch (err) {
                 console.error("Invalid token:", err);

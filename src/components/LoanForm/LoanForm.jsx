@@ -25,21 +25,26 @@ export default function LoanForm() {
     const purposes = ["Education", "Business", "Medical", "Personal", "Other"];
 
     const navigate = useNavigate();
+    
+    const id = localStorage.getItem("id");
 
     // Check if user has an active loan
     useEffect(() => {
         const fetchLoanStatus = async () => {
             try {
-                const respId = await InstaloanxApi.getUserIdFromToken(); // Gets ID from token
-                // console.log(respId);
-                if (!respId) {
-                    console.error("User ID not found");
-                    return;
-                }
+                // const respId = await InstaloanxApi.getUserIdFromToken(); // Gets ID from token
+                // // console.log(respId);
+                // if (!respId) {
+                //     console.error("User ID not found");
+                //     return;
+                // }
+
+                const id = localStorage.getItem("id");
+                // console.log(id);
 
                 // console.log(respId.id);
-                const response = await InstaloanxApi.getLoansByUserId(respId.id); // Fetches all loan history of a single user
-                // console.log(response);
+                const response = await InstaloanxApi.getLoansByUserId(id); // Fetches all loan history of a single user
+                // console.log(response); 
                 // if (!response) {
                 //     console.error("User ID not found");
                 //     return;
@@ -47,12 +52,13 @@ export default function LoanForm() {
 
                 // console.log(response);
 
-                const loanHistory = response.data?.data || []; // Ensure it's an array
+                const loanHistory = response.data?.data || []; // Ensures it's an array
                 // console.log("Loan History:", loanHistory);
 
-                const activeLoan = loanHistory.find(
+                // If no active loan or pending or null, return null explicitly
+                const activeLoan = loanHistory.loans.find(
                     (loan) => loan.status === "Active" || loan.status === "Pending" || loan.status === null
-                ) || null; // If no active loan, return null explicitly
+                ) || null; // 
 
                 // console.log("Active Loan:", activeLoan);
 
@@ -66,7 +72,7 @@ export default function LoanForm() {
 
                 if (activeLoan) {
                     setHasActiveLoan(true);
-                    setErrorMessage("You already have an active loan.");
+                    setErrorMessage("You already have an active or pending loan.");
                 }
             } catch (error) {
                 console.error("Error fetching loan status:", error);
@@ -166,7 +172,7 @@ export default function LoanForm() {
 
                     setTimeout(() => {
                         setSuccessMessage("Loan Application made successfully!!!");
-                        navigate("/users");
+                        navigate(`/users/${id}`);
                     }, 3000);
                 }
             } else {
