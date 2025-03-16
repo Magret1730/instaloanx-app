@@ -19,15 +19,12 @@ export default function AdminHistory({adminId}) {
             try {
                 // Calls the backend function to get loan history
                 const response = await InstaloanxApi.getLoanHistory(); 
-                // console.log(response);
-                // console.log(response.data);
-                // console.log(response.data.data);
-                // console.log(response.data.data);
 
                 if (response.success) {
                     const usersData = response.data.data;
                     // console.log(usersData);
-                    // setHistory(usersData); // Store all user data
+
+
                     // Flatten loans data from users and update the loans state
                     const allLoans = usersData.flatMap(user => 
                         user.loans.map(loan => ({
@@ -36,17 +33,14 @@ export default function AdminHistory({adminId}) {
                             userName: `${user.firstName} ${user.lastName}`
                         }))
                     );
-                    // console.log(allLoans);
 
                     // Finds pending loans
                     const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
                     setPendingLoans(pendingLoan);
-                    // console.log(pendingLoan);
 
                     // Stores all loans EXCLUDING pending ones
                     const filteredLoans = allLoans.filter(loan => loan.status !== "Pending");
                     setLoans(filteredLoans); // Stores all loans except pending loans
-                    // console.log("All Loans (excluding Pending):", filteredLoans);
                 } else {
                     setError(response.message);
                 }

@@ -5,13 +5,13 @@ import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
 
 // Fetch singer user, fetch loan history
-// /users/:id/loans
 export default function Users({isAuthenticated}) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [activeLoan, setActiveLoan] = useState(null);
-    const [loans, setLoans] = useState(null);
+    const [loansData, setLoansData] = useState(null);
+    const [filteredLoans, setFilteredLoans] = useState(null);
 
     const navigate = useNavigate();
     const {id} = useParams();
@@ -23,11 +23,15 @@ export default function Users({isAuthenticated}) {
 
                 if (response.success) {
                     setUser(response.data.data.user);
-                    setLoans(response.data.data.loans);
+                    setLoansData(response.data.data.loans);
 
                     // Find active loan
-                    const active = response.data.data.loans.find(loan => loan.status === "Active");
+                    const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
                     setActiveLoan(active || null);
+
+                    // Filter out pending and active loans
+                    const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
+                    setFilteredLoans(filtered);
                 } else {
                     setError(response.message);
                 }
@@ -43,7 +47,6 @@ export default function Users({isAuthenticated}) {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-    // if (!loans) return <div>loading...</div>;
 
     return (
         <article className="users__box">
@@ -60,46 +63,48 @@ export default function Users({isAuthenticated}) {
                 <section className="users__active">
                     <p className="users__active-title">CURRENT LOAN</p>
 
-                    {activeLoan ? (
-                        // Render loan details if there's an active loan
-                        <>
-                            <section className="users__active-head">
-                                <p className="users__active-headd">AMOUNT</p>    
-                                <p className="users__active-headd">BORROWED</p>    
-                                <p className="users__active-headd">PAID</p>    
-                                <p className="users__active-headd">STATUS</p>    
-                            </section> 
+                    {/* Map through active loans */}
+                    {activeLoan.length > 0 ? (
+                        activeLoan.map((loan) => (
+                            <div key={loan.id}>
+                                <section className="users__active-head">
+                                    <p className="users__active-headd">AMOUNT</p>    
+                                    <p className="users__active-headd">BORROWED</p>    
+                                    <p className="users__active-headd">PAID</p>    
+                                    <p className="users__active-headd">STATUS</p>    
+                                </section> 
 
-                            <section className="users__active-container">
-                                <div className="users__active-box">
-                                    <p className="users__active-header">AMOUNT</p>
-                                    <p className="users__active-text">${activeLoan.loan_amount}</p>
-                                </div>
-                                <div className="users__active-box">
-                                    <p className="users__active-header">BORROWED</p>
-                                    <p className="users__active-text">{new Date(activeLoan.created_at).toLocaleDateString()}</p>   
-                                </div> 
-                                <div className="users__active-box">
-                                    <p className="users__active-header">PAID</p>
-                                    <p className="users__active-text">
-                                        {activeLoan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"}
-                                    </p>   
-                                </div> 
-                                <div className="users__active-box">
-                                    <p className="users__active-header">STATUS</p>
-                                    <p className="users__active-text">{activeLoan.status}</p>   
-                                </div>    
-                            </section>
-                        </>
+                                <section className="users__active-container">
+                                    <div className="users__active-box">
+                                        <p className="users__active-header">AMOUNT</p>
+                                        <p className="users__active-text">${loan.loan_amount}</p> 
+                                    </div>
+                                    <div className="users__active-box">
+                                        <p className="users__active-header">BORROWED</p>
+                                        <p className="users__active-text">{new Date(loan.created_at).toLocaleDateString()}</p>   
+
+                                    </div> 
+                                    <div className="users__active-box">
+                                        <p className="users__active-header">PAID</p>
+                                        <p className="users__active-text">
+                                            {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"}
+                                        </p>   
+                                    </div> 
+                                    <div className="users__active-box">
+                                        <p className="users__active-header">STATUS</p>
+                                        <p className="users__active-text">{loan.status}</p>   
+                                    </div>    
+                                </section>
+                            </div>
+                        ))
                     ) : (
-                        // Render a message and "Apply Loan" button if there's no active loan
                         <section className="users__active-no-loan">
-                            <p className="users__active-no-loan-text">You have no active loan.</p>
-                            <button className="users__active-no-loan-button" onClick={() => navigate("/loanForm")}>
-                                Apply for a Loan
-                            </button>
-                        </section>
-                    )}
+                        <p className="users__active-no-loan-text">You have no active or pending loan.</p>
+                        <button className="users__active-no-loan-button" onClick={() => navigate("/loanForm")}>
+                            Apply for a Loan
+                        </button>
+        </section>
+    )}
                 </section>
             </section> 
 
@@ -108,7 +113,7 @@ export default function Users({isAuthenticated}) {
                 <h3 className="users__history-title">LOAN HISTORY</h3>
 
                 {/* Loan History Section */}
-                {loans.length > 0 ? (
+                {filteredLoans.length > 0 ? (
                     <>
                         {/* Render the table header */}
                         <section className="users__history-head">
@@ -120,7 +125,7 @@ export default function Users({isAuthenticated}) {
                         </section>
 
                         {/* Map through loans and render each loan */}
-                        {loans.map((singleLoan, index) => (
+                        {filteredLoans.map((singleLoan, index) => (
                             <section key={singleLoan.id} className="users__history-container">
                                 <div className="users__history-box">
                                     <p className="users__history-header">NUM</p>

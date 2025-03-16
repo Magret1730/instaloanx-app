@@ -32,43 +32,17 @@ export default function LoanForm() {
     useEffect(() => {
         const fetchLoanStatus = async () => {
             try {
-                // const respId = await InstaloanxApi.getUserIdFromToken(); // Gets ID from token
-                // // console.log(respId);
-                // if (!respId) {
-                //     console.error("User ID not found");
-                //     return;
-                // }
-
                 const id = localStorage.getItem("id");
-                // console.log(id);
 
-                // console.log(respId.id);
-                const response = await InstaloanxApi.getLoansByUserId(id); // Fetches all loan history of a single user
-                // console.log(response); 
-                // if (!response) {
-                //     console.error("User ID not found");
-                //     return;
-                // }
-
-                // console.log(response);
+                // Fetches all loan history of a single user
+                const response = await InstaloanxApi.getLoansByUserId(id); 
 
                 const loanHistory = response.data?.data || []; // Ensures it's an array
-                // console.log("Loan History:", loanHistory);
 
                 // If no active loan or pending or null, return null explicitly
                 const activeLoan = loanHistory.loans.find(
                     (loan) => loan.status === "Active" || loan.status === "Pending" || loan.status === null
-                ) || null; // 
-
-                // console.log("Active Loan:", activeLoan);
-
-
-                // const activeLoan = response.data.data.find((loan) => loan.status === "Active" || "Pending");
-                // const activeLoan = response.data.data.find(
-                //     (loan) => loan.status === "Active" || loan.status === "Pending" || loan.status === null
-                // );
-
-                // console.log(activeLoan);
+                ) || null;
 
                 if (activeLoan) {
                     setHasActiveLoan(true);
@@ -105,13 +79,13 @@ export default function LoanForm() {
             return true;
         }
     }
+    
     // Validate purpose
     const isPurposeValid = (purpose) => {
         // if (!purpose) {
         if (!purpose || purpose === "Select Purpose") {
             setPurposeError("This field is required");
             return false;
-        // } else if (typeof purpose !== "string" || !purposes.includes(purpose)) {
         } else if (!purposes.includes(purpose)) {
             setPurposeError("Invalid loan purpose");
             return false;

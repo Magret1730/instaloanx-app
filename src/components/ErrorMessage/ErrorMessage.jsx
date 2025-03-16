@@ -7,7 +7,6 @@ const ErrorMessage = ({ messageError, errorMessage }) => {
             {/* // Create another dstyling for errorMessage (this handles backend error) */}
             {(messageError || errorMessage) && (
                 <p className="error-message">
-                    {/* <img src={ErrorIcon} alt="Error" className="error-message__icon" /> */}
                     {messageError || errorMessage}
                 </p>
             )}
