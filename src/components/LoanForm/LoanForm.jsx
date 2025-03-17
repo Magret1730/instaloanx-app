@@ -22,6 +22,7 @@ export default function LoanForm() {
     // Loan status
     const [hasActiveLoan, setHasActiveLoan] = useState(false);
 
+    // Loan purposes options
     const purposes = ["Education", "Business", "Medical", "Personal", "Other"];
 
     const navigate = useNavigate();
@@ -203,6 +204,7 @@ export default function LoanForm() {
                         readOnly // Makes the input read-only to prevent manual typing
                     />
 
+                    {/* Handles drop down */}
                     <section className="loan-form__body-dropdown-lists">
                         {isDropdown && (
                             <section className="loan-form__body-dropdown-list">

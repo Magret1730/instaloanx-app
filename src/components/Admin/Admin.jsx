@@ -4,7 +4,7 @@ import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function Admin({isAuthenticated}) {
+export default function Admin() {
     const [adminId, setAdminId] = useState("");
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);

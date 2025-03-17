@@ -34,7 +34,7 @@ function App() {
 
             <Route path="/admin/:id" element={
                 <AdminProtectedRoute>
-                    <AdminPage isAuthenticated={isAuthenticated} />
+                    <AdminPage />
                 </AdminProtectedRoute>
             }/>
 
@@ -51,6 +51,8 @@ function App() {
                     <LoanFormPage />
                 </ProtectedRoute>
             }/>
+
+            {/* http://localhost:8080/api/v1/loans/2/status */}
 
             {/* Catch-all route for unmatched paths */}
             <Route path="*" element={<ErrorPage />} />
