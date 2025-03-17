@@ -1,6 +1,6 @@
 import "./AdminPendingLoans.scss";
 // import { useState, useEffect } from "react";
-// import InstaloanxApi from "../../api/InstaloanxApi";
+import InstaloanxApi from "../../api/InstaloanxApi";
 import { Link, useLocation } from "react-router-dom";
 
 export default function AdminPendingLoans({pendingLoans, adminId}) {
@@ -58,3 +58,4 @@ export default function AdminPendingLoans({pendingLoans, adminId}) {
         </section>
     );
 }
+

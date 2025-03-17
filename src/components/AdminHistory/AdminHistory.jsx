@@ -7,18 +7,10 @@ import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 export default function AdminHistory({adminId}) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
+    // const [history, setHistory] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    // Status handles
-    // const [isDropdown, setIsDropdown] = useState(false);
-    const [activeDropdown, setActiveDropdown] = useState(null);
-    // const [selectedStatus, setSelectedStatus] = useState("Pending");
-    // const [ status, setStatus ] = useState("");
-
-    // Status options
-    const statusOptions = [ "Fully Repaid", "Active", "Pending", "Rejected" ];
 
     // console.log(loanData);
 
@@ -76,48 +68,7 @@ export default function AdminHistory({adminId}) {
         );
     });
 
-    // console.log(filteredLoans);
-
     if (loading) return <div>Loading...</div>;
-
-    const handleStatusChange = async (loanId, newStatus) => {
-        try {
-            const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
-            console.log(response);
-
-            if (response.success) {
-                // Update the loan status in the state
-                setLoans(prevLoans =>
-                    prevLoans.map(loan =>
-                        loan.loanId === loanId ? { ...loan, status: newStatus } : loan
-                    )
-                );
-                setPendingLoans(prevPendingLoans =>
-                    prevPendingLoans.filter(loan => loan.loanId !== loanId)
-                );
-                setActiveDropdown(null); // Close dropdown after selection
-            } else {
-                setError(response.message);
-            }
-        } catch (err) {
-            setError("Failed to update loan status", err);
-        }
-    };
-
-    // const handleDropDown = () => {
-    //     setIsDropdown(!isDropdown);
-    // }
-
-    const handleDropDown = loanId => {
-        // setIsDropdown(!isDropdown);
-        setActiveDropdown(prev => (prev === loanId ? null : loanId)); // Toggles only for the clicked loan
-    };
-
-    // const handlePurposeClick = (selected) => {
-    //     setStatus(selected);
-    //     setSelectedStatus(selected); // Updates the selected status
-    //     setIsDropdown(false); // Closes the dropdown
-    // };
 
     return (
         <section className="admin__history">
@@ -175,37 +126,10 @@ export default function AdminHistory({adminId}) {
                                 {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"}
                             </p>
                         </div>
-                        {/* <div className="admin__history-box">
+                        <div className="admin__history-box">
                             <p className="admin__history-header">STATUS</p>
                             <p className="admin__history-text">{loan.status}</p>
-                        </div> */}
-                        <div className="admin__history-box">
-                            <input
-                                type="text"
-                                value={loan.status}
-                                // onClick={handleDropDown}
-                                onClick={() => handleDropDown(loan.loanId)}
-                                // onChange={(e) => setStatus(e.target.value)}
-                                readOnly // Makes the input read-only to prevent manual typing
-                            />
                         </div>
-
-
-                        {/* Hanldes drop down */}
-                            {activeDropdown === loan.loanId && (
-                                <section className="admin__history-dropdown">
-                                    {statusOptions.map((option, index) => (
-                                        <div
-                                            key={index}
-                                            className="loan-form__body-dropdown-option"
-                                            onClick={() => handleStatusChange(loan.loanId, option)}
-                                        >
-                                            {option}
-                                        </div>
-                                    ))}
-                                </section>
-                            )}
-
                     </section>
                 ))
             )}
