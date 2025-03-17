@@ -155,6 +155,7 @@ export default function AdminHistory({ adminId }) {
                                 readOnly
                             />
                         </div>
+                        
 
                         {/* Dropdown for status update */}
                         {activeDropdown === loan.loanId && (
