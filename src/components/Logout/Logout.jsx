@@ -8,6 +8,8 @@ export default function Logout() {
         const logoutfn = () => {
             try {
                 localStorage.removeItem("token");
+                localStorage.removeItem("id");
+                localStorage.removeItem("is_admin");
                 navigate("/");
             } catch (err) {
                 console.error(err);
