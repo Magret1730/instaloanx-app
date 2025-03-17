@@ -59,6 +59,8 @@ export default function AdminHistory({ adminId }) {
             const loanToUpdate = loans.find(loan => loan.loanId === loanId) || 
                                 pendingLoans.find(loan => loan.loanId === loanId);
 
+            // console.log(loanToUpdate);
+
             if (!loanToUpdate) {
                 setError("Loan not found.");
                 return;
@@ -66,14 +68,18 @@ export default function AdminHistory({ adminId }) {
 
             // Checks if the new status is "Active" or "Pending"
             if (newStatus === "Active" || newStatus === "Pending") {
-                // Checks if the user already has an active or pending loan
+                // Checks if the user already has an active or pending loan (excluding the current loan)
                 const hasActiveOrPending = loans.some(loan => 
                     loan.userId === loanToUpdate.userId && 
+                    loan.loanId !== loanId && // Exclude the current loan
                     (loan.status === "Active" || loan.status === "Pending")
                 ) || pendingLoans.some(loan => 
                     loan.userId === loanToUpdate.userId && 
+                    loan.loanId !== loanId && // Exclude the current loan
                     (loan.status === "Active" || loan.status === "Pending")
                 );
+
+                // console.log(hasActiveOrPending);
 
                 if (hasActiveOrPending) {
                     setError("User already has an active or pending loan.");
@@ -86,7 +92,7 @@ export default function AdminHistory({ adminId }) {
             }
 
             const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
-            // console.log(response);
+            console.log(response);
             if (response.success) {
                 // Updates the loans state
                 setLoans(prevLoans =>
