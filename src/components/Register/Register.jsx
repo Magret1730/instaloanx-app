@@ -9,7 +9,8 @@ import SuccessMessage from "../SuccessMessage/SuccessMessage";
 export default function Register() {
     const navigate = useNavigate();
 
-    const id = localStorage.getItem("id");
+    // const id = localStorage.getItem("id");
+    // console.log(id);
 
     // sets for form field
     const [ firstName, setFirstName ] = useState("");
@@ -148,7 +149,8 @@ export default function Register() {
 
                     setTimeout(() => {
                         setSuccessMessage("");
-                        // navigate("/login");
+                        const id = localStorage.getItem("id");
+                        console.log(id);
                         navigate(`/users/${id}`);
                     }, 3000);
                 } else {
