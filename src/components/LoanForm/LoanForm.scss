@@ -78,7 +78,7 @@
             font-size: 0.7rem;
             margin-top: 0.5rem;
             background-color: white;
-            appearance: none; // Remove default dropdown arrow
+            appearance: none; // Removes default dropdown arrow
             cursor: pointer;
 
             @include tablet-breakpoint {
@@ -99,7 +99,7 @@
                 border-radius: 0.5rem;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 z-index: 1;
-                margin-top: 0.5rem;
+                top: 10.5rem;
                 box-shadow: 0.5rem 0.5rem 1rem rgba($secondary-bg-color, 0.5);
 
                 @include tablet-breakpoint {
