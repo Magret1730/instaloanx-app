@@ -17,7 +17,7 @@ export default function AdminHistory({ adminId }) {
     // const [fetchLoans, setFetchLoans] = useState("");
     const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
 
-    useEffect(() => {
+    // useEffect(() => {
         const fetchLoans = async () => {
             try {
                 const response = await InstaloanxApi.getLoanHistory();
@@ -47,18 +47,12 @@ export default function AdminHistory({ adminId }) {
         };
 
         // setFetchLoans(fetchLoans());
-        fetchLoans();
-    }, []);
+        // fetchLoans();
+    // }, []);
 
-    // Function to fetch all loans
-    // const fetchAllLoans = async () => {
-    //     try {
-    //         const response = await InstaloanxApi.getAllLoans();
-    //         setLoans(response.data.loans);
-    //     } catch (err) {
-    //         console.error("Failed to fetch loans", err);
-    //     }
-    // };
+    useEffect(() => {
+        fetchLoans();
+    }, []); // Fetch loans on component mount
 
     const handleStatusUpdate = async (loanId, newStatus) => {
         try {
@@ -79,7 +73,7 @@ export default function AdminHistory({ adminId }) {
                 setActiveDropdown(false);
 
                 // Forces re-fetch loan data to ensure UI updates correctly
-                // fetchAllLoans();
+                fetchLoans();
             }
             return response;
         } catch (err) {
