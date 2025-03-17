@@ -1,9 +1,28 @@
 import "./AdminPendingLoans.scss";
-// import { useState, useEffect } from "react";
-import InstaloanxApi from "../../api/InstaloanxApi";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+// import InstaloanxApi from "../../api/InstaloanxApi";
+import { Link } from "react-router-dom";
 
-export default function AdminPendingLoans({pendingLoans, adminId}) {
+export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUpdate}) {
+    const [activeDropdown, setActiveDropdown] = useState(null);
+
+    // console.log(pendingLoans);
+
+    const handleStatusChange = async (loanId, newStatus) => {
+        try {
+            const response = await handleStatusUpdate(loanId, newStatus);
+            console.log(response);
+            if (response.success) {
+                setActiveDropdown(null); // Close dropdown after selection
+            }
+        } catch (err) {
+            console.error("Failed to update loan status", err);
+        }
+    };
+
+    const handleDropDown = (loanId) => {
+        setActiveDropdown(prev => (prev === loanId ? null : loanId)); // Toggles only for the clicked loan
+    };
 
     return (
         <section className="admin-pend">
@@ -44,8 +63,28 @@ export default function AdminPendingLoans({pendingLoans, adminId}) {
                             </div> 
                             <div className="admin-pend-box">
                                 <p className="admin-pend-header">STATUS</p>
-                                <p className="admin-pend-text">{loan.status}</p>   
-                            </div>    
+                                {/* <p className="admin-pend-text">{loan.status}</p>    */}
+                                <input
+                                    type="text"
+                                    value={loan.status}
+                                    onClick={() => handleDropDown(loan.loanId)}
+                                    readOnly
+                                />
+                            </div>
+
+                            {activeDropdown === loan.loanId && (
+                                <section className="admin-pend-dropdown">
+                                    {["Fully Paid", "Rejected", "Active", "Pending"].map((option, index) => (
+                                        <div
+                                            key={index}
+                                            className="admin-pend-dropdown-option"
+                                            onClick={() => handleStatusChange(loan.loanId, option)}
+                                        >
+                                            {option}
+                                        </div>
+                                    ))}
+                                </section>
+                            )}
                         </section>
                     ))}
                 </>

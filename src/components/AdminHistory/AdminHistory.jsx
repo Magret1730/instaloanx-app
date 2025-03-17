@@ -54,6 +54,25 @@ export default function AdminHistory({adminId}) {
         fetchLaons();
     }, []);
 
+    const handleStatusUpdate = async (loanId, newStatus) => {
+        try {
+            const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
+            if (response.success) {
+                setPendingLoans(prevPendingLoans =>
+                    prevPendingLoans.filter(loan => loan.loanId !== loanId)
+                );
+                setLoans(prevLoans => [
+                    ...prevLoans,
+                    { ...pendingLoans.find(loan => loan.loanId === loanId), status: newStatus }
+                ]);
+            }
+            return response;
+        } catch (err) {
+            console.error("Failed to update loan status", err);
+            throw err;
+        }
+    };
+
 
     // Filters out pending loans and apply search query
     const filteredLoans = loans.filter(loan => {
@@ -82,7 +101,7 @@ export default function AdminHistory({adminId}) {
             </section>
 
             {/* Admin Pending Loans section */}
-            <AdminPendingLoans pendingLoans={pendingLoans} adminId={adminId}/>
+            <AdminPendingLoans pendingLoans={pendingLoans} adminId={adminId} handleStatusUpdate={handleStatusUpdate}/>
 
             {error && <p className="error-message">{error}</p>} {/* Displays error message */}
 

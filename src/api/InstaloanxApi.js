@@ -276,8 +276,8 @@ class InstaloanxApi {
     // http://localhost:8080/api/v1/loans/2/status
     static async updateLoanStatus(loanId, status) {
         try {
-            // console.log(loanId);
-            // console.log(status);
+            console.log(loanId);
+            console.log(status);
 
             // Checks if authenticated
             const token = localStorage.getItem("token");
