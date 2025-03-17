@@ -47,8 +47,6 @@
                 display: none;
     
                 @include tablet-breakpoint {
-                    // border-top: 1px solid $secondary-bg-color;
-                    // background-color: $secondary-bg-color;
                     @include flex(row, flex-start, center);
                     padding: 1.5rem 2.5rem 1.5rem 2.5rem;
                     border-bottom: 1px solid $secondary-bg-color;
@@ -152,8 +150,6 @@
             }
 
             &-box-input {
-                // position: relative;
-                // display: block;
                 cursor: pointer;
                 border: 1px solid $primary-bg-color;
                 border-radius: .375rem;
@@ -183,7 +179,7 @@
                 border: 1px solid $primary-bg-color;
                 border-radius: .5rem;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                width: 60%;
+                width: 170px;
 
                 @include tablet-breakpoint {
                     position: absolute;

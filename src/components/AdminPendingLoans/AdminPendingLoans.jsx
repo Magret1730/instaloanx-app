@@ -11,7 +11,7 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
     const handleStatusChange = async (loanId, newStatus) => {
         try {
             const response = await handleStatusUpdate(loanId, newStatus);
-            console.log(response);
+            // console.log(response);
             if (response.success) {
                 setActiveDropdown(null); // Close dropdown after selection
             }
@@ -65,6 +65,7 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
                                 <p className="admin-pend-header">STATUS</p>
                                 {/* <p className="admin-pend-text">{loan.status}</p>    */}
                                 <input
+                                    className="admin-pend-box-input"
                                     type="text"
                                     value={loan.status}
                                     onClick={() => handleDropDown(loan.loanId)}

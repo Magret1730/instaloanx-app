@@ -1,7 +1,8 @@
 
 // If active on that user, error message, user already has an active loan
-// If any status is clicked on the admin history, it isn't updated until refreshed.
+// If any status is clicked on the admin history, it isn't updated until refreshed... why?.
 // Apply styling on the toggle lists
+// Admin cannot apply loan
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -63,6 +64,8 @@ export default function AdminHistory({ adminId }) {
                 setPendingLoans(prevPendingLoans =>
                     prevPendingLoans.filter(loan => loan.loanId !== loanId)
                 );
+
+                setActiveDropdown(false);
             }
             return response;
         } catch (err) {
