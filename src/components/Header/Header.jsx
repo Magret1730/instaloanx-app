@@ -50,10 +50,12 @@ export default function Header() {
     useEffect(() => {
             const fetchUserRole = async () => {
             try {
-                const isAdmin = localStorage.getItem("is_admin") === "true";
+                const isAdmin = !!localStorage.getItem("is_admin");
+
+                // console.log(isAdmin);
                 const id = localStorage.getItem("id");
 
-                if (isAdmin) {
+                if (isAdmin ) {
                     // console.log(`/admin/${id}`);
                     setDashboardLink(`/admin/${id}`);
                 } else {

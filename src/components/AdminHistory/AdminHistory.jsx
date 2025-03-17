@@ -1,8 +1,6 @@
 
 // If active on that user, error message, user already has an active loan
 // If any status is clicked on the admin history, it isn't updated until refreshed... why?.
-// Apply styling on the toggle lists
-// Admin cannot apply loan
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,6 +14,7 @@ export default function AdminHistory({ adminId }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    // const [fetchLoans, setFetchLoans] = useState("");
     const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
 
     useEffect(() => {
@@ -47,12 +46,24 @@ export default function AdminHistory({ adminId }) {
             }
         };
 
+        // setFetchLoans(fetchLoans());
         fetchLoans();
     }, []);
+
+    // Function to fetch all loans
+    // const fetchAllLoans = async () => {
+    //     try {
+    //         const response = await InstaloanxApi.getAllLoans();
+    //         setLoans(response.data.loans);
+    //     } catch (err) {
+    //         console.error("Failed to fetch loans", err);
+    //     }
+    // };
 
     const handleStatusUpdate = async (loanId, newStatus) => {
         try {
             const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
+            // console.log(response);
             if (response.success) {
                 // Updates the loans state
                 setLoans(prevLoans =>
@@ -66,6 +77,9 @@ export default function AdminHistory({ adminId }) {
                 );
 
                 setActiveDropdown(false);
+
+                // Forces re-fetch loan data to ensure UI updates correctly
+                // fetchAllLoans();
             }
             return response;
         } catch (err) {

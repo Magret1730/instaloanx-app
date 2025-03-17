@@ -13,7 +13,7 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
             const response = await handleStatusUpdate(loanId, newStatus);
             // console.log(response);
             if (response.success) {
-                setActiveDropdown(null); // Close dropdown after selection
+                setActiveDropdown(null); // Closes dropdown after selection
             }
         } catch (err) {
             console.error("Failed to update loan status", err);
@@ -75,7 +75,7 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
 
                             {activeDropdown === loan.loanId && (
                                 <section className="admin-pend-dropdown">
-                                    {["Fully Paid", "Rejected", "Active", "Pending"].map((option, index) => (
+                                    {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, index) => (
                                         <div
                                             key={index}
                                             className="admin-pend-dropdown-option"

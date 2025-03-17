@@ -34,6 +34,7 @@ export default function LoanForm() {
         const fetchLoanStatus = async () => {
             try {
                 const id = localStorage.getItem("id");
+                const isAdmin = localStorage.getItem("is_admin");
 
                 // Fetches all loan history of a single user
                 const response = await InstaloanxApi.getLoansByUserId(id); 
@@ -45,9 +46,21 @@ export default function LoanForm() {
                     (loan) => loan.status === "Active" || loan.status === "Pending" || loan.status === null
                 ) || null;
 
+                // Stops admin from applyig for loan,
+                if (isAdmin) {
+                    setTimeout(() => {
+                        setErrorMessage("Admin cannot apply for loan")
+                        navigate(`/admin/${id}`);
+                    }, 3000);
+                    // setErrorMessage("Admin cannot apply for loan")
+                    // navigate(`/admin/${id}`);
+                }
+
+                // Checks for active or pending loan, if found navigates back to dashboard
                 if (activeLoan) {
                     setHasActiveLoan(true);
                     setErrorMessage("You already have an active or pending loan.");
+                    navigate(`/users/${id}`);
                 }
             } catch (error) {
                 console.error("Error fetching loan status:", error);
