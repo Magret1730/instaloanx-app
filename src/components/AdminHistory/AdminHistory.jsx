@@ -1,6 +1,4 @@
-
 // If active on that user, error message, user already has an active loan
-// If any status is clicked on the admin history, it isn't updated until refreshed... why?.
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -56,6 +54,37 @@ export default function AdminHistory({ adminId }) {
 
     const handleStatusUpdate = async (loanId, newStatus) => {
         try {
+
+            // Finds the loan being updated
+            const loanToUpdate = loans.find(loan => loan.loanId === loanId) || 
+                                pendingLoans.find(loan => loan.loanId === loanId);
+
+            if (!loanToUpdate) {
+                setError("Loan not found.");
+                return;
+            }
+
+            // Checks if the new status is "Active" or "Pending"
+            if (newStatus === "Active" || newStatus === "Pending") {
+                // Checks if the user already has an active or pending loan
+                const hasActiveOrPending = loans.some(loan => 
+                    loan.userId === loanToUpdate.userId && 
+                    (loan.status === "Active" || loan.status === "Pending")
+                ) || pendingLoans.some(loan => 
+                    loan.userId === loanToUpdate.userId && 
+                    (loan.status === "Active" || loan.status === "Pending")
+                );
+
+                if (hasActiveOrPending) {
+                    setError("User already has an active or pending loan.");
+                    setTimeout(() => {
+                        setError("");
+                    }, 2000);
+
+                    return;
+                }
+            }
+
             const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
             // console.log(response);
             if (response.success) {
