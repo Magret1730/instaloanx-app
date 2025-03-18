@@ -35,7 +35,7 @@ export default function LoanForm() {
             try {
                 const id = localStorage.getItem("id");
                 const isAdmin = localStorage.getItem("is_admin");
-                console.log(isAdmin);
+                // console.log(isAdmin);
 
                 // Fetches all loan history of a single user
                 const response = await InstaloanxApi.getLoansByUserId(id); 

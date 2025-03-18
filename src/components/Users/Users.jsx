@@ -25,12 +25,14 @@ export default function Users({isAuthenticated}) {
                     setUser(response.data.data.user);
                     setLoansData(response.data.data.loans);
 
-                    // Find active loan
+                    // Find active or pending loan
                     const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
+                    console.log(active);
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
+                    // console.log(filtered);
                     setFilteredLoans(filtered);
                 } else {
                     setError(response.message);
@@ -58,6 +60,8 @@ export default function Users({isAuthenticated}) {
 
     // console.log(id);
     // console.log("users component");
+    // console.log(activeLoan);
+    // console.log(!!activeLoan);
 
     return (
         <article className="users__box">
@@ -65,7 +69,11 @@ export default function Users({isAuthenticated}) {
                 <section className="users__header">
                     <p className="users__header-header">Hi {user.first_name},</p>
                     <div className="users__header-links">
-                        <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
+                        {/* condition rendering of apply button based on active or pending loan */}
+                        { activeLoan.length === 0 && (
+                            <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
+                        )}
+
                         <Link to={isAuthenticated ? "/" : "/login"}><button className="users__header-button">PAY LOAN</button></Link> {/*protect this route in app.js*/}
                     </div>
                 </section>
