@@ -150,7 +150,7 @@ export default function Register() {
                     setTimeout(() => {
                         setSuccessMessage("");
                         const id = localStorage.getItem("id");
-                        console.log(id);
+                        // console.log(id);
                         navigate(`/users/${id}`);
                     }, 3000);
                 } else {

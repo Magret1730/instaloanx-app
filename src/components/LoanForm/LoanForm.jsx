@@ -35,6 +35,7 @@ export default function LoanForm() {
             try {
                 const id = localStorage.getItem("id");
                 const isAdmin = localStorage.getItem("is_admin");
+                console.log(isAdmin);
 
                 // Fetches all loan history of a single user
                 const response = await InstaloanxApi.getLoansByUserId(id); 
@@ -47,13 +48,14 @@ export default function LoanForm() {
                 ) || null;
 
                 // Stops admin from applyig for loan,
-                if (isAdmin) {
-                    setTimeout(() => {
-                        setErrorMessage("Admin cannot apply for loan")
-                        navigate(`/admin/${id}`);
-                    }, 3000);
-                    // setErrorMessage("Admin cannot apply for loan")
-                    // navigate(`/admin/${id}`);
+                if (isAdmin === "1") {
+                    // setTimeout(() => {
+                    //     setErrorMessage("Admin cannot apply for loan")
+                    //     navigate(`/admin/${id}`);
+                    // }, 3000);
+                    setErrorMessage("Admin cannot apply for loan");
+                    navigate(`/admin/${id}`);
+                    return;
                 }
 
                 // Checks for active or pending loan, if found navigates back to dashboard

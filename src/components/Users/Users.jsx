@@ -16,6 +16,16 @@ export default function Users({isAuthenticated}) {
     const navigate = useNavigate();
     const {id} = useParams();
 
+    const token = localStorage.getItem("token");
+    // console.log(token);
+
+    if (!token) {
+        return "Not authenticated"
+    }
+
+    // console.log(id);
+    // console.log("users component");
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -55,6 +65,7 @@ export default function Users({isAuthenticated}) {
                     <p className="users__header-header">Hi {user.first_name},</p>
                     <div className="users__header-links">
                         <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
+                        {/* <Link to={token ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link> */}
                         <Link to={isAuthenticated ? "/" : "/login"}><button className="users__header-button">PAY LOAN</button></Link> {/*protect this route in app.js*/}
                     </div>
                 </section>
