@@ -3,6 +3,7 @@ import AdminHistory from "../AdminHistory/AdminHistory";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 
 export default function Admin() {
     const [adminId, setAdminId] = useState("");
@@ -24,7 +25,8 @@ export default function Admin() {
                     setError(response.message);
                 }
             } catch (err) {
-                setError("Failed to fetch user data", err);
+                // setError("Failed to fetch user data", err);
+                console.error("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
             }
@@ -34,7 +36,11 @@ export default function Admin() {
     }, [id]);
 
 
-    if (loading) return <div>Loading...</div>;
+    // if (loading) return <div>Loading...</div>;
+    if (loading) {
+        return <Spinner loading={loading} />
+    }
+
     if (error) return <div>Error: {error}</div>;
 
 

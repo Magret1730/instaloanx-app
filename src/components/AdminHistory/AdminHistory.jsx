@@ -3,16 +3,18 @@ import { Link } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import "./AdminHistory.scss";
 import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
+import { toast } from "react-toastify";
+import Spinner from "../Spinner/Spinner";
 
 export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     // const [fetchLoans, setFetchLoans] = useState("");
     const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
-
+    
     // useEffect(() => {
         const fetchLoans = async () => {
             try {
@@ -36,10 +38,13 @@ export default function AdminHistory({ adminId }) {
                         .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
                     setLoans(filteredLoans);
                 } else {
-                    setError(response.message);
+                    // setError(response.message);
+                    console.error(response.message);
+                    toast.error(response.message); // Not sure what this messages are for now
                 }
             } catch (err) {
-                setError("Failed to fetch user data", err);
+                // setError("Failed to fetch user data", err);
+                console.error("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
             }
@@ -63,7 +68,8 @@ export default function AdminHistory({ adminId }) {
             // console.log(loanToUpdate);
 
             if (!loanToUpdate) {
-                setError("Loan not found.");
+                // setError("Loan not found.");
+                toast.error("Loan not found.");
                 return;
             }
 
@@ -83,10 +89,11 @@ export default function AdminHistory({ adminId }) {
                 // console.log(hasActiveOrPending);
 
                 if (hasActiveOrPending) {
-                    setError("User already has an active or pending loan.");
-                    setTimeout(() => {
-                        setError("");
-                    }, 2000);
+                    // setError("User already has an active or pending loan.");
+                    toast.error("User already has an active or pending loan.");
+                    // setTimeout(() => {
+                    //     setError("");
+                    // }, 2000);
 
                     return;
                 }
@@ -130,7 +137,10 @@ export default function AdminHistory({ adminId }) {
         return userName.includes(lowerCaseQuery) || loanStatus.includes(lowerCaseQuery);
     });
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) {
+        return <Spinner loading={loading} />
+    }
+    // if (loading) return <div>Loading...</div>;
 
     return (
         <section className="admin__history">

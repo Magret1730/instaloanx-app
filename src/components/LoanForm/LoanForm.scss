@@ -146,24 +146,24 @@
         }
     }
 
-    &__success {
-        display: block;
-        @include flex(row, center, center);
-        color: $success-color;
-        padding: 0.5rem 0.8rem;
-        font-size: 1rem;
-        margin-top: 0.25rem;
-    }
+    // &__success {
+    //     display: block;
+    //     @include flex(row, center, center);
+    //     color: $success-color;
+    //     padding: 0.5rem 0.8rem;
+    //     font-size: 1rem;
+    //     margin-top: 0.25rem;
+    // }
 
-    &-error {
-        @include flex(row, flex-start, center);
-        // @include body-small;
-        color: $error-red;
-        margin-top: -0.5rem;
-        border-radius: .375rem;
+    // &-error {
+    //     @include flex(row, flex-start, center);
+    //     // @include body-small;
+    //     color: $error-red;
+    //     margin-top: -0.5rem;
+    //     border-radius: .375rem;
 
-        @include tablet-breakpoint {
-            margin-top: -1rem;
-        }
-    }
+    //     @include tablet-breakpoint {
+    //         margin-top: -1rem;
+    //     }
+    // }
 }

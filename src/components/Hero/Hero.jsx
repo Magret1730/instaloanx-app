@@ -1,11 +1,13 @@
 import "./Hero.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import InstaloanxApi from "../../api/InstaloanxApi";
+import { toast } from "react-toastify";
+import Spinner from "../Spinner/Spinner";
 
 export default function Hero({ isAuthenticated }) {
     const [ loading, setLoading ] = useState(true);
-    const [ error, setError ] = useState(null);
+    // const [ error, setError ] = useState(null);
     const [ filteredLoans, setFilteredLoans ] = useState(null);
 
     // Check for isAdmin
@@ -28,10 +30,13 @@ export default function Hero({ isAuthenticated }) {
                     // console.log(filteredLoans);
                     setFilteredLoans(filtered);
                 } else {
-                    setError(response.message);
+                    // setError(response.message);
+                    toast.error(response.message);
+                    console.error(response.error);
                 }
             } catch (err) {
-                setError("Failed to fetch user data", err);
+                // setError("Failed to fetch user data", err);
+                console.error("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
             }
@@ -39,6 +44,11 @@ export default function Hero({ isAuthenticated }) {
 
         fetchUser();
     }, [id]);
+
+    if (loading) {
+        return <Spinner loading={loading} />
+    }
+    // if (loading) return <div>Loading...</div>;
 
     // Handles if isAdmin is "1" or the user has an active or pending loan, don't show the button
     const shouldShowButton = isAdmin === "0" && filteredLoans && filteredLoans.length > 0;

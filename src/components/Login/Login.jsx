@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import SuccessMessage from "../SuccessMessage/SuccessMessage";
+import { toast } from "react-toastify";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -24,13 +25,15 @@ export default function Login() {
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!Email) {
-            setEmailError("This field is required");
+            toast.error("This field is required");
+            // setEmailError("This field is required");
             return false;
         } else if (!emailRegex.test(Email)) {
-            setEmailError("Invalid email address. Please use a valid format, e.g., user@example.com.");
+            toast.error("Invalid email address. Please use a valid format, e.g., user@example.com.");
+            // setEmailError("Invalid email address. Please use a valid format, e.g., user@example.com.");
             return false;
         } else {
-            setEmailError("");
+            // setEmailError("");
             return true;
         }
     }
@@ -40,13 +43,15 @@ export default function Login() {
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
 
         if (!Password) {
-            setPasswordError("This field is required");
+            toast.error("This field is required");
+            // setPasswordError("This field is required");
             return false;
         } else if (!passwordRegex.test(Password)) {
-            setPasswordError("Password should contain at least one letter and one number, and be at least 4 characters long");
+            toast.error("Password should contain at least one letter and one number, and be at least 4 characters long");
+            // setPasswordError("Password should contain at least one letter and one number, and be at least 4 characters long");
             return false;
         } else {
-            setPasswordError("");
+            // setPasswordError("");
             return true;
         }
     }
@@ -65,15 +70,15 @@ export default function Login() {
     }
 
     // Reset form fields
-    const resetForm = () => {
-            // Clear all fields in Add mode
-            setEmail("");
-            setPassword("");
+    // const resetForm = () => {
+    //         // Clear all fields in Add mode
+    //         setEmail("");
+    //         setPassword("");
 
-            // Clear errors
-            setEmailError("");
-            setPasswordError("");
-    };
+    //         // Clear errors
+    //         setEmailError("");
+    //         setPasswordError("");
+    // };
 
 
     // Checks if user is already logged in
@@ -104,9 +109,10 @@ export default function Login() {
                 // console.log(data.id);
 
                 if (response.success) {
-                    setErrorMessage("");
-                    setSuccessMessage("User login successfully!");
-                    resetForm();
+                    // setErrorMessage("");
+                    toast.success("User login successfully!");
+                    // setSuccessMessage("User login successfully!");
+                    // resetForm();
 
                     // Fetches user role after login
                     // const isAdminn = 
@@ -118,20 +124,23 @@ export default function Login() {
                         navigate(data.is_admin ? `/admin/${data.id}` : `/users/${data.id}`);
                     }, 2000);
                 } else {
-                    setSuccessMessage("");
+                    // setSuccessMessage("");
                     if (response.message.includes("Invalid email or password")) {
-                        setErrorMessage("Invalid email or password.");
+                        toast.error("Invalid email or password.");
+                        // setErrorMessage("Invalid email or password.");
                     } else {
-                        setErrorMessage("Login failed. Please try again.");
+                        toast.error("Login failed. Please try again.");
+                        // setErrorMessage("Login failed. Please try again.");
                     }
                 }
             }
         } catch (error) {
-            console.error("Error in login:", error.message);
-            setErrorMessage(error.response?.data?.message || "Login error. Please try again.");
-            setTimeout(() => {
-                setErrorMessage("");
-            }, 3000);
+            console.error("Error in login:", error.response?.data?.message);
+            toast.error(error.response?.data?.message || "Login error. Please try again.");
+            // setErrorMessage(error.response?.data?.message || "Login error. Please try again.");
+            // setTimeout(() => {
+            //     setErrorMessage("");
+            // }, 3000);
         }
     };
 
@@ -155,13 +164,13 @@ export default function Login() {
                         value={email}
                         onChange={(e) => {
                             setEmail(e.target.value);
-                            if (emailError && isEmailValid(e.target.value)) {
-                                setEmailError(""); // Clears error if email is now valid
-                            }
+                            // if (emailError && isEmailValid(e.target.value)) {
+                            //     setEmailError(""); // Clears error if email is now valid
+                            // }
                         }}
                     />
                 </label>
-                <ErrorMessage messageError={emailError}/>
+                {/* <ErrorMessage messageError={emailError}/> */}
 
                 <label className="login__body-label">PASSWORD
                     <input
@@ -172,13 +181,13 @@ export default function Login() {
                         value={password}
                         onChange={(e) => {
                             setPassword(e.target.value);
-                            if (passwordError && isPasswordValid(e.target.value)) {
-                                setPasswordError(""); // Clears error if password is now valid
-                            }
+                            // if (passwordError && isPasswordValid(e.target.value)) {
+                            //     setPasswordError(""); // Clears error if password is now valid
+                            // }
                         }}
                     />
                 </label>
-                <ErrorMessage messageError={passwordError}/>
+                {/* <ErrorMessage messageError={passwordError}/> */}
             </section>
 
             <section className="login__button">
@@ -188,8 +197,8 @@ export default function Login() {
                     onClick={handleSubmit}
                 >LOGIN</button>
             </section>
-            <SuccessMessage successMessage={successMessage}/>
-            <ErrorMessage errorMessage={errorMessage}/>
+            {/* <SuccessMessage successMessage={successMessage}/> */}
+            {/* <ErrorMessage errorMessage={errorMessage}/> */}
         </form>
     )
 }

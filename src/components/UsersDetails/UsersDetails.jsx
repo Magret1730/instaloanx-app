@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+import Spinner from "../Spinner/Spinner";
 
 export default function UserDetails() {
     // gets user id
@@ -21,22 +21,26 @@ export default function UserDetails() {
 
     useEffect(() => {
         async function fetchUserDetails() {
-            const loanResponse = await InstaloanxApi.getLoansByUserId(id);
-            // console.log(loanResponse);
-            if (loanResponse.success) {
-                // console.log(loanResponse.data.data);
-                setLoans(loanResponse.data.data.loans);
-                setUser(loanResponse.data.data.user);
-                // console.log(loanResponse.data.data);
-                // console.log(loanResponse.data.data.loans);
-                // console.log(loanResponse.data.data.user);
+            try {
+                const loanResponse = await InstaloanxApi.getLoansByUserId(id);
+                // console.log(loanResponse);
+                if (loanResponse.success) {
+                    // console.log(loanResponse.data.data);
+                    setLoans(loanResponse.data.data.loans);
+                    setUser(loanResponse.data.data.user);
+                    // console.log(loanResponse.data.data);
+                    // console.log(loanResponse.data.data.loans);
+                    // console.log(loanResponse.data.data.user);
+                }
+            } catch (err) {
+                console.error("Error in user details page: ", err);
             }
         }
 
         fetchUserDetails();
     }, [id]);
 
-    if (!user) return <p>Loading user details...</p>;
+    if (!user) return <Spinner loading="Loading user details..." />;
 
     return (
         <section className="user-details">

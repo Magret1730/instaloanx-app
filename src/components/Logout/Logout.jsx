@@ -14,10 +14,10 @@ export default function Logout() {
             } catch (err) {
                 console.error(err);
                 
-                return {
-                    success: false,
-                    message: err.response ? err.response.data.message : "Logout: Internal server error"
-                };
+                // return {
+                //     success: false,
+                //     message: err.response ? err.response.data.message : "Logout: Internal server error"
+                // };
             }
         }       
 

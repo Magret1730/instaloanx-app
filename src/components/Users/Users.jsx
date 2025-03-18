@@ -3,12 +3,14 @@ import UsersHistory from "../UsersHistory/UsersHistory";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import Spinner from "../Spinner/Spinner";
 
 // Fetch singer user, fetch loan history
 export default function Users({isAuthenticated}) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [activeLoan, setActiveLoan] = useState(null);
     const [loansData, setLoansData] = useState(null);
     const [filteredLoans, setFilteredLoans] = useState(null);
@@ -27,7 +29,7 @@ export default function Users({isAuthenticated}) {
 
                     // Find active or pending loan
                     const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
-                    console.log(active);
+                    // console.log(active);
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
@@ -35,10 +37,13 @@ export default function Users({isAuthenticated}) {
                     // console.log(filtered);
                     setFilteredLoans(filtered);
                 } else {
-                    setError(response.message);
+                    toast.error(response.message);
+                    console.error(response.message);
+                    // setError(response.message);
                 }
             } catch (err) {
-                setError("Failed to fetch user data", err);
+                console.error("Failed to fetch user data", err);
+                // setError("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
             }
@@ -47,8 +52,12 @@ export default function Users({isAuthenticated}) {
         fetchUser();
     }, [id]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+    // Takes care of loading
+    if (loading) {
+        return <Spinner loading={loading} />
+    }
+    // if (loading) return <div>Loading...</div>;
+    // if (error) return <div>Error: {error}</div>;
 
     // Gets token
     const token = localStorage.getItem("token");
