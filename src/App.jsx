@@ -52,8 +52,6 @@ function App() {
                 </ProtectedRoute>
             }/>
 
-            {/* http://localhost:8080/api/v1/loans/2/status */}
-
             {/* Catch-all route for unmatched paths */}
             <Route path="*" element={<ErrorPage />} />
         </Routes>

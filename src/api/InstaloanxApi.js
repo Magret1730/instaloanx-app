@@ -163,6 +163,8 @@ class InstaloanxApi {
     // http://localhost:8080/api/v1/users/6/loans
     static async getLoansByUserId(id) {
         try {
+
+            // console.log(id);
             // Validates ID
             // console.log("Id from getLoansByUserId", id);
             if (isNaN(id) || id <= 0) {

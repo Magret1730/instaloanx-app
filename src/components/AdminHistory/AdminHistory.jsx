@@ -93,7 +93,7 @@ export default function AdminHistory({ adminId }) {
             }
 
             const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
-            console.log(response);
+            // console.log(response);
             if (response.success) {
                 // Updates the loans state
                 setLoans(prevLoans =>
