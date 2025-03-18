@@ -29,7 +29,6 @@ export default function Footer() {
 
                     {/* Contact Me Section */}
                     <div id="Contact" className="footer__contact">
-                        {/* <h3 className="footer__contact-title">Contact Me</h3> */}
                         <p className="footer__contact-text">
                             For more inquiries:
                         </p>

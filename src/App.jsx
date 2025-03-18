@@ -13,6 +13,9 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Logout from "./components/Logout/Logout";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import AdminProtectedRoute from "./components/AdminProtectedRoute/AdminProtectedRoute";
+import HelpPage from "./pages/HelpPage/HelpPage";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
     const isAuthenticated = () => {
@@ -22,10 +25,33 @@ function App() {
         return !!tokenResp;
     }
 
+    const showToast = (type, message) => {
+        if (type === "success") {
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+        } else if (type === "error") {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+        }
+    };
+
     return (
         <>
         <Routes>
             <Route path="/" element={ <HomePage isAuthenticated={isAuthenticated} /> }/>
+            <Route path="/help" element={ <HelpPage /> } />
             <Route path="/register" element={<RegisterPage />}/>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<Logout />} />
@@ -52,11 +78,12 @@ function App() {
                 </ProtectedRoute>
             }/>
 
-            {/* http://localhost:8080/api/v1/loans/2/status */}
-
             {/* Catch-all route for unmatched paths */}
             <Route path="*" element={<ErrorPage />} />
         </Routes>
+
+        {/* ToastContainer to render toasts notifications */}
+        <ToastContainer />
         </>
     )
 }

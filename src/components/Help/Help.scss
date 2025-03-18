@@ -1,0 +1,116 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.help {
+    width: 100%;
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 1.25rem;
+    font-family: $typeface-primary, sans-serif;
+    background-color: $primary-bg-color;
+
+    @include tablet-breakpoint {
+        padding: .9375rem;
+    }
+
+    &-header {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 1.25rem;
+        color: $secondary-text-color;
+
+        @include tablet-breakpoint {
+            font-size: 1.5rem;
+        }
+    }
+
+    &-text {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 1.875rem;
+        color: $primary-text-color;
+
+        @include tablet-breakpoint {
+            font-size: 1rem;
+        }
+    }
+
+    &-title {
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+        color: $secondary-text-color;
+        text-align: center;
+
+        @include tablet-breakpoint {
+            font-size: 1.25rem;
+        }
+    }
+
+    &-faq {
+        margin: 1.25rem 0 2rem 0;
+        padding: .9375rem;
+        border: 1px solid #ddd;
+        border-radius: .5rem;
+        background-color: $primary-bgg-color;
+
+        @include tablet-breakpoint {
+            margin: .9375rem 0;
+            padding: .625rem;
+        }
+
+        &__title {
+            font-size: 1.2rem;
+            color: $secondary-text-color;
+            margin-bottom: .625rem;
+
+            @include tablet-breakpoint {
+                font-size: 1rem;
+            }
+        }
+
+        &__text {
+            font-size: 1rem;
+            color: $secondary-text-color;
+
+            @include tablet-breakpoint {
+                font-size: 0.9rem;
+            }
+
+            &-link {
+                color: $secondary-bg-color;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                @include tablet-breakpoint {
+                    color: $hover-button-color;
+                }
+            }
+        }
+
+        &__links {
+            padding-left: 1.25rem;
+            list-style-type: none;
+
+            @include tablet-breakpoint {
+                padding-left: .9375rem;
+            }
+        }
+
+        &__link {
+            font-size: 1rem;
+            color: $primary-text-color;
+            margin-bottom: .3125rem;
+
+            &:hover {
+                color: $hover-button-color;
+            }
+
+            @include tablet-breakpoint {
+                font-size: 0.9rem;
+            }
+        }
+    }
+}

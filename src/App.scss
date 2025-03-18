@@ -1,1 +1,14 @@
 @use "./styles/partials/globals" as *;
+@use "./styles/partials/variables" as *;
+
+.Toastify__toast--success {
+    background-color: $success-color;
+    color: $primary-bg-color;
+    font-weight: bold;
+}
+
+.Toastify__toast--error {
+    background-color: $error-red;
+    color: $primary-bg-color;
+    font-weight: bold;
+}

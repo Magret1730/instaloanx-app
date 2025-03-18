@@ -85,29 +85,22 @@
                 padding: 0.7rem 1.2rem;
             }
 
-            // &-lists {
-            //     @include flex(column, center, flex-end);
-                
-            // }
+            &-lists {
+                position: relative;                
+            }
 
             &-list {
                 align-items: end;
                 position: absolute;
-                width: 40%;
+                width: 50%;
                 background-color: white;
-                // border: 1px solid $secondary-bg-color;
                 border-radius: 0.5rem;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 z-index: 1;
-                top: 10.5rem;
                 box-shadow: 0.5rem 0.5rem 1rem rgba($secondary-bg-color, 0.5);
 
                 @include tablet-breakpoint {
-                    width: 20%;
-                }
-
-                @include desktop-breakpoint {
-                    width: 10%;
+                    width: 30%;
                 }
             }
 
@@ -143,27 +136,6 @@
             &:hover {
                 background-color: $hover-button-color;
             }
-        }
-    }
-
-    &__success {
-        display: block;
-        @include flex(row, center, center);
-        color: $success-color;
-        padding: 0.5rem 0.8rem;
-        font-size: 1rem;
-        margin-top: 0.25rem;
-    }
-
-    &-error {
-        @include flex(row, flex-start, center);
-        // @include body-small;
-        color: $error-red;
-        margin-top: -0.5rem;
-        border-radius: .375rem;
-
-        @include tablet-breakpoint {
-            margin-top: -1rem;
         }
     }
 }

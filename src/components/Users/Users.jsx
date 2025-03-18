@@ -3,12 +3,14 @@ import UsersHistory from "../UsersHistory/UsersHistory";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import Spinner from "../Spinner/Spinner";
 
 // Fetch singer user, fetch loan history
 export default function Users({isAuthenticated}) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
     const [activeLoan, setActiveLoan] = useState(null);
     const [loansData, setLoansData] = useState(null);
     const [filteredLoans, setFilteredLoans] = useState(null);
@@ -16,26 +18,16 @@ export default function Users({isAuthenticated}) {
     const navigate = useNavigate();
     const {id} = useParams();
 
-    const token = localStorage.getItem("token");
-    // console.log(token);
-
-    if (!token) {
-        return "Not authenticated"
-    }
-
-    // console.log(id);
-    // console.log("users component");
-
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await InstaloanxApi.getLoansByUserId(id); // Calls the backend function
+                const response = await InstaloanxApi.getLoansByUserId(id);
 
                 if (response.success) {
                     setUser(response.data.data.user);
                     setLoansData(response.data.data.loans);
 
-                    // Find active loan
+                    // Find active or pending loan
                     const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
                     setActiveLoan(active || null);
 
@@ -43,10 +35,10 @@ export default function Users({isAuthenticated}) {
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
                     setFilteredLoans(filtered);
                 } else {
-                    setError(response.message);
+                    console.error(response.message);
                 }
             } catch (err) {
-                setError("Failed to fetch user data", err);
+                console.error("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
             }
@@ -55,8 +47,17 @@ export default function Users({isAuthenticated}) {
         fetchUser();
     }, [id]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
+    // Takes care of loading
+    if (loading) {
+        return <Spinner loading={loading} />
+    }
+
+    // Gets token
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return "Not authenticated"
+    }
 
     return (
         <article className="users__box">
@@ -64,8 +65,11 @@ export default function Users({isAuthenticated}) {
                 <section className="users__header">
                     <p className="users__header-header">Hi {user.first_name},</p>
                     <div className="users__header-links">
-                        <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
-                        {/* <Link to={token ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link> */}
+                        {/* condition rendering of apply button based on active or pending loan */}
+                        { activeLoan.length === 0 && (
+                            <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
+                        )}
+
                         <Link to={isAuthenticated ? "/" : "/login"}><button className="users__header-button">PAY LOAN</button></Link> {/*protect this route in app.js*/}
                     </div>
                 </section>

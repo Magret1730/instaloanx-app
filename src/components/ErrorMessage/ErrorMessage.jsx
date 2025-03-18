@@ -1,5 +1,4 @@
 import "./ErrorMessage.scss";
-// import ErrorIcon from "../../assets/icons/error-24px.svg"
 
 const ErrorMessage = ({ messageError, errorMessage }) => {
     return (

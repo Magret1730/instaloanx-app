@@ -2,16 +2,12 @@ import "./Header.scss";
 import Ellipsis from "../../assets/icons/ellipsis.png";
 import EllipsisClose from "../../assets/icons/ecclipsisClose.png";
 import Logo from "../../assets/icons/logo.png";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
-// import InstaloanxApi from "../../api/InstaloanxApi";
 
 export default function Header() {
-    // const id = localStorage.getItem("id");
-    // console.log(id);
 
     const [ ellipsisCLick, setEllipsisClick ] = useState(false);
-    // const [ dashboardLink, setDashboardLink ] = useState(`/users/${id}`);
     const [ dashboardLink, setDashboardLink ] = useState("");
 
     const navigate = useNavigate();
@@ -32,7 +28,7 @@ export default function Header() {
         return !!localStorage.getItem("token");
     }, []);
 
-    // Detect viewport changes and reset ellipsisCLick state
+    // Detect viewport changes and reset ellipsisClick state
     useEffect(() => {
         const handleResize = () => {
             // Check if the viewport width is greater than or equal to tablet size
@@ -52,12 +48,7 @@ export default function Header() {
             const fetchUserRole = async () => {
             try {
                 const isAdmin = localStorage.getItem("is_admin");
-                // console.log(isAdmin);
-                // console.log(typeof isAdmin);
-
-                // console.log(isAdmin);
                 const id = localStorage.getItem("id");
-                // console.log(id);
 
                 if (isAdmin === "1") {
                     setDashboardLink(`/admin/${id}`);
@@ -85,18 +76,18 @@ export default function Header() {
             </section>
 
             <section className={ ellipsisCLick ? "header__links--display" : "header__links"}>
-                <Link className="header__link" to="#About">ABOUT</Link>
-                <Link className="header__link" to="#Contact">CONTACT</Link>
+                <NavLink className="header__link" to="/">HOME</NavLink>
+                <NavLink className="header__link" to="/help">HELP</NavLink>
 
                 {isAuth() ? (
                     <>
-                        <Link className="header__link" to="/logout">LOGOUT</Link>
-                        <Link className="header__link" to={dashboardLink}>DASHBOARD</Link>
+                        <NavLink className="header__link" to="/logout">LOGOUT</NavLink>
+                        <NavLink className="header__link" to={dashboardLink}>DASHBOARD</NavLink>
                     </>
                 ) : (
                     <>
-                        <Link className="header__link" to="/login">LOGIN</Link>
-                        <Link className="header__link" to="/register">REGISTER</Link>
+                        <NavLink className="header__link" to="/login">LOGIN</NavLink>
+                        <NavLink className="header__link" to="/register">REGISTER</NavLink>
                     </>
                 )}
             </section>

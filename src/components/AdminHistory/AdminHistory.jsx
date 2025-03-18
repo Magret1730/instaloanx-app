@@ -3,51 +3,46 @@ import { Link } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import "./AdminHistory.scss";
 import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
+import { toast } from "react-toastify";
+import Spinner from "../Spinner/Spinner";
 
 export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    // const [fetchLoans, setFetchLoans] = useState("");
     const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
+    
+    const fetchLoans = async () => {
+        try {
+            const response = await InstaloanxApi.getLoanHistory();
+            if (response.success) {
+                const usersData = response.data.data;
+                const allLoans = usersData.flatMap(user =>
+                    user.loans.map(loan => ({
+                        ...loan,
+                        userId: user.userId,
+                        userName: `${user.firstName} ${user.lastName}`,
+                    }))
+                );
 
-    // useEffect(() => {
-        const fetchLoans = async () => {
-            try {
-                const response = await InstaloanxApi.getLoanHistory();
-                if (response.success) {
-                    const usersData = response.data.data;
-                    const allLoans = usersData.flatMap(user =>
-                        user.loans.map(loan => ({
-                            ...loan,
-                            userId: user.userId,
-                            userName: `${user.firstName} ${user.lastName}`,
-                        }))
-                    );
+                // Filters out pending loans
+                const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
+                setPendingLoans(pendingLoan);
 
-                    const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
-                    setPendingLoans(pendingLoan);
-
-                    // console.log(allLoans);
-                    const filteredLoans = allLoans
-                        .filter(loan => loan.status !== "Pending")
-                        .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
-                    setLoans(filteredLoans);
-                } else {
-                    setError(response.message);
-                }
-            } catch (err) {
-                setError("Failed to fetch user data", err);
-            } finally {
-                setLoading(false);
+                const filteredLoans = allLoans
+                    .filter(loan => loan.status !== "Pending")
+                    .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
+                setLoans(filteredLoans);
+            } else {
+                console.error(response.message);
             }
-        };
-
-        // setFetchLoans(fetchLoans());
-        // fetchLoans();
-    // }, []);
+        } catch (err) {
+            console.error("Failed to fetch user data", err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchLoans();
@@ -60,10 +55,8 @@ export default function AdminHistory({ adminId }) {
             const loanToUpdate = loans.find(loan => loan.loanId === loanId) || 
                                 pendingLoans.find(loan => loan.loanId === loanId);
 
-            // console.log(loanToUpdate);
-
             if (!loanToUpdate) {
-                setError("Loan not found.");
+                toast.error("Loan not found.");
                 return;
             }
 
@@ -80,20 +73,13 @@ export default function AdminHistory({ adminId }) {
                     (loan.status === "Active" || loan.status === "Pending")
                 );
 
-                // console.log(hasActiveOrPending);
-
                 if (hasActiveOrPending) {
-                    setError("User already has an active or pending loan.");
-                    setTimeout(() => {
-                        setError("");
-                    }, 2000);
-
+                    toast.error("User already has an active or pending loan.");
                     return;
                 }
             }
 
             const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
-            console.log(response);
             if (response.success) {
                 // Updates the loans state
                 setLoans(prevLoans =>
@@ -106,6 +92,7 @@ export default function AdminHistory({ adminId }) {
                     prevPendingLoans.filter(loan => loan.loanId !== loanId)
                 );
 
+                toast.success("Status changed successfully!!!");
                 setActiveDropdown(false);
 
                 // Forces re-fetch loan data to ensure UI updates correctly
@@ -113,6 +100,7 @@ export default function AdminHistory({ adminId }) {
             }
             return response;
         } catch (err) {
+            toast.error("Failed to update loan status");
             console.error("Failed to update loan status", err);
             throw err;
         }
@@ -130,7 +118,9 @@ export default function AdminHistory({ adminId }) {
         return userName.includes(lowerCaseQuery) || loanStatus.includes(lowerCaseQuery);
     });
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) {
+        return <Spinner loading={loading} />
+    }
 
     return (
         <section className="admin__history">
@@ -150,8 +140,6 @@ export default function AdminHistory({ adminId }) {
                 handleStatusUpdate={handleStatusUpdate}
             />
 
-            {error && <p className="error-message">{error}</p>}
-
             <section className="admin__history-head">
                 <p className="admin__history-head-text">S/N</p>
                 <p className="admin__history-head-text">NAME</p>
@@ -161,7 +149,7 @@ export default function AdminHistory({ adminId }) {
                 <p className="admin__history-head-text">STATUS</p>
             </section>
 
-            {loans.length === 0 && !error ? (
+            {loans.length === 0 ? (
                 <p>No loans found.</p>
             ) : (
                 filteredLoans.map((loan, index) => (
