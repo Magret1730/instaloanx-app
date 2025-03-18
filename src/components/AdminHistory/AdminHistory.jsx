@@ -1,5 +1,3 @@
-// If active on that user, error message, user already has an active loan
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
@@ -32,7 +30,10 @@ export default function AdminHistory({ adminId }) {
                     const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
                     setPendingLoans(pendingLoan);
 
-                    const filteredLoans = allLoans.filter(loan => loan.status !== "Pending");
+                    // console.log(allLoans);
+                    const filteredLoans = allLoans
+                        .filter(loan => loan.status !== "Pending")
+                        .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
                     setLoans(filteredLoans);
                 } else {
                     setError(response.message);
