@@ -2,40 +2,32 @@ import "./Hero.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import InstaloanxApi from "../../api/InstaloanxApi";
-import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 
 export default function Hero({ isAuthenticated }) {
     const [ loading, setLoading ] = useState(true);
-    // const [ error, setError ] = useState(null);
     const [ filteredLoans, setFilteredLoans ] = useState(null);
 
     // Check for isAdmin
     const isAdmin = localStorage.getItem("is_admin");
-    // console.log(isAdmin);
 
+    // Gets id from localstorage
     const id = localStorage.getItem("id");
-    // console.log(id);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 // Fetches user data based on Id
                 const response = await InstaloanxApi.getLoansByUserId(id);
-                // console.log(response);
 
                 if (response.success) {
                     // Filters out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
-                    // console.log(filteredLoans);
                     setFilteredLoans(filtered);
                 } else {
-                    // setError(response.message);
-                    toast.error(response.message);
                     console.error(response.error);
                 }
             } catch (err) {
-                // setError("Failed to fetch user data", err);
                 console.error("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
@@ -45,14 +37,13 @@ export default function Hero({ isAuthenticated }) {
         fetchUser();
     }, [id]);
 
+    // Handles loading state
     if (loading) {
         return <Spinner loading={loading} />
     }
-    // if (loading) return <div>Loading...</div>;
 
     // Handles if isAdmin is "1" or the user has an active or pending loan, don't show the button
     const shouldShowButton = isAdmin === "0" && filteredLoans && filteredLoans.length > 0;
-    // console.log(shouldShowButton);
 
     return (
         <section className="hero">

@@ -14,14 +14,6 @@ export default function LoanForm() {
     const [ amount, setAmount ] = useState("");
     const [ purpose, setPurpose ] = useState("");
 
-    // sets for errors and messages
-    // const [ amountError, setAmountError ] = useState("");
-    // const [ purposeError, setPurposeError ] = useState("");
-
-    // sets error and success messages
-    // const [ successMessage, setSuccessMessage ] = useState(false);
-    // const [errorMessage, setErrorMessage] = useState("");
-
     // Loan status
     const [hasActiveLoan, setHasActiveLoan] = useState(false);
 
@@ -38,7 +30,6 @@ export default function LoanForm() {
             try {
                 const id = localStorage.getItem("id");
                 const isAdmin = localStorage.getItem("is_admin");
-                // console.log(isAdmin);
 
                 // Fetches all loan history of a single user
                 const response = await InstaloanxApi.getLoansByUserId(id); 
@@ -52,12 +43,7 @@ export default function LoanForm() {
 
                 // Stops admin from applyig for loan,
                 if (isAdmin === "1") {
-                    // setTimeout(() => {
-                    //     setErrorMessage("Admin cannot apply for loan")
-                    //     navigate(`/admin/${id}`);
-                    // }, 3000);
                     toast.error("Admin cannot apply for loan");
-                    // setErrorMessage("Admin cannot apply for loan");
                     navigate(`/admin/${id}`);
                     return;
                 }
@@ -66,7 +52,6 @@ export default function LoanForm() {
                 if (activeLoan) {
                     setHasActiveLoan(true);
                     toast.error("You already have an active or pending loan.");
-                    // setErrorMessage("You already have an active or pending loan.");
                     navigate(`/users/${id}`);
                 }
             } catch (error) {
@@ -79,50 +64,43 @@ export default function LoanForm() {
         fetchLoanStatus();
     }, []);
 
-    if (loading) {
-        return <Spinner loading={loading} />
-    }
-    // if (loading) return <div>Loading...</div>;
-
     const handleDropDown = () => {
         setIsDropdown(!isDropdown);
+        // setIsDropdown((prev) => !prev);
     }
 
     const handlePurposeClick = (selected) => {
         setPurpose(selected);
         setSelectedPurpose(selected); // Updates the selected purpose
-        setIsDropdown(false); // Closes the dropdown
+        setIsDropdown(false); // CLoses the dropdown - not functional and don't know why
     };
+
+    if (loading) {
+        return <Spinner loading={loading} />
+    }
 
     // Validate amount
     const isAmountValid = (amount) => {
         if (!amount) {
             toast.error("Loan amount is required.");
-            // setAmountError("This field is required");
             return false;
         } else if (isNaN(amount) || Number(amount) <= 0) {
             toast.error("Invalid loan amount.");
-            // setAmountError("Invalid loan amount");
             return false;
         } else {
-            // setAmountError("");
             return true;
         }
     }
     
     // Validate purpose
     const isPurposeValid = (purpose) => {
-        // if (!purpose) {
         if (!purpose || purpose === "Select Purpose") {
             toast.error("Loan purpose is required");
-            // setPurposeError("This field is required");
             return false;
         } else if (!purposes.includes(purpose)) {
             toast.error("Invalid loan purpose");
-            // setPurposeError("Invalid loan purpose");
             return false;
         } else {
-            // setPurposeError("");
             return true;
         }
     }
@@ -140,17 +118,6 @@ export default function LoanForm() {
         return true;
     }
 
-    // Reset form fields
-    // const resetForm = () => {
-    //     // Clear all fields in Add mode
-    //     setAmount("");
-    //     setPurpose("");
-
-    //     // Clear errors
-    //     setAmountError("");
-    //     setPurposeError("");
-    // };
-
     // handles submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -166,23 +133,13 @@ export default function LoanForm() {
                     purpose: purpose,
                 };
 
-                // console.log(loanData);
 
-                // Add new warehouse
+                // posts new loans
                 const response = await InstaloanxApi.postLoans(loanData);
-                // console.log("LoanForm", response);
 
                 if (response) {
-                    // Clear form and errors
-                    // resetForm();
-
                     toast.success("Loan Application made successfully!!!");
                     navigate(`/users/${id}`);
-
-                    // setTimeout(() => {
-                    //     setSuccessMessage("Loan Application made successfully!!!");
-                    //     navigate(`/users/${id}`);
-                    // }, 3000);
                 }
             } else {
                 console.error("Error in loan application form");
@@ -190,10 +147,6 @@ export default function LoanForm() {
         } catch (error) {
             console.error("Error in loan application:", error.message);
             toast.error(error.message);
-            // setErrorMessage(error.message);
-            // setTimeout(() => {
-            //     setErrorMessage("");
-            // }, 3000);
         }
     };
 
@@ -213,24 +166,17 @@ export default function LoanForm() {
                     LOAN AMOUNT
                     <input
                         className="loan-form__body-input"
-                        // className={ `loan-form__body-input ${ purposeError ? "loan-form__body-input--error" : "" }` }
                         type="number"
                         placeholder="Enter the loan amount"
                         onChange={(e) => setAmount(e.target.value)}
                         value={amount}
                     />
                 </label>
-                {/* {amountError && ( // displays error message for amount input
-                    <div className="loan-form__error">
-                        {amountError}
-                    </div>
-                )} */}
 
                 <label className="loan-form__body-label">
                     PURPOSE
                     <input
                         className="loan-form__body-dropdown"
-                        // className={ `loan-form__body-dropdown ${ purposeError ? "loan-form__body-input--error" : "" }` }
                         type="text"
                         placeholder="Enter loan purpose"
                         value= {selectedPurpose}
@@ -255,12 +201,6 @@ export default function LoanForm() {
                             </section>
                         )}
                     </section>
-
-                    {/* {purposeError && ( // displays error message for purpose input
-                        <div className="loan-form__error">
-                            {purposeError}
-                        </div>
-                    )} */}
                 </label>
             </section>
 
@@ -269,15 +209,11 @@ export default function LoanForm() {
                 <button
                     className="loan-form__button-button"
                     type="submit"
-                    // onClick={handleSubmit}
                     disabled={hasActiveLoan} // Disables if user has active loan
                 >
                     SUBMIT
                 </button>
             </section>
-
-            {/* {successMessage && (<div className="loan-form__success">{successMessage}</div>)} */}
-            {/* {errorMessage && (<div className="loan-form__error">{errorMessage}</div>)} */}
         </form>
     );
 }

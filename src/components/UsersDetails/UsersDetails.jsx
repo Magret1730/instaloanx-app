@@ -14,23 +14,16 @@ export default function UserDetails() {
 
     // gets admin id from query parameter
     const { search } = useLocation();
-    // console.log(search);
     const queryParams = new URLSearchParams(search);
     const adminId = queryParams.get("adminId");
-    // console.log(adminId);
 
     useEffect(() => {
         async function fetchUserDetails() {
             try {
                 const loanResponse = await InstaloanxApi.getLoansByUserId(id);
-                // console.log(loanResponse);
                 if (loanResponse.success) {
-                    // console.log(loanResponse.data.data);
                     setLoans(loanResponse.data.data.loans);
                     setUser(loanResponse.data.data.user);
-                    // console.log(loanResponse.data.data);
-                    // console.log(loanResponse.data.data.loans);
-                    // console.log(loanResponse.data.data.user);
                 }
             } catch (err) {
                 console.error("Error in user details page: ", err);

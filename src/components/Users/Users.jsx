@@ -21,7 +21,7 @@ export default function Users({isAuthenticated}) {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await InstaloanxApi.getLoansByUserId(id); // Calls the backend function
+                const response = await InstaloanxApi.getLoansByUserId(id);
 
                 if (response.success) {
                     setUser(response.data.data.user);
@@ -29,21 +29,16 @@ export default function Users({isAuthenticated}) {
 
                     // Find active or pending loan
                     const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
-                    // console.log(active);
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
-                    // console.log(filtered);
                     setFilteredLoans(filtered);
                 } else {
-                    toast.error(response.message);
                     console.error(response.message);
-                    // setError(response.message);
                 }
             } catch (err) {
                 console.error("Failed to fetch user data", err);
-                // setError("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
             }
@@ -56,21 +51,13 @@ export default function Users({isAuthenticated}) {
     if (loading) {
         return <Spinner loading={loading} />
     }
-    // if (loading) return <div>Loading...</div>;
-    // if (error) return <div>Error: {error}</div>;
 
     // Gets token
     const token = localStorage.getItem("token");
-    // console.log(token);
 
     if (!token) {
         return "Not authenticated"
     }
-
-    // console.log(id);
-    // console.log("users component");
-    // console.log(activeLoan);
-    // console.log(!!activeLoan);
 
     return (
         <article className="users__box">

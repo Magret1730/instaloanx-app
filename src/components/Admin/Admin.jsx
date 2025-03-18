@@ -16,7 +16,7 @@ export default function Admin() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await InstaloanxApi.getUserById(id); // Calls the backend function
+                const response = await InstaloanxApi.getUserById(id);
 
                 if (response.success) {
                     setUser(response.data.data);
@@ -25,7 +25,6 @@ export default function Admin() {
                     setError(response.message);
                 }
             } catch (err) {
-                // setError("Failed to fetch user data", err);
                 console.error("Failed to fetch user data", err);
             } finally {
                 setLoading(false);
@@ -36,7 +35,7 @@ export default function Admin() {
     }, [id]);
 
 
-    // if (loading) return <div>Loading...</div>;
+    // Handles loading state
     if (loading) {
         return <Spinner loading={loading} />
     }

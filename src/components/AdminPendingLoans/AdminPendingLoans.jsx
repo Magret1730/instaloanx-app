@@ -1,21 +1,20 @@
 import "./AdminPendingLoans.scss";
 import { useState } from "react";
-// import InstaloanxApi from "../../api/InstaloanxApi";
 import { Link } from "react-router-dom";
+import {toast} from "react-toastify";
 
 export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUpdate}) {
     const [activeDropdown, setActiveDropdown] = useState(null);
 
-    // console.log(pendingLoans);
-
     const handleStatusChange = async (loanId, newStatus) => {
         try {
             const response = await handleStatusUpdate(loanId, newStatus);
-            // console.log(response);
             if (response.success) {
+                toast.success("Status changed successfully!!!");
                 setActiveDropdown(null); // Closes dropdown after selection
             }
         } catch (err) {
+            toast.error("Failed to update loan status");
             console.error("Failed to update loan status", err);
         }
     };
@@ -63,7 +62,6 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
                             </div> 
                             <div className="admin-pend-box">
                                 <p className="admin-pend-header">STATUS</p>
-                                {/* <p className="admin-pend-text">{loan.status}</p>    */}
                                 <input
                                     className="admin-pend-box-input"
                                     type="text"

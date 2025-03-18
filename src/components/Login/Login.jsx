@@ -2,9 +2,7 @@ import "./Login.scss";
 import {Link} from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import SuccessMessage from "../SuccessMessage/SuccessMessage";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Login() {
@@ -14,26 +12,17 @@ export default function Login() {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
 
-    // sets for errors and messages
-    const [ emailError, setEmailError ] = useState("");
-    const [ passwordError, setPasswordError ] = useState("");
-    const [ successMessage, setSuccessMessage ] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-
     // Validate email
     const isEmailValid = (Email) => {
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!Email) {
-            toast.error("This field is required");
-            // setEmailError("This field is required");
+            toast.error("Email is required");
             return false;
         } else if (!emailRegex.test(Email)) {
             toast.error("Invalid email address. Please use a valid format, e.g., user@example.com.");
-            // setEmailError("Invalid email address. Please use a valid format, e.g., user@example.com.");
             return false;
         } else {
-            // setEmailError("");
             return true;
         }
     }
@@ -43,15 +32,12 @@ export default function Login() {
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
 
         if (!Password) {
-            toast.error("This field is required");
-            // setPasswordError("This field is required");
+            toast.error("Password is required");
             return false;
         } else if (!passwordRegex.test(Password)) {
             toast.error("Password should contain at least one letter and one number, and be at least 4 characters long");
-            // setPasswordError("Password should contain at least one letter and one number, and be at least 4 characters long");
             return false;
         } else {
-            // setPasswordError("");
             return true;
         }
     }
@@ -69,29 +55,6 @@ export default function Login() {
         return true;
     }
 
-    // Reset form fields
-    // const resetForm = () => {
-    //         // Clear all fields in Add mode
-    //         setEmail("");
-    //         setPassword("");
-
-    //         // Clear errors
-    //         setEmailError("");
-    //         setPasswordError("");
-    // };
-
-
-    // Checks if user is already logged in
-    // useEffect(() => {
-    //     const existingUserToken = localStorage.getItem("token");
-    //     if (existingUserToken) {
-    //         setSuccessMessage("You are already logged in!");
-    //         setTimeout(() => {
-    //             navigate("/users");
-    //         }, 3000);
-    //     }
-    // }, [navigate]);
-
     // handles submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -101,46 +64,27 @@ export default function Login() {
                 const newUser = { email: email, password: password };
 
                 const response = await InstaloanxApi.login(newUser);
-                // console.log(response.data.data);
 
                 const data = response.data.data
 
-                // console.log(data);
-                // console.log(data.id);
-
                 if (response.success) {
-                    // setErrorMessage("");
                     toast.success("User login successfully!");
-                    // setSuccessMessage("User login successfully!");
-                    // resetForm();
-
-                    // Fetches user role after login
-                    // const isAdminn = 
-                    // const isAdminLogin = await InstaloanxApi.getUserIdFromToken();
-                    // setIsAdminState(!!isAdminLogin.is_admin); //converts to boolean
 
                     // Timeout function navigates based on is_admin
                     setTimeout(() => {
                         navigate(data.is_admin ? `/admin/${data.id}` : `/users/${data.id}`);
                     }, 2000);
                 } else {
-                    // setSuccessMessage("");
                     if (response.message.includes("Invalid email or password")) {
                         toast.error("Invalid email or password.");
-                        // setErrorMessage("Invalid email or password.");
                     } else {
                         toast.error("Login failed. Please try again.");
-                        // setErrorMessage("Login failed. Please try again.");
                     }
                 }
             }
         } catch (error) {
             console.error("Error in login:", error.response?.data?.message);
             toast.error(error.response?.data?.message || "Login error. Please try again.");
-            // setErrorMessage(error.response?.data?.message || "Login error. Please try again.");
-            // setTimeout(() => {
-            //     setErrorMessage("");
-            // }, 3000);
         }
     };
 
@@ -164,13 +108,9 @@ export default function Login() {
                         value={email}
                         onChange={(e) => {
                             setEmail(e.target.value);
-                            // if (emailError && isEmailValid(e.target.value)) {
-                            //     setEmailError(""); // Clears error if email is now valid
-                            // }
                         }}
                     />
                 </label>
-                {/* <ErrorMessage messageError={emailError}/> */}
 
                 <label className="login__body-label">PASSWORD
                     <input
@@ -181,13 +121,9 @@ export default function Login() {
                         value={password}
                         onChange={(e) => {
                             setPassword(e.target.value);
-                            // if (passwordError && isPasswordValid(e.target.value)) {
-                            //     setPasswordError(""); // Clears error if password is now valid
-                            // }
                         }}
                     />
                 </label>
-                {/* <ErrorMessage messageError={passwordError}/> */}
             </section>
 
             <section className="login__button">
@@ -197,8 +133,6 @@ export default function Login() {
                     onClick={handleSubmit}
                 >LOGIN</button>
             </section>
-            {/* <SuccessMessage successMessage={successMessage}/> */}
-            {/* <ErrorMessage errorMessage={errorMessage}/> */}
         </form>
     )
 }
