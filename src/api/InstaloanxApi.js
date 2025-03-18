@@ -272,6 +272,39 @@ class InstaloanxApi {
             };
         }
     }
+
+    // http://localhost:8080/api/v1/loans/2/status
+    static async updateLoanStatus(loanId, status) {
+        try {
+            // console.log(loanId);
+            // console.log(status);
+
+            // Checks if authenticated
+            const token = localStorage.getItem("token");
+            // console.log(token);
+
+            if (!token) {
+                return null;
+            }
+
+            const response = await axios.put(`${this.BASE_URL}/loans/${loanId}/status`, { status }, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+
+            // console.log(response);
+            // console.log(response.data);
+
+            if (response.status !== 200) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Return the response data
+            return { success: true, data: response.data };
+        } catch (err) {
+            console.error("Failed to update loan status", err);
+            throw err;
+        }
+    };
 }
 
 export default InstaloanxApi;

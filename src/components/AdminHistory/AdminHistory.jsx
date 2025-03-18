@@ -4,43 +4,37 @@ import InstaloanxApi from "../../api/InstaloanxApi";
 import "./AdminHistory.scss";
 import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 
-export default function AdminHistory({adminId}) {
+export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
-    // const [history, setHistory] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    // const [fetchLoans, setFetchLoans] = useState("");
+    const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
 
-    // console.log(loanData);
-
-    useEffect(() => {
-        const fetchLaons = async () => {
+    // useEffect(() => {
+        const fetchLoans = async () => {
             try {
-                // Calls the backend function to get loan history
-                const response = await InstaloanxApi.getLoanHistory(); 
-
+                const response = await InstaloanxApi.getLoanHistory();
                 if (response.success) {
                     const usersData = response.data.data;
-                    // console.log(usersData);
-
-
-                    // Flatten loans data from users and update the loans state
-                    const allLoans = usersData.flatMap(user => 
+                    const allLoans = usersData.flatMap(user =>
                         user.loans.map(loan => ({
                             ...loan,
                             userId: user.userId,
-                            userName: `${user.firstName} ${user.lastName}`
+                            userName: `${user.firstName} ${user.lastName}`,
                         }))
                     );
 
-                    // Finds pending loans
                     const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
                     setPendingLoans(pendingLoan);
 
-                    // Stores all loans EXCLUDING pending ones
-                    const filteredLoans = allLoans.filter(loan => loan.status !== "Pending");
-                    setLoans(filteredLoans); // Stores all loans except pending loans
+                    // console.log(allLoans);
+                    const filteredLoans = allLoans
+                        .filter(loan => loan.status !== "Pending")
+                        .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
+                    setLoans(filteredLoans);
                 } else {
                     setError(response.message);
                 }
@@ -51,21 +45,89 @@ export default function AdminHistory({adminId}) {
             }
         };
 
-        fetchLaons();
-    }, []);
+        // setFetchLoans(fetchLoans());
+        // fetchLoans();
+    // }, []);
 
+    useEffect(() => {
+        fetchLoans();
+    }, []); // Fetch loans on component mount
 
-    // Filters out pending loans and apply search query
+    const handleStatusUpdate = async (loanId, newStatus) => {
+        try {
+
+            // Finds the loan being updated
+            const loanToUpdate = loans.find(loan => loan.loanId === loanId) || 
+                                pendingLoans.find(loan => loan.loanId === loanId);
+
+            // console.log(loanToUpdate);
+
+            if (!loanToUpdate) {
+                setError("Loan not found.");
+                return;
+            }
+
+            // Checks if the new status is "Active" or "Pending"
+            if (newStatus === "Active" || newStatus === "Pending") {
+                // Checks if the user already has an active or pending loan (excluding the current loan)
+                const hasActiveOrPending = loans.some(loan => 
+                    loan.userId === loanToUpdate.userId && 
+                    loan.loanId !== loanId && // Exclude the current loan
+                    (loan.status === "Active" || loan.status === "Pending")
+                ) || pendingLoans.some(loan => 
+                    loan.userId === loanToUpdate.userId && 
+                    loan.loanId !== loanId && // Exclude the current loan
+                    (loan.status === "Active" || loan.status === "Pending")
+                );
+
+                // console.log(hasActiveOrPending);
+
+                if (hasActiveOrPending) {
+                    setError("User already has an active or pending loan.");
+                    setTimeout(() => {
+                        setError("");
+                    }, 2000);
+
+                    return;
+                }
+            }
+
+            const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
+            console.log(response);
+            if (response.success) {
+                // Updates the loans state
+                setLoans(prevLoans =>
+                    prevLoans.map(loan =>
+                        loan.loanId === loanId ? { ...loan, status: newStatus } : loan
+                    )
+                );
+                // If the loan was in pendingLoans, this removes it
+                setPendingLoans(prevPendingLoans =>
+                    prevPendingLoans.filter(loan => loan.loanId !== loanId)
+                );
+
+                setActiveDropdown(false);
+
+                // Forces re-fetch loan data to ensure UI updates correctly
+                fetchLoans();
+            }
+            return response;
+        } catch (err) {
+            console.error("Failed to update loan status", err);
+            throw err;
+        }
+    };
+
+    const handleDropDown = (loanId) => {
+        setActiveDropdown(prev => (prev === loanId ? null : loanId)); // Toggles dropdown
+    };
+
     const filteredLoans = loans.filter(loan => {
-        if (!searchQuery) return true; // If no search query, returns all loans
-
+        if (!searchQuery) return true;
         const lowerCaseQuery = searchQuery.toLowerCase();
         const userName = loan.userName.toLowerCase();
         const loanStatus = loan.status.toLowerCase();
-
-        return (
-            userName.includes(lowerCaseQuery) || loanStatus.includes(lowerCaseQuery)
-        );
+        return userName.includes(lowerCaseQuery) || loanStatus.includes(lowerCaseQuery);
     });
 
     if (loading) return <div>Loading...</div>;
@@ -82,9 +144,13 @@ export default function AdminHistory({adminId}) {
             </section>
 
             {/* Admin Pending Loans section */}
-            <AdminPendingLoans pendingLoans={pendingLoans} adminId={adminId}/>
+            <AdminPendingLoans
+                pendingLoans={pendingLoans}
+                adminId={adminId}
+                handleStatusUpdate={handleStatusUpdate}
+            />
 
-            {error && <p className="error-message">{error}</p>} {/* Displays error message */}
+            {error && <p className="error-message">{error}</p>}
 
             <section className="admin__history-head">
                 <p className="admin__history-head-text">S/N</p>
@@ -123,13 +189,35 @@ export default function AdminHistory({adminId}) {
                         <div className="admin__history-box">
                             <p className="admin__history-header">PAID</p>
                             <p className="admin__history-text">
-                                {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"}
+                                {loan.remaining_balance === 0 ? "Fully Repaid" : "Not Yet"}
                             </p>
                         </div>
                         <div className="admin__history-box">
                             <p className="admin__history-header">STATUS</p>
-                            <p className="admin__history-text">{loan.status}</p>
+                            <input
+                                className="admin__history-box-input"
+                                type="text"
+                                value={loan.status}
+                                onClick={() => handleDropDown(loan.loanId)}
+                                readOnly
+                            />
                         </div>
+                        
+
+                        {/* Dropdown for status update */}
+                        {activeDropdown === loan.loanId && (
+                            <section className="admin__history-dropdown">
+                                {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="admin__history-dropdown-option"
+                                        onClick={() => handleStatusUpdate(loan.loanId, option)}
+                                    >
+                                        {option}
+                                    </div>
+                                ))}
+                            </section>
+                        )}
                     </section>
                 ))
             )}

@@ -22,6 +22,7 @@ export default function LoanForm() {
     // Loan status
     const [hasActiveLoan, setHasActiveLoan] = useState(false);
 
+    // Loan purposes options
     const purposes = ["Education", "Business", "Medical", "Personal", "Other"];
 
     const navigate = useNavigate();
@@ -33,6 +34,8 @@ export default function LoanForm() {
         const fetchLoanStatus = async () => {
             try {
                 const id = localStorage.getItem("id");
+                const isAdmin = localStorage.getItem("is_admin");
+                console.log(isAdmin);
 
                 // Fetches all loan history of a single user
                 const response = await InstaloanxApi.getLoansByUserId(id); 
@@ -44,9 +47,22 @@ export default function LoanForm() {
                     (loan) => loan.status === "Active" || loan.status === "Pending" || loan.status === null
                 ) || null;
 
+                // Stops admin from applyig for loan,
+                if (isAdmin === "1") {
+                    // setTimeout(() => {
+                    //     setErrorMessage("Admin cannot apply for loan")
+                    //     navigate(`/admin/${id}`);
+                    // }, 3000);
+                    setErrorMessage("Admin cannot apply for loan");
+                    navigate(`/admin/${id}`);
+                    return;
+                }
+
+                // Checks for active or pending loan, if found navigates back to dashboard
                 if (activeLoan) {
                     setHasActiveLoan(true);
                     setErrorMessage("You already have an active or pending loan.");
+                    navigate(`/users/${id}`);
                 }
             } catch (error) {
                 console.error("Error fetching loan status:", error);
@@ -203,6 +219,7 @@ export default function LoanForm() {
                         readOnly // Makes the input read-only to prevent manual typing
                     />
 
+                    {/* Handles drop down */}
                     <section className="loan-form__body-dropdown-lists">
                         {isDropdown && (
                             <section className="loan-form__body-dropdown-list">

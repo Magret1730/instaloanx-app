@@ -7,11 +7,12 @@ import { useState, useEffect, useCallback } from "react";
 // import InstaloanxApi from "../../api/InstaloanxApi";
 
 export default function Header() {
-    const id = localStorage.getItem("id");
+    // const id = localStorage.getItem("id");
     // console.log(id);
 
     const [ ellipsisCLick, setEllipsisClick ] = useState(false);
-    const [ dashboardLink, setDashboardLink ] = useState(`/users/${id}`);
+    // const [ dashboardLink, setDashboardLink ] = useState(`/users/${id}`);
+    const [ dashboardLink, setDashboardLink ] = useState("");
 
     const navigate = useNavigate();
 
@@ -50,14 +51,17 @@ export default function Header() {
     useEffect(() => {
             const fetchUserRole = async () => {
             try {
-                const isAdmin = localStorage.getItem("is_admin") === "true";
-                const id = localStorage.getItem("id");
+                const isAdmin = localStorage.getItem("is_admin");
+                // console.log(isAdmin);
+                // console.log(typeof isAdmin);
 
-                if (isAdmin) {
-                    // console.log(`/admin/${id}`);
+                // console.log(isAdmin);
+                const id = localStorage.getItem("id");
+                // console.log(id);
+
+                if (isAdmin === "1") {
                     setDashboardLink(`/admin/${id}`);
-                } else {
-                    // console.log(`/users/${id}`);
+                } else if (isAdmin === "0") {
                     setDashboardLink(`/users/${id}`);
                 }
             } catch (err) {
