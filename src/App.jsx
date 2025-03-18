@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Logout from "./components/Logout/Logout";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import AdminProtectedRoute from "./components/AdminProtectedRoute/AdminProtectedRoute";
+import HelpPage from "./pages/HelpPage/HelpPage";
 
 function App() {
     const isAuthenticated = () => {
@@ -26,6 +27,7 @@ function App() {
         <>
         <Routes>
             <Route path="/" element={ <HomePage isAuthenticated={isAuthenticated} /> }/>
+            <Route path="/help" element={ <HelpPage /> } />
             <Route path="/register" element={<RegisterPage />}/>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<Logout />} />
