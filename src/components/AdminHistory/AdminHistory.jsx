@@ -12,6 +12,7 @@ export default function AdminHistory({ adminId }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
+    // const [ userId, setUserId ] = useState("");
     
     const fetchLoans = async () => {
         try {
@@ -160,7 +161,10 @@ export default function AdminHistory({ adminId }) {
                         </div>
                         <div className="admin__history-box">
                             <p className="admin__history-header">NAME</p>
-                            <Link to={`/usersDetails/${loan.userId}?adminId=${adminId}`}>
+                            <Link
+                                to="/usersDetails"
+                                state={{ userId: loan.userId }} // Pass userId into state
+                            >
                                 <p className="admin__history-text admin__history-text--name">
                                     {loan.userName}
                                 </p>

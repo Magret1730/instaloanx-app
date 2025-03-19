@@ -1,27 +1,24 @@
 import "./UsersDetails.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
+import { toast } from "react-toastify";
 
 export default function UserDetails() {
-    // gets user id
-    // const {id} = useParams();
-    const id = localStorage.getItem("id");
+    const location = useLocation();
 
     const [user, setUser] = useState(null);
     const [loans, setLoans] = useState([]);
 
-    // gets admin id from query parameter
-    const { search } = useLocation();
-    const queryParams = new URLSearchParams(search);
-    const adminId = queryParams.get("adminId");
+    // Destructures userId from state passed from AdminHistory component
+    const { userId } = location.state || {};
 
     useEffect(() => {
         async function fetchUserDetails() {
             try {
-                const loanResponse = await InstaloanxApi.getLoansByUserId(id);
+                const loanResponse = await InstaloanxApi.getLoansByUserId(userId);
+                console.log(loanResponse);
                 if (loanResponse.success) {
                     setLoans(loanResponse.data.data.loans);
                     setUser(loanResponse.data.data.user);
@@ -32,7 +29,7 @@ export default function UserDetails() {
         }
 
         fetchUserDetails();
-    }, [id]);
+    }, [userId]);
 
     if (!user) return <Spinner loading="Loading user details..." />;
 
@@ -40,7 +37,6 @@ export default function UserDetails() {
         <section className="user-details">
             <section className="user-details__header">
                 <h1 className="user-details__header-title">User Details</h1>
-                {/* <Link to={`/admin/${adminId}`} className="user-details__header-link"> */}
                 <Link to={"/admin"} className="user-details__header-link">
                     &larr; Back
                 </Link>
