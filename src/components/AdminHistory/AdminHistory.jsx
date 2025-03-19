@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 
 // Admin cannot change active loan to pending if remaining balance is less than loan amount
+// Admin cannot change status of "FUlly Repaid"
+// Change seed data of loans.js. If status is "Fully Repaid", remaining_balance === 0.00
 
 export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
@@ -31,11 +33,15 @@ export default function AdminHistory({ adminId }) {
 
                 // Filters out pending loans
                 const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
+                console.log(pendingLoan);
                 setPendingLoans(pendingLoan);
 
                 const filteredLoans = allLoans
                     .filter(loan => loan.status !== "Pending")
                     .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
+
+                    console.log(filteredLoans);
+
                 setLoans(filteredLoans);
             } else {
                 console.error(response.message);
@@ -146,9 +152,9 @@ export default function AdminHistory({ adminId }) {
             <section className="admin__history-head">
                 <p className="admin__history-head-text">S/N</p>
                 <p className="admin__history-head-text">NAME</p>
-                <p className="admin__history-head-text">AMOUNT</p>
+                <p className="admin__history-head-text">LOAN</p>
                 <p className="admin__history-head-text">BORROWED</p>
-                <p className="admin__history-head-text">PAID</p>
+                <p className="admin__history-head-text">BALANCE</p>
                 <p className="admin__history-head-text">STATUS</p>
             </section>
 
@@ -173,7 +179,7 @@ export default function AdminHistory({ adminId }) {
                             </Link>
                         </div>
                         <div className="admin__history-box">
-                            <p className="admin__history-header">AMOUNT</p>
+                            <p className="admin__history-header">LOAN</p>
                             <p className="admin__history-text">${loan.loanAmount}</p>
                         </div>
                         <div className="admin__history-box">
@@ -181,9 +187,10 @@ export default function AdminHistory({ adminId }) {
                             <p className="admin__history-text">{new Date(loan.createdAt).toLocaleDateString()}</p>
                         </div>
                         <div className="admin__history-box">
-                            <p className="admin__history-header">PAID</p>
+                            <p className="admin__history-header">BALANCE</p>
                             <p className="admin__history-text">
-                                {loan.remaining_balance === 0 ? "Fully Repaid" : "Not Yet"}
+                                {/* {loan.remaining_balance === 0 ? "Fully Repaid" : "Not Yet"} */}
+                                ${loan.remainingBalance}
                             </p>
                         </div>
                         <div className="admin__history-box">

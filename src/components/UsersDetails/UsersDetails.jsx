@@ -58,12 +58,21 @@ export default function UserDetails() {
             <section className="user-details__loan-history">
                 <h2 className="user-details__loan-history-title">Loan History</h2>
 
+                <section className="user-details__loan-history-headers">
+                    <p className="user-details__loan-history-header">Amount</p>
+                    <p className="user-details__loan-history-header">Borrowed</p>
+                    <p className="user-details__loan-history-header">Balance</p>
+                    <p className="user-details__loan-history-header">Paid</p>
+                    <p className="user-details__loan-history-header">Status</p>
+                    <p className="user-details__loan-history-header">Purpose</p>
+                </section>
+
                 {loans.map((loan, index) => (
-                <section key={loan.id} className="user-details__loan-history-item">
-                    <div className="user-details__loan-history-group">
+                <section key={index} className="user-details__loan-history-item">
+                    {/* <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">S/N</p>
                         <p className="user-details__loan-history-text">{index + 1}</p>
-                    </div>
+                    </div> */}
                     <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">Amount</p>
                         <p className="user-details__loan-history-text">${loan.loan_amount}</p>
@@ -71,6 +80,10 @@ export default function UserDetails() {
                     <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">Borrowed</p>
                         <p className="user-details__loan-history-text">{new Date(loan.created_at).toLocaleDateString()}</p>
+                    </div>
+                    <div className="user-details__loan-history-group">
+                        <p className="user-details__loan-history-label">Balance</p>
+                        <p className="user-details__loan-history-text">${loan.remaining_balance}</p>
                     </div>
                     <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">Paid</p>

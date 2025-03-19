@@ -3,7 +3,7 @@ import UsersHistory from "../UsersHistory/UsersHistory";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 
 // Fetch singer user, fetch loan history
@@ -30,12 +30,12 @@ export default function Users({isAuthenticated}) {
 
                     // Find active or pending loan
                     const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
-                    console.log(active);
+                    // console.log(active);
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
-                    console.log(filtered);
+                    // console.log(filtered);
                     setFilteredLoans(filtered);
                 } else {
                     console.error(response.message);
