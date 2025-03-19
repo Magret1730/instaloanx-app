@@ -199,7 +199,8 @@ export default function AdminHistory({ adminId }) {
                         {/* Dropdown for status update */}
                         {activeDropdown === loan.loanId && (
                             <section className="admin__history-dropdown">
-                                {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, idx) => (
+                                {/* {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, idx) => ( */}
+                                {["Rejected", "Active", "Pending"].map((option, idx) => (
                                     <div
                                         key={idx}
                                         className="admin__history-dropdown-option"

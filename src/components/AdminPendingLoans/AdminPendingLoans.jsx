@@ -76,7 +76,8 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
 
                             {activeDropdown === loan.loanId && (
                                 <section className="admin-pend-dropdown">
-                                    {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, index) => (
+                                    {/* {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, index) => ( */}
+                                    {["Rejected", "Active", "Pending"].map((option, index) => (
                                         <div
                                             key={index}
                                             className="admin-pend-dropdown-option"

@@ -71,7 +71,7 @@ export default function Users({isAuthenticated}) {
                             <Link to={isAuthenticated ? "/loanForm" : "/login"}><button className="users__header-button">APPLY LOAN</button></Link>
                         )}
 
-                        <Link to={isAuthenticated ? "/" : "/login"}><button className="users__header-button">PAY LOAN</button></Link> {/*protect this route in app.js*/}
+                        <Link to={isAuthenticated ? "/repayLoan" : "/login"}><button className="users__header-button">PAY LOAN</button></Link> {/*protect this route in app.js*/}
                     </div>
                 </section>
 
