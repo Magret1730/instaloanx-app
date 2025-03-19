@@ -104,7 +104,7 @@ export default function Login() {
             </section>
 
             <section className="login__body">
-                <label className="login__body-label">EMAIL
+                <label className="login__body-label">Email
                     <input
                         className="login__body-input"
                         type="email"
@@ -117,7 +117,7 @@ export default function Login() {
                     />
                 </label>
 
-                <label className="login__body-label">PASSWORD
+                <label className="login__body-label">Password
                     <input
                         className="login__body-input"
                         type="password"

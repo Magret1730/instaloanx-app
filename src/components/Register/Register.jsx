@@ -144,7 +144,7 @@ export default function Register() {
             </section>
 
             <section className="register__body">
-                <label className="register__body-label"> FIRST NAME
+                <label className="register__body-label"> First Name
                     <input
                         className="register__body-input"
                         type="text"
@@ -157,7 +157,7 @@ export default function Register() {
                     />
                 </label>
 
-                <label className="register__body-label">LAST NAME
+                <label className="register__body-label">Last Name
                     <input
                         className="register__body-input"
                         type="text"
@@ -170,7 +170,7 @@ export default function Register() {
                     />
                 </label>
 
-                <label className="register__body-label">EMAIL
+                <label className="register__body-label">Email
                     <input
                         className="register__body-input"
                         type="email"
@@ -183,7 +183,7 @@ export default function Register() {
                     />
                 </label>
 
-                <label className="register__body-label">PASSWORD
+                <label className="register__body-label">Password
                     <input
                         className="register__body-input"
                         type="password"

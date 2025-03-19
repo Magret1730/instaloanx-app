@@ -166,7 +166,7 @@ export default function LoanForm() {
 
             <section className="loan-form__body">
                 <label className="loan-form__body-label">
-                    LOAN AMOUNT
+                    Loan Amount
                     <input
                         className="loan-form__body-input"
                         type="number"
@@ -177,7 +177,7 @@ export default function LoanForm() {
                 </label>
 
                 <label className="loan-form__body-label">
-                    PURPOSE
+                    Purpose
                     <input
                         className="loan-form__body-dropdown"
                         type="text"

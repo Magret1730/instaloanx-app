@@ -13,7 +13,7 @@ export default function ForgotPassword() {
 
             <section className="forgot-password__body">
                 <label className="forgot-password__body-label">
-                    EMAIL
+                    Email
                     <input
                         className="forgot-password__body-input"
                         type="email"

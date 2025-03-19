@@ -13,7 +13,7 @@ export default function ResetPassword() {
 
             <section className="reset-password__body">
                 <label className="reset-password__body-label">
-                    NEW PASSWORD
+                    New Password
                     <input
                         className="reset-password__body-input"
                         type="password"
@@ -21,7 +21,7 @@ export default function ResetPassword() {
                     />
                 </label>
                 <label className="reset-password__body-label">
-                    CONFIRM PASSWORD
+                    Confirm Password
                     <input
                         className="reset-password__body-input"
                         type="password"
