@@ -6,7 +6,7 @@ const override = {
 };
 
 const Spinner = ({ loading }) => {
-return (
+    return (
         <FadeLoader
         color='rgb(128, 0, 0)'
         loading={loading}

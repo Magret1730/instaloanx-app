@@ -72,7 +72,8 @@ export default function Login() {
 
                     // Timeout function navigates based on is_admin
                     setTimeout(() => {
-                        navigate(data.is_admin ? `/admin/${data.id}` : `/users/${data.id}`);
+                        // navigate(data.is_admin ? `/admin/${data.id}` : `/users/${data.id}`);
+                        navigate(data.is_admin ? "/admin" : "/dashboard");
                     }, 2000);
                 } else {
                     if (response.message.includes("Invalid email or password")) {

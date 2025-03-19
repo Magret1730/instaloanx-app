@@ -48,12 +48,14 @@ export default function Header() {
             const fetchUserRole = async () => {
             try {
                 const isAdmin = localStorage.getItem("is_admin");
-                const id = localStorage.getItem("id");
+                // const id = localStorage.getItem("id");
 
                 if (isAdmin === "1") {
-                    setDashboardLink(`/admin/${id}`);
+                    // setDashboardLink(`/admin/${id}`);
+                    setDashboardLink("/admin");
                 } else if (isAdmin === "0") {
-                    setDashboardLink(`/users/${id}`);
+                    // setDashboardLink(`/users/${id}`);
+                    setDashboardLink("/dashboard");
                 }
             } catch (err) {
                 console.error("Invalid token:", err);

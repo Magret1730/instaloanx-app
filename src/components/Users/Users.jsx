@@ -16,7 +16,8 @@ export default function Users({isAuthenticated}) {
     const [filteredLoans, setFilteredLoans] = useState(null);
 
     const navigate = useNavigate();
-    const {id} = useParams();
+    // const {id} = useParams();
+    const id = localStorage.getItem("id");
 
     useEffect(() => {
         const fetchUser = async () => {

@@ -115,8 +115,9 @@ export default function Register() {
                     toast.success("Registration successful.");
 
                     setTimeout(() => {
-                        const id = localStorage.getItem("id");
-                        navigate(`/users/${id}`);
+                        // const id = localStorage.getItem("id");
+                        // navigate(`/users/${id}`);
+                        navigate("/dashboard");
                     }, 3000);
                 } else {
                     if (response.message.includes("User already exist")) {
@@ -131,7 +132,6 @@ export default function Register() {
             toast.error(error.response?.data?.message || "Registration error. Please try again.");
         }
     };
-
 
     return (
         <form className="register" onSubmit={handleSubmit}>

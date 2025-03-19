@@ -7,7 +7,8 @@ import Spinner from "../Spinner/Spinner";
 
 export default function UserDetails() {
     // gets user id
-    const {id} = useParams();
+    // const {id} = useParams();
+    const id = localStorage.getItem("id");
 
     const [user, setUser] = useState(null);
     const [loans, setLoans] = useState([]);
@@ -39,7 +40,8 @@ export default function UserDetails() {
         <section className="user-details">
             <section className="user-details__header">
                 <h1 className="user-details__header-title">User Details</h1>
-                <Link to={`/admin/${adminId}`} className="user-details__header-link">
+                {/* <Link to={`/admin/${adminId}`} className="user-details__header-link"> */}
+                <Link to={"/admin"} className="user-details__header-link">
                     &larr; Back
                 </Link>
             </section>

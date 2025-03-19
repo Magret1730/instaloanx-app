@@ -58,19 +58,22 @@ function App() {
             <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
 
-            <Route path="/admin/:id" element={
+            {/* <Route path="/admin/:id" element={ */}
+            <Route path="/admin" element={
                 <AdminProtectedRoute>
                     <AdminPage />
                 </AdminProtectedRoute>
             }/>
 
-            <Route path="/users/:id"  element={
+            {/* <Route path="/users/:id"  element={ */}
+            <Route path="/dashboard"  element={
                 <ProtectedRoute >
                     <UsersPage isAuthenticated={isAuthenticated}/>
                 </ProtectedRoute>
             }/>
 
-            <Route path="/usersDetails/:id" element={<UsersDetailsPage />} />
+            {/* <Route path="/usersDetails/:id" element={<UsersDetailsPage />} /> */}
+            <Route path="/usersDetails" element={<UsersDetailsPage />} />
 
             <Route path="/loanForm" element={
                 <ProtectedRoute>
