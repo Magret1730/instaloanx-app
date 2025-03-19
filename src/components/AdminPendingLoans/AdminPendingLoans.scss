@@ -135,6 +135,14 @@
             @include desktop-breakpoint {
                 font-size: 2rem;
             }
+
+            &--name {
+                font-weight: 300;
+
+                &:hover {
+                    font-weight: 700;
+                }
+            }
         }
 
         &-button {
@@ -161,9 +169,15 @@
         }
     }
 
+    // &-box-status {
+    //     border: 100rem solid red;
+    //     position: relative;
+    // }
+
     &-box-input {
+        border: 2px solid red;
         align-self: center;
-        position: relative;
+        // position: relative;
         @include flex(row, center, center);
         padding: 0.625rem 0rem 0.625rem 2.5rem;
         border: none;

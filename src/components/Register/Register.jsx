@@ -49,7 +49,7 @@ export default function Register() {
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!Email) {
-            toast.error("This field is required");
+            toast.error("Email is required");
             return false;
         } else if (!emailRegex.test(Email)) {
             toast.error("Invalid email address. Please use a valid format, e.g., user@example.com.");

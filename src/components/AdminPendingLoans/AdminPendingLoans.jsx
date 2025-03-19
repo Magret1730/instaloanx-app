@@ -46,8 +46,11 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
                             </div>
                             <div className="admin-pend-box">
                                 <p className="admin-pend-header">NAME</p>
-                                    <p className="admin-pend-text">
-                                        <Link className="admin-pend-text--name" to={`/usersDetails/${loan.userId}?adminId=${adminId}`}>
+                                    <p className="admin-pend-text admin-pend-text--name">
+                                        <Link
+                                            to="/usersDetails"
+                                            state={{ userId: loan.userId }} // Pass userId into state
+                                        >
                                         {loan.userName}
                                         </Link>
                                     </p>
@@ -60,7 +63,7 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
                                 <p className="admin-pend-header">BORROWED</p>
                                 <p className="admin-pend-text">{new Date(loan.createdAt).toLocaleDateString()}</p>   
                             </div> 
-                            <div className="admin-pend-box">
+                            <div className="admin-pend-box ">
                                 <p className="admin-pend-header">STATUS</p>
                                 <input
                                     className="admin-pend-box-input"

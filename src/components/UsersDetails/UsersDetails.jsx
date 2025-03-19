@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
 import Spinner from "../Spinner/Spinner";
-import { toast } from "react-toastify";
 
 export default function UserDetails() {
     const location = useLocation();
@@ -18,7 +17,6 @@ export default function UserDetails() {
         async function fetchUserDetails() {
             try {
                 const loanResponse = await InstaloanxApi.getLoansByUserId(userId);
-                console.log(loanResponse);
                 if (loanResponse.success) {
                     setLoans(loanResponse.data.data.loans);
                     setUser(loanResponse.data.data.user);
