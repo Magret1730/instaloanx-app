@@ -77,13 +77,13 @@
     &__active {
         margin-top: 1.5rem;
         padding: 1.5rem 1rem;
-        height: 38vh;
+        // height: 38vh;
         background-color: $secondary-bg-color;
 
         @include tablet-breakpoint {
             padding-left: 2.5rem;
             padding-right: 2.5rem;
-            height: 45vh;
+            // height: 45vh;
         }
 
         @include desktop-breakpoint {
@@ -118,6 +118,7 @@
                 color: $primary-bg-color;
                 margin-bottom: 0.5rem;
                 margin-top: 3rem;
+                font-weight: 100;
             }
 
             @include desktop-breakpoint {
@@ -140,7 +141,7 @@
 
             @include tablet-breakpoint {
                 @include flex(row, center, center);
-                gap: 3rem;
+                gap: 2rem;
             }
 
             @include desktop-breakpoint {
@@ -171,7 +172,7 @@
         &-text {
             font-size: 1rem;
             padding-top: 0.2rem;
-            font-weight: 700;
+            // font-weight: 700;
 
             @include tablet-breakpoint {
                 font-size: 1.35rem;

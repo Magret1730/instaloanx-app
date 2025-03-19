@@ -30,10 +30,12 @@ export default function Users({isAuthenticated}) {
 
                     // Find active or pending loan
                     const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
+                    console.log(active);
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
+                    console.log(filtered);
                     setFilteredLoans(filtered);
                 } else {
                     console.error(response.message);
@@ -84,30 +86,39 @@ export default function Users({isAuthenticated}) {
                         activeLoan.map((loan) => (
                             <div key={loan.id}>
                                 <section className="users__active-head">
-                                    <p className="users__active-headd">AMOUNT</p>    
-                                    <p className="users__active-headd">BORROWED</p>    
-                                    <p className="users__active-headd">PAID</p>    
-                                    <p className="users__active-headd">STATUS</p>    
+                                    <p className="users__active-headd">Loan</p>    
+                                    <p className="users__active-headd">Balance</p>    
+                                    <p className="users__active-headd">Borrowed</p>
+                                    <p className="users__active-headd">Paid</p>   
+                                    <p className="users__active-headd">Status</p>    
                                 </section> 
 
                                 <section className="users__active-container">
                                     <div className="users__active-box">
-                                        <p className="users__active-header">AMOUNT</p>
+                                        <p className="users__active-header">Loan</p>
                                         <p className="users__active-text">${loan.loan_amount}</p> 
                                     </div>
                                     <div className="users__active-box">
-                                        <p className="users__active-header">BORROWED</p>
-                                        <p className="users__active-text">{new Date(loan.created_at).toLocaleDateString()}</p>   
+                                        <p className="users__active-header">Balance</p>
+                                        <p className="users__active-text">${loan.remaining_balance}</p>   
 
                                     </div> 
                                     <div className="users__active-box">
-                                        <p className="users__active-header">PAID</p>
+                                        <p className="users__active-header">Borrowed</p>
                                         <p className="users__active-text">
-                                            {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"}
+                                            {new Date(loan.created_at).toLocaleDateString()}
+                                            {/* {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"} */}
                                         </p>   
                                     </div> 
                                     <div className="users__active-box">
-                                        <p className="users__active-header">STATUS</p>
+                                        <p className="users__active-header">Paid</p>
+                                        <p className="users__active-text">
+                                            {new Date(loan.updated_at).toLocaleDateString()}
+                                            {/* {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"} */}
+                                        </p>   
+                                    </div> 
+                                    <div className="users__active-box">
+                                        <p className="users__active-header">Status</p>
                                         <p className="users__active-text">{loan.status}</p>   
                                     </div>    
                                 </section>
@@ -134,7 +145,7 @@ export default function Users({isAuthenticated}) {
                         {/* Render the table header */}
                         <section className="users__history-head">
                             <p className="users__history-head-text">NUM</p>
-                            <p className="users__history-head-text">AMOUNT</p>
+                            <p className="users__history-head-text">LOAN</p>
                             <p className="users__history-head-text">BORROWED</p>
                             <p className="users__history-head-text">PAID</p>
                             <p className="users__history-head-text">STATUS</p>
@@ -148,7 +159,7 @@ export default function Users({isAuthenticated}) {
                                     <p className="users__history-text">{index + 1}</p>
                                 </div>
                                 <div className="users__history-box">
-                                    <p className="users__history-header">AMOUNT</p>
+                                    <p className="users__history-header">LOAN</p>
                                     <p className="users__history-text">${singleLoan.loan_amount}</p>
                                 </div>
                                 <div className="users__history-box">
@@ -160,10 +171,11 @@ export default function Users({isAuthenticated}) {
                                 <div className="users__history-box">
                                     <p className="users__history-header">PAID</p>
                                     <p className="users__history-text">
-                                        {singleLoan.remaining_balance === 0
+                                        {/* {singleLoan.remaining_balance === 0
                                             ? "Fully Paid"
                                             : "Not Yet"
-                                        }
+                                        } */}
+                                        {new Date(singleLoan.updated_at).toLocaleDateString()}
                                     </p>
                                 </div>
                                 <div className="users__history-box">

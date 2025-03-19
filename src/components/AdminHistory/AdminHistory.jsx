@@ -6,6 +6,8 @@ import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 
+// Admin cannot change active loan to pending if remaining balance is less than loan amount
+
 export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
