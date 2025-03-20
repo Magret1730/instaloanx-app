@@ -6,9 +6,9 @@ const override = {
 };
 
 const Spinner = ({ loading }) => {
-return (
+    return (
         <FadeLoader
-        color='rgb(128, 0, 0)'
+        color='rgb(0, 134, 111)'
         loading={loading}
         cssOverride={override}
         size={150}
@@ -16,3 +16,4 @@ return (
     );
 };
 export default Spinner;
+

@@ -49,7 +49,7 @@ export default function Register() {
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (!Email) {
-            toast.error("This field is required");
+            toast.error("Email is required");
             return false;
         } else if (!emailRegex.test(Email)) {
             toast.error("Invalid email address. Please use a valid format, e.g., user@example.com.");
@@ -115,15 +115,17 @@ export default function Register() {
                     toast.success("Registration successful.");
 
                     setTimeout(() => {
-                        const id = localStorage.getItem("id");
-                        navigate(`/users/${id}`);
+                        // const id = localStorage.getItem("id");
+                        // navigate(`/users/${id}`);
+                        navigate("/dashboard");
                     }, 3000);
                 } else {
-                    if (response.message.includes("User already exist")) {
-                        toast.error("Email is already in use. Please use a different email.");
-                    } else {
-                        toast.error("Registration failed. Please try again.");
-                    }
+                    // if (response.message.includes("User already exist")) {
+                    //     toast.error("Email is already in use. Please use a different email.");
+                    // } else {
+                    //     toast.error("Registration failed. Please try again.");
+                    // }
+                    toast.error(response.message || "Registration failed. Please try again.");
                 }
             }
         } catch (error) {
@@ -131,7 +133,6 @@ export default function Register() {
             toast.error(error.response?.data?.message || "Registration error. Please try again.");
         }
     };
-
 
     return (
         <form className="register" onSubmit={handleSubmit}>
@@ -143,7 +144,7 @@ export default function Register() {
             </section>
 
             <section className="register__body">
-                <label className="register__body-label"> FIRST NAME
+                <label className="register__body-label"> First Name
                     <input
                         className="register__body-input"
                         type="text"
@@ -156,7 +157,7 @@ export default function Register() {
                     />
                 </label>
 
-                <label className="register__body-label">LAST NAME
+                <label className="register__body-label">Last Name
                     <input
                         className="register__body-input"
                         type="text"
@@ -169,7 +170,7 @@ export default function Register() {
                     />
                 </label>
 
-                <label className="register__body-label">EMAIL
+                <label className="register__body-label">Email
                     <input
                         className="register__body-input"
                         type="email"
@@ -182,7 +183,7 @@ export default function Register() {
                     />
                 </label>
 
-                <label className="register__body-label">PASSWORD
+                <label className="register__body-label">Password
                     <input
                         className="register__body-input"
                         type="password"

@@ -44,7 +44,8 @@ export default function LoanForm() {
                 // Stops admin from applyig for loan,
                 if (isAdmin === "1") {
                     toast.error("Admin cannot apply for loan");
-                    navigate(`/admin/${id}`);
+                    // navigate(`/admin/${id}`);
+                    navigate("/admin");
                     return;
                 }
 
@@ -52,7 +53,8 @@ export default function LoanForm() {
                 if (activeLoan) {
                     setHasActiveLoan(true);
                     toast.error("You already have an active or pending loan.");
-                    navigate(`/users/${id}`);
+                    // navigate(`/users/${id}`);
+                    navigate("/dashboard");
                 }
             } catch (error) {
                 console.error("Error fetching loan status:", error);
@@ -139,7 +141,8 @@ export default function LoanForm() {
 
                 if (response) {
                     toast.success("Loan Application made successfully!!!");
-                    navigate(`/users/${id}`);
+                    // navigate(`/users/${id}`);
+                    navigate("/dashboard");
                 }
             } else {
                 console.error("Error in loan application form");
@@ -163,7 +166,7 @@ export default function LoanForm() {
 
             <section className="loan-form__body">
                 <label className="loan-form__body-label">
-                    LOAN AMOUNT
+                    Loan Amount
                     <input
                         className="loan-form__body-input"
                         type="number"
@@ -174,7 +177,7 @@ export default function LoanForm() {
                 </label>
 
                 <label className="loan-form__body-label">
-                    PURPOSE
+                    Purpose
                     <input
                         className="loan-form__body-dropdown"
                         type="text"

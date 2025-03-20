@@ -23,7 +23,12 @@ export default function Hero({ isAuthenticated }) {
                 if (response.success) {
                     // Filters out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
+                    // const filtered = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
                     setFilteredLoans(filtered);
+
+                     // Find active or pending loan
+                    // const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
+                    // setActiveLoan(active || null);
                 } else {
                     console.error(response.error);
                 }
@@ -42,8 +47,8 @@ export default function Hero({ isAuthenticated }) {
         return <Spinner loading={loading} />
     }
 
-    // Handles if isAdmin is "1" or the user has an active or pending loan, don't show the button
-    const shouldShowButton = isAdmin === "0" && filteredLoans && filteredLoans.length > 0;
+    // Handles if isAdmin is flase i.e "0" or the user has an active or pending loan, don't show the button
+    const shouldShowButton = isAdmin === "0" && filteredLoans && filteredLoans.length >= 0;
 
     return (
         <section className="hero">

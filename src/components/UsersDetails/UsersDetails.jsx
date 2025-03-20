@@ -1,26 +1,22 @@
 import "./UsersDetails.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
 
 export default function UserDetails() {
-    // gets user id
-    const {id} = useParams();
+    const location = useLocation();
 
     const [user, setUser] = useState(null);
     const [loans, setLoans] = useState([]);
 
-    // gets admin id from query parameter
-    const { search } = useLocation();
-    const queryParams = new URLSearchParams(search);
-    const adminId = queryParams.get("adminId");
+    // Destructures userId from state passed from AdminHistory component
+    const { userId } = location.state || {};
 
     useEffect(() => {
         async function fetchUserDetails() {
             try {
-                const loanResponse = await InstaloanxApi.getLoansByUserId(id);
+                const loanResponse = await InstaloanxApi.getLoansByUserId(userId);
                 if (loanResponse.success) {
                     setLoans(loanResponse.data.data.loans);
                     setUser(loanResponse.data.data.user);
@@ -31,7 +27,7 @@ export default function UserDetails() {
         }
 
         fetchUserDetails();
-    }, [id]);
+    }, [userId]);
 
     if (!user) return <Spinner loading="Loading user details..." />;
 
@@ -39,7 +35,7 @@ export default function UserDetails() {
         <section className="user-details">
             <section className="user-details__header">
                 <h1 className="user-details__header-title">User Details</h1>
-                <Link to={`/admin/${adminId}`} className="user-details__header-link">
+                <Link to={"/admin"} className="user-details__header-link">
                     &larr; Back
                 </Link>
             </section>
@@ -62,12 +58,21 @@ export default function UserDetails() {
             <section className="user-details__loan-history">
                 <h2 className="user-details__loan-history-title">Loan History</h2>
 
+                <section className="user-details__loan-history-headers">
+                    <p className="user-details__loan-history-header">Amount</p>
+                    <p className="user-details__loan-history-header">Borrowed</p>
+                    <p className="user-details__loan-history-header">Balance</p>
+                    <p className="user-details__loan-history-header">Paid</p>
+                    <p className="user-details__loan-history-header">Status</p>
+                    <p className="user-details__loan-history-header">Purpose</p>
+                </section>
+
                 {loans.map((loan, index) => (
-                <section key={loan.id} className="user-details__loan-history-item">
-                    <div className="user-details__loan-history-group">
+                <section key={index} className="user-details__loan-history-item">
+                    {/* <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">S/N</p>
                         <p className="user-details__loan-history-text">{index + 1}</p>
-                    </div>
+                    </div> */}
                     <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">Amount</p>
                         <p className="user-details__loan-history-text">${loan.loan_amount}</p>
@@ -75,6 +80,10 @@ export default function UserDetails() {
                     <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">Borrowed</p>
                         <p className="user-details__loan-history-text">{new Date(loan.created_at).toLocaleDateString()}</p>
+                    </div>
+                    <div className="user-details__loan-history-group">
+                        <p className="user-details__loan-history-label">Balance</p>
+                        <p className="user-details__loan-history-text">${loan.remaining_balance}</p>
                     </div>
                     <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">Paid</p>

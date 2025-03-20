@@ -2,7 +2,7 @@ import "./Admin.scss";
 import AdminHistory from "../AdminHistory/AdminHistory";
 import InstaloanxApi from "../../api/InstaloanxApi";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
 
 export default function Admin() {
@@ -11,7 +11,8 @@ export default function Admin() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const {id} = useParams();
+    // const {id} = useParams();
+    const id = localStorage.getItem("id");
 
     useEffect(() => {
         const fetchUser = async () => {

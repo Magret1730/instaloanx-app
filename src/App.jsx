@@ -16,6 +16,7 @@ import AdminProtectedRoute from "./components/AdminProtectedRoute/AdminProtected
 import HelpPage from "./pages/HelpPage/HelpPage";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from "react-toastify";
+import RepayLoanPage from "./pages/RepayLoanPage/RepayLoanPage";
 
 function App() {
     const isAuthenticated = () => {
@@ -27,23 +28,23 @@ function App() {
 
     const showToast = (type, message) => {
         if (type === "success") {
-        toast.success(message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-        });
+            toast.success(message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         } else if (type === "error") {
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-        });
+            toast.error(message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
     };
 
@@ -58,23 +59,32 @@ function App() {
             <Route path="/forgotPassword" element={<ForgotPasswordPage/>} />
             <Route path="/resetPassword" element={<ResetPasswordPage />} />
 
-            <Route path="/admin/:id" element={
+            {/* <Route path="/admin/:id" element={ */}
+            <Route path="/admin" element={
                 <AdminProtectedRoute>
                     <AdminPage />
                 </AdminProtectedRoute>
             }/>
 
-            <Route path="/users/:id"  element={
+            {/* <Route path="/users/:id"  element={ */}
+            <Route path="/dashboard"  element={
                 <ProtectedRoute >
                     <UsersPage isAuthenticated={isAuthenticated}/>
                 </ProtectedRoute>
             }/>
 
-            <Route path="/usersDetails/:id" element={<UsersDetailsPage />} />
+            {/* <Route path="/usersDetails/:id" element={<UsersDetailsPage />} /> */}
+            <Route path="/usersDetails" element={<UsersDetailsPage />} />
 
             <Route path="/loanForm" element={
                 <ProtectedRoute>
                     <LoanFormPage />
+                </ProtectedRoute>
+            }/>
+
+            <Route path="/repayLoan" element={
+                <ProtectedRoute>
+                    <RepayLoanPage />
                 </ProtectedRoute>
             }/>
 

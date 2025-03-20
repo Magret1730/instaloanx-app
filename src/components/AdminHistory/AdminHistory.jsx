@@ -6,12 +6,16 @@ import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 
+// Admin cannot change active loan to pending if remaining balance is less than loan amount
+// Admin cannot change status of "Fully Repaid"
+
 export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
+    // const [ userId, setUserId ] = useState("");
     
     const fetchLoans = async () => {
         try {
@@ -28,11 +32,15 @@ export default function AdminHistory({ adminId }) {
 
                 // Filters out pending loans
                 const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
+                // console.log(pendingLoan);
                 setPendingLoans(pendingLoan);
 
                 const filteredLoans = allLoans
                     .filter(loan => loan.status !== "Pending")
                     .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
+
+                    // console.log(filteredLoans);
+
                 setLoans(filteredLoans);
             } else {
                 console.error(response.message);
@@ -60,15 +68,26 @@ export default function AdminHistory({ adminId }) {
                 return;
             }
 
+            // Admin cannot change active loan to pending if remaining balance is less than loan amount
+            if (
+                newStatus === "Pending" && 
+                loanToUpdate.status === "Active" && 
+                loanToUpdate.remainingBalance < loanToUpdate.loanAmount
+            ) {
+                toast.error("Cannot change active loan to pending if remaining balance is less than loan amount.");
+                return;
+            }
+
+
             // Checks if the new status is "Active" or "Pending"
             if (newStatus === "Active" || newStatus === "Pending") {
                 // Checks if the user already has an active or pending loan (excluding the current loan)
                 const hasActiveOrPending = loans.some(loan => 
-                    loan.userId === loanToUpdate.userId && 
+                    loan.userId === loanToUpdate.userId && // Checks if the loan belongs to the same user
                     loan.loanId !== loanId && // Exclude the current loan
                     (loan.status === "Active" || loan.status === "Pending")
                 ) || pendingLoans.some(loan => 
-                    loan.userId === loanToUpdate.userId && 
+                    loan.userId === loanToUpdate.userId && // Checks if the loan belongs to the same user
                     loan.loanId !== loanId && // Exclude the current loan
                     (loan.status === "Active" || loan.status === "Pending")
                 );
@@ -77,6 +96,12 @@ export default function AdminHistory({ adminId }) {
                     toast.error("User already has an active or pending loan.");
                     return;
                 }
+            }
+
+            // Admin cannot change status of "Fully Repaid"
+            if (loanToUpdate.status === "Fully Repaid") {
+                toast.error("Cannot change status of a fully repaid loan.");
+                return;
             }
 
             const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
@@ -100,7 +125,7 @@ export default function AdminHistory({ adminId }) {
             }
             return response;
         } catch (err) {
-            toast.error("Failed to update loan status");
+            // toast.error("Failed to update loan status");
             console.error("Failed to update loan status", err);
             throw err;
         }
@@ -143,9 +168,9 @@ export default function AdminHistory({ adminId }) {
             <section className="admin__history-head">
                 <p className="admin__history-head-text">S/N</p>
                 <p className="admin__history-head-text">NAME</p>
-                <p className="admin__history-head-text">AMOUNT</p>
+                <p className="admin__history-head-text">LOAN</p>
                 <p className="admin__history-head-text">BORROWED</p>
-                <p className="admin__history-head-text">PAID</p>
+                <p className="admin__history-head-text">BALANCE</p>
                 <p className="admin__history-head-text">STATUS</p>
             </section>
 
@@ -160,14 +185,17 @@ export default function AdminHistory({ adminId }) {
                         </div>
                         <div className="admin__history-box">
                             <p className="admin__history-header">NAME</p>
-                            <Link to={`/usersDetails/${loan.userId}?adminId=${adminId}`}>
+                            <Link
+                                to="/usersDetails"
+                                state={{ userId: loan.userId }} // Pass userId into state
+                            >
                                 <p className="admin__history-text admin__history-text--name">
                                     {loan.userName}
                                 </p>
                             </Link>
                         </div>
                         <div className="admin__history-box">
-                            <p className="admin__history-header">AMOUNT</p>
+                            <p className="admin__history-header">LOAN</p>
                             <p className="admin__history-text">${loan.loanAmount}</p>
                         </div>
                         <div className="admin__history-box">
@@ -175,9 +203,10 @@ export default function AdminHistory({ adminId }) {
                             <p className="admin__history-text">{new Date(loan.createdAt).toLocaleDateString()}</p>
                         </div>
                         <div className="admin__history-box">
-                            <p className="admin__history-header">PAID</p>
+                            <p className="admin__history-header">BALANCE</p>
                             <p className="admin__history-text">
-                                {loan.remaining_balance === 0 ? "Fully Repaid" : "Not Yet"}
+                                {/* {loan.remaining_balance === 0 ? "Fully Repaid" : "Not Yet"} */}
+                                ${loan.remainingBalance}
                             </p>
                         </div>
                         <div className="admin__history-box">
@@ -195,7 +224,8 @@ export default function AdminHistory({ adminId }) {
                         {/* Dropdown for status update */}
                         {activeDropdown === loan.loanId && (
                             <section className="admin__history-dropdown">
-                                {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, idx) => (
+                                {/* {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, idx) => ( */}
+                                {["Rejected", "Active", "Pending"].map((option, idx) => (
                                     <div
                                         key={idx}
                                         className="admin__history-dropdown-option"

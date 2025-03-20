@@ -307,6 +307,39 @@ class InstaloanxApi {
             throw err;
         }
     };
+
+    // Handles loan repayment
+    // http://localhost:8080/api/v1/loans/1/repayLoan
+    static async repayLoan(id, repaymentData) {
+        try {
+            const token = localStorage.getItem("token");
+            // console.log(token);
+
+            if (!token) {
+                return null;
+            }
+
+            const response = await axios.put(`${this.BASE_URL}/loans/${id}/repayLoan`, repaymentData, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Attached token to request headers
+                },
+            });
+
+            if (response.status !== 200) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            return response.data;
+        } catch (err) {
+            // throw new Error(error.response?.data?.message || "Failed to repay loan");
+            console.error("Login error", err.response);
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.error || err.response.data.message : "Login: Internal server error",
+            };
+        }
+    };
 }
 
 export default InstaloanxApi;
