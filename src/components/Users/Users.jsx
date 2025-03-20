@@ -16,7 +16,6 @@ export default function Users({isAuthenticated}) {
     const [filteredLoans, setFilteredLoans] = useState(null);
 
     const navigate = useNavigate();
-    // const {id} = useParams();
     const id = localStorage.getItem("id");
 
     useEffect(() => {
@@ -30,12 +29,10 @@ export default function Users({isAuthenticated}) {
 
                     // Find active or pending loan
                     const active = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
-                    // console.log(active);
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
-                    // console.log(filtered);
                     setFilteredLoans(filtered);
                 } else {
                     console.error(response.message);
@@ -107,14 +104,12 @@ export default function Users({isAuthenticated}) {
                                         <p className="users__active-header">Borrowed</p>
                                         <p className="users__active-text">
                                             {new Date(loan.created_at).toLocaleDateString()}
-                                            {/* {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"} */}
                                         </p>   
                                     </div> 
                                     <div className="users__active-box">
                                         <p className="users__active-header">Paid</p>
                                         <p className="users__active-text">
                                             {new Date(loan.updated_at).toLocaleDateString()}
-                                            {/* {loan.remaining_balance === 0 ? "Fully Paid" : "Not Yet"} */}
                                         </p>   
                                     </div> 
                                     <div className="users__active-box">
@@ -171,10 +166,6 @@ export default function Users({isAuthenticated}) {
                                 <div className="users__history-box">
                                     <p className="users__history-header">PAID</p>
                                     <p className="users__history-text">
-                                        {/* {singleLoan.remaining_balance === 0
-                                            ? "Fully Paid"
-                                            : "Not Yet"
-                                        } */}
                                         {new Date(singleLoan.updated_at).toLocaleDateString()}
                                     </p>
                                 </div>

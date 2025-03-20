@@ -312,9 +312,6 @@ class InstaloanxApi {
     // http://localhost:8080/api/v1/loans/1/repayLoan
     static async repayLoan(id, repaymentData) {
         try {
-            console.log(id);
-            console.log(repaymentData);
-
             const token = localStorage.getItem("token");
             // console.log(token);
 

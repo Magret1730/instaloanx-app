@@ -19,20 +19,18 @@ export default function RepayLoan() {
             try {
                 // Fetches all loan history of a single user
                 const response = await InstaloanxApi.getLoansByUserId(id);
-                // console.log("Fetch Loan status", response);
 
                 const loanHistory = response.data?.data || []; // Ensures it's an array
-                // console.log(loanHistory);
 
                 // Find active loan
                 const activeLoan = loanHistory.loans.find(
                     (loan) => loan.status === "Active"
                 ) || null;
-                // console.log(activeLoan);
 
                 if (!activeLoan) {
                     setNoActiveLoan(true);
-                    toast.error("You don't have an active loan.");
+                    // toast.error("You don't have an active loan.");
+                    toast.error("You cannot repay on pending loan.")
                     navigate("/dashboard");
                 } else {
                     setActiveLoan(activeLoan); // Set active loan details
@@ -93,7 +91,6 @@ export default function RepayLoan() {
 
                 // Posts repayment data
                 const response = await InstaloanxApi.repayLoan(id, repaymentData);
-                console.log(response);
 
                 if (response) {
                     toast.success("Loan repayment successful!");
