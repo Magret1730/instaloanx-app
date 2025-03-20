@@ -10,7 +10,7 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
         try {
             const response = await handleStatusUpdate(loanId, newStatus);
             if (response.success) {
-                toast.success("Status changed successfully!!!");
+                // toast.success("Status changed successfully!!!");
                 setActiveDropdown(null); // Closes dropdown after selection
             }
         } catch (err) {

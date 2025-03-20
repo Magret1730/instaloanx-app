@@ -32,8 +32,8 @@ export default function Footer() {
                         <p className="footer__contact-text">
                             For more inquiries:
                         </p>
-                        <a href="mailto:taskifyhubproject@gmail.com" className="footer__contact-email">
-                            taskifyhubproject@gmail.com
+                        <a href="mailto:belloabiodun17@gmail.com" className="footer__contact-email">
+                            belloabiodun17@gmail.com
                         </a>
                     </div>
 

@@ -7,8 +7,7 @@ import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 
 // Admin cannot change active loan to pending if remaining balance is less than loan amount
-// Admin cannot change status of "FUlly Repaid"
-// Change seed data of loans.js. If status is "Fully Repaid", remaining_balance === 0.00
+// Admin cannot change status of "Fully Repaid"
 
 export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
@@ -33,14 +32,14 @@ export default function AdminHistory({ adminId }) {
 
                 // Filters out pending loans
                 const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
-                console.log(pendingLoan);
+                // console.log(pendingLoan);
                 setPendingLoans(pendingLoan);
 
                 const filteredLoans = allLoans
                     .filter(loan => loan.status !== "Pending")
                     .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
 
-                    console.log(filteredLoans);
+                    // console.log(filteredLoans);
 
                 setLoans(filteredLoans);
             } else {
@@ -69,15 +68,26 @@ export default function AdminHistory({ adminId }) {
                 return;
             }
 
+            // Admin cannot change active loan to pending if remaining balance is less than loan amount
+            if (
+                newStatus === "Pending" && 
+                loanToUpdate.status === "Active" && 
+                loanToUpdate.remainingBalance < loanToUpdate.loanAmount
+            ) {
+                toast.error("Cannot change active loan to pending if remaining balance is less than loan amount.");
+                return;
+            }
+
+
             // Checks if the new status is "Active" or "Pending"
             if (newStatus === "Active" || newStatus === "Pending") {
                 // Checks if the user already has an active or pending loan (excluding the current loan)
                 const hasActiveOrPending = loans.some(loan => 
-                    loan.userId === loanToUpdate.userId && 
+                    loan.userId === loanToUpdate.userId && // Checks if the loan belongs to the same user
                     loan.loanId !== loanId && // Exclude the current loan
                     (loan.status === "Active" || loan.status === "Pending")
                 ) || pendingLoans.some(loan => 
-                    loan.userId === loanToUpdate.userId && 
+                    loan.userId === loanToUpdate.userId && // Checks if the loan belongs to the same user
                     loan.loanId !== loanId && // Exclude the current loan
                     (loan.status === "Active" || loan.status === "Pending")
                 );
@@ -86,6 +96,12 @@ export default function AdminHistory({ adminId }) {
                     toast.error("User already has an active or pending loan.");
                     return;
                 }
+            }
+
+            // Admin cannot change status of "Fully Repaid"
+            if (loanToUpdate.status === "Fully Repaid") {
+                toast.error("Cannot change status of a fully repaid loan.");
+                return;
             }
 
             const response = await InstaloanxApi.updateLoanStatus(loanId, newStatus);
@@ -109,7 +125,7 @@ export default function AdminHistory({ adminId }) {
             }
             return response;
         } catch (err) {
-            toast.error("Failed to update loan status");
+            // toast.error("Failed to update loan status");
             console.error("Failed to update loan status", err);
             throw err;
         }
