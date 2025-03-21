@@ -120,11 +120,6 @@ export default function Register() {
                         navigate("/dashboard");
                     }, 3000);
                 } else {
-                    // if (response.message.includes("User already exist")) {
-                    //     toast.error("Email is already in use. Please use a different email.");
-                    // } else {
-                    //     toast.error("Registration failed. Please try again.");
-                    // }
                     toast.error(response.message || "Registration failed. Please try again.");
                 }
             }

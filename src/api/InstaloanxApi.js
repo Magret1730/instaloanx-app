@@ -10,8 +10,6 @@ class InstaloanxApi {
     static async register(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/register`, newUser);
-            // console.log(response);
-            // console.log(response.data.data);
             if (response.status !== 201) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -37,7 +35,7 @@ class InstaloanxApi {
     static async login(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/login`, newUser);
-            // console.log(response.data.data);
+
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -47,12 +45,8 @@ class InstaloanxApi {
             localStorage.setItem("id", response.data.data.id);
             localStorage.setItem("is_admin", response.data.data.is_admin);
 
-            // console.log(response);
-            // console.log(response.data);
-
             // Return the response data
             return { success: true, data: response.data };
-            // }
         } catch (err) {
             console.error("Login error", err);
 
@@ -66,7 +60,18 @@ class InstaloanxApi {
     // Fetch all users
     static async getAllUsers() {
         try {
-            const response = await axios.get(`${this.BASE_URL}/users`);
+            // Gets the token from localStorage 
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                return { success: false, message: "No token found" };
+            }
+
+            const response = await axios.get(`${this.BASE_URL}/users`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -91,11 +96,9 @@ class InstaloanxApi {
                 return { success: false, message: "Invalid user ID" };
             }
 
-            // console.log("ID from instaloanapi.js", id);
-
             // Gets the token from localStorage 
             const token = localStorage.getItem("token");
-            // console.log("token from instaloanapi.js", token);
+
             if (!token) {
                 return { success: false, message: "No token found" };
             }
@@ -106,8 +109,6 @@ class InstaloanxApi {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            // console.log(response);
 
             // Check if the response is successful
             if (response.status !== 200) {
@@ -130,7 +131,6 @@ class InstaloanxApi {
     static async getAllLoans() {
         try {
             const token = localStorage.getItem("token");
-            // console.log(token);
 
             if (!token) {
                 return null;
@@ -141,7 +141,6 @@ class InstaloanxApi {
                     Authorization: `Bearer ${token}`, // Attach token to request headers,
                 },
             });
-            // console.log(response);
 
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -163,17 +162,13 @@ class InstaloanxApi {
     // http://localhost:8080/api/v1/users/6/loans
     static async getLoansByUserId(id) {
         try {
-
-            // console.log(id);
             // Validates ID
-            // console.log("Id from getLoansByUserId", id);
             if (isNaN(id) || id <= 0) {
                 return { success: false, message: "Invalid loan ID" };
             }
 
             // Gets the token from localStorage 
             const token = localStorage.getItem("token");
-            // console.log("token from instaloanapi.js line 155", token);
             if (!token) {
                 return { success: false, message: "No token found" };
             }
@@ -183,7 +178,6 @@ class InstaloanxApi {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // console.log("response from instaloanapi.js line 182", response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -205,28 +199,20 @@ class InstaloanxApi {
     static async postLoans(newLoan) {
         try {
             const token = localStorage.getItem("token");
-            // console.log(token);
 
             if (!token) {
                 return null;
             }
-
-            // const response = await axios.post(`${this.BASE_URL}/loans/applyLoan`, newLoan);
 
             const response = await axios.post(`${this.BASE_URL}/loans/applyLoan`, newLoan, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Attached token to request headers
                 },
             });
-            // console.log(response);
-            // console.log(response.data);
+
             if (response.status !== 201) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
-            // sets token to local storage
-            // localStorage.setItem("token", response.data.token);
-            // console.log("InstaloanXAPi", response);
 
             // Return the response data
             return { success: true, data: response.data };
@@ -246,7 +232,6 @@ class InstaloanxApi {
     static async getLoanHistory() {
         try {
             const token = localStorage.getItem("token");
-            // console.log(token);
 
             if (!token) {
                 return null;
@@ -258,7 +243,6 @@ class InstaloanxApi {
                 }
             });
 
-            // console.log(response);
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -278,12 +262,8 @@ class InstaloanxApi {
     // http://localhost:8080/api/v1/loans/2/status
     static async updateLoanStatus(loanId, status) {
         try {
-            // console.log(loanId);
-            // console.log(status);
-
             // Checks if authenticated
             const token = localStorage.getItem("token");
-            // console.log(token);
 
             if (!token) {
                 return null;
@@ -293,9 +273,6 @@ class InstaloanxApi {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            // console.log(response);
-            // console.log(response.data);
-
             if (response.status !== 200) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -304,7 +281,11 @@ class InstaloanxApi {
             return { success: true, data: response.data };
         } catch (err) {
             console.error("Failed to update loan status", err);
-            throw err;
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.message : "Get Users by ID: Internal server error"
+            };
         }
     };
 
@@ -313,7 +294,6 @@ class InstaloanxApi {
     static async repayLoan(id, repaymentData) {
         try {
             const token = localStorage.getItem("token");
-            // console.log(token);
 
             if (!token) {
                 return null;
@@ -331,7 +311,6 @@ class InstaloanxApi {
 
             return response.data;
         } catch (err) {
-            // throw new Error(error.response?.data?.message || "Failed to repay loan");
             console.error("Login error", err.response);
 
             return {

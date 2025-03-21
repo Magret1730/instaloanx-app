@@ -21,8 +21,6 @@ export default function LoanForm() {
     const purposes = ["Education", "Business", "Medical", "Personal", "Other"];
 
     const navigate = useNavigate();
-    
-    const id = localStorage.getItem("id");
 
     // Check if user has an active loan
     useEffect(() => {

@@ -77,13 +77,11 @@
     &__active {
         margin-top: 1.5rem;
         padding: 1.5rem 1rem;
-        // height: 38vh;
         background-color: $secondary-bg-color;
 
         @include tablet-breakpoint {
             padding-left: 2.5rem;
             padding-right: 2.5rem;
-            // height: 45vh;
         }
 
         @include desktop-breakpoint {

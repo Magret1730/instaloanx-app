@@ -10,7 +10,6 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
         try {
             const response = await handleStatusUpdate(loanId, newStatus);
             if (response.success) {
-                // toast.success("Status changed successfully!!!");
                 setActiveDropdown(null); // Closes dropdown after selection
             }
         } catch (err) {
@@ -76,7 +75,6 @@ export default function AdminPendingLoans({pendingLoans, adminId, handleStatusUp
 
                             {activeDropdown === loan.loanId && (
                                 <section className="admin-pend-dropdown">
-                                    {/* {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, index) => ( */}
                                     {["Rejected", "Active", "Pending"].map((option, index) => (
                                         <div
                                             key={index}

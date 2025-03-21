@@ -23,7 +23,6 @@ export default function Hero({ isAuthenticated }) {
                 if (response.success) {
                     // Filters out pending and active loans
                     const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
-                    // const filtered = response.data.data.loans.filter(loan => loan.status === "Active" || loan.status === "Pending");
                     setFilteredLoans(filtered);
 
                      // Find active or pending loan

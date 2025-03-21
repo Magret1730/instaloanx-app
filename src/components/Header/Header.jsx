@@ -24,7 +24,6 @@ export default function Header() {
     // useCallback hook is used to memorize isAuth, ensuring that it
     // doesn't change unless localStorage itself changes.
     const isAuth = useCallback(() => {
-        // console.log(!!localStorage.getItem("token"));
         return !!localStorage.getItem("token");
     }, []);
 
@@ -48,7 +47,6 @@ export default function Header() {
             const fetchUserRole = async () => {
             try {
                 const isAdmin = localStorage.getItem("is_admin");
-                // const id = localStorage.getItem("id");
 
                 if (isAdmin === "1") {
                     // setDashboardLink(`/admin/${id}`);

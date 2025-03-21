@@ -69,10 +69,6 @@ export default function UserDetails() {
 
                 {loans.map((loan, index) => (
                 <section key={index} className="user-details__loan-history-item">
-                    {/* <div className="user-details__loan-history-group">
-                        <p className="user-details__loan-history-label">S/N</p>
-                        <p className="user-details__loan-history-text">{index + 1}</p>
-                    </div> */}
                     <div className="user-details__loan-history-group">
                         <p className="user-details__loan-history-label">Amount</p>
                         <p className="user-details__loan-history-text">${loan.loan_amount}</p>

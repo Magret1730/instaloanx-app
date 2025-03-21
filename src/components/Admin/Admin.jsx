@@ -11,7 +11,6 @@ export default function Admin() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // const {id} = useParams();
     const id = localStorage.getItem("id");
 
     useEffect(() => {
