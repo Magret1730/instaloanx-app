@@ -22,18 +22,23 @@ export default function RepayLoan() {
 
                 const loanHistory = response.data?.data || []; // Ensures it's an array
 
-                // Find active loan
-                const activeLoan = loanHistory.loans.find(
-                    (loan) => loan.status === "Active"
-                ) || null;
+                // if (response.status === 200) {
+                    // Find active loan
+                    const activeLoan = loanHistory.loans.find(
+                        (loan) => loan.status === "Active"
+                    ) || null;
 
-                if (!activeLoan) {
-                    setNoActiveLoan(true);
-                    toast.error("You cannot repay on pending loan.")
-                    navigate("/dashboard");
-                } else {
-                    setActiveLoan(activeLoan); // Set active loan details
-                }
+                    if (!activeLoan) {
+                        setNoActiveLoan(true);
+                        toast.error("You cannot repay on pending loan.");
+                        navigate("/dashboard");
+                    } else {
+                        setActiveLoan(activeLoan); // Set active loan details
+                    }
+                // } else {
+                //     toast.error("Failed to repay loan, please retry a different amount");
+                //     console.error(response.error);
+                // }
             } catch (error) {
                 console.error("Error fetching loan status:", error);
                 toast.error("Failed to fetch loan details.");
@@ -56,6 +61,9 @@ export default function RepayLoan() {
             return false;
         } else if (isNaN(amount) || Number(amount) <= 0) {
             toast.error("Invalid repayment amount.");
+            return false;
+        } else if (Number(amount) < 50) {
+            toast.error("The least amount to repay is $50.");
             return false;
         } else if (Number(amount) > activeLoan.remaining_balance) {
             toast.error("Repayment amount cannot exceed the remaining balance.");
@@ -92,8 +100,11 @@ export default function RepayLoan() {
                 const response = await InstaloanxApi.repayLoan(id, repaymentData);
 
                 if (response) {
-                    toast.success("Loan repayment successful!");
-                    navigate("/dashboard");
+                    toast.success("Loan repayment successful!!!");
+                    // navigate("/dashboard");
+                    setTimeout(() => {
+                        navigate("/dashboard");
+                    }, 3000);
                 }
             } else {
                 console.error("Error in loan repayment form");

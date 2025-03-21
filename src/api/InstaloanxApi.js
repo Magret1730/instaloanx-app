@@ -311,7 +311,7 @@ class InstaloanxApi {
 
             return response.data;
         } catch (err) {
-            console.error("Login error", err.response);
+            console.error("Loan Repayment Error", err.response);
 
             return {
                 success: false,

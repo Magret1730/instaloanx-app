@@ -66,13 +66,14 @@ export default function LoanForm() {
 
     const handleDropDown = () => {
         setIsDropdown(!isDropdown);
+        // setIsDropdown(true);
         // setIsDropdown((prev) => !prev);
     }
 
     const handlePurposeClick = (selected) => {
         setPurpose(selected);
         setSelectedPurpose(selected); // Updates the selected purpose
-        setIsDropdown(false); // CLoses the dropdown - not functional and don't know why
+        // setIsDropdown(false); // CLoses the dropdown - not functional and don't know why
     };
 
     if (loading) {

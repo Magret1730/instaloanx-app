@@ -61,13 +61,14 @@ export default function AdminHistory({ adminId }) {
                 return;
             }
 
-            // Admin cannot change active loan to pending if remaining balance is less than loan amount
+            // Admin cannot change status of loan if remaining balance is less than loan amount
             if (
-                newStatus === "Pending" && 
-                loanToUpdate.status === "Active" && 
+                // newStatus === "Pending" && 
+                loanToUpdate.status === "Active" &&
+                // loanToUpdate.remainingBalance < loanToUpdate.loanAmount
                 loanToUpdate.remainingBalance < loanToUpdate.loanAmount
             ) {
-                toast.error("Cannot change active loan to pending if remaining balance is less than loan amount.");
+                toast.error("Cannot change status if remaining balance is less than loan amount.");
                 return;
             }
 
