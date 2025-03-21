@@ -21,7 +21,6 @@ import RepayLoanPage from "./pages/RepayLoanPage/RepayLoanPage";
 function App() {
     const isAuthenticated = () => {
         const tokenResp = localStorage.getItem("token");
-        // console.log(tokenResp);
         
         return !!tokenResp;
     }

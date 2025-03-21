@@ -64,29 +64,19 @@ export default function Login() {
                 const newUser = { email: email, password: password };
 
                 const response = await InstaloanxApi.login(newUser);
-                // console.log(response);
-
-                // const data = response.data.data;
 
                 if (response.success) {
                     toast.success("User login successfully!");
 
                     // Timeout function navigates based on is_admin
                     setTimeout(() => {
-                        // navigate(data.is_admin ? `/admin/${data.id}` : `/users/${data.id}`);
                         navigate(response.data.data.is_admin ? "/admin" : "/dashboard");
                     }, 2000);
                 } else {
-                    // if (response.message.includes("Invalid email or password")) {
-                    //     toast.error("Invalid email or password.");
-                    // } else {
-                    //     toast.error("Login failed. Please try again.");
-                    // }
                     toast.error(response.message || "Login error. Please try again");
                 }
             }
         } catch (error) {
-            console.log(error);
             console.error("Error in login:", error.response?.data?.message);
             toast.error(error.response.data);
             toast.error(error.response?.data?.message || "Login error. Please try again.");

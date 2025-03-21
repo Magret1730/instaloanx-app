@@ -6,16 +6,12 @@ import AdminPendingLoans from "../AdminPendingLoans/AdminPendingLoans";
 import { toast } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
 
-// Admin cannot change active loan to pending if remaining balance is less than loan amount
-// Admin cannot change status of "Fully Repaid"
-
 export default function AdminHistory({ adminId }) {
     const [loans, setLoans] = useState([]);
     const [pendingLoans, setPendingLoans] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [activeDropdown, setActiveDropdown] = useState(null); // For dropdown toggle
-    // const [ userId, setUserId ] = useState("");
     
     const fetchLoans = async () => {
         try {
@@ -32,14 +28,11 @@ export default function AdminHistory({ adminId }) {
 
                 // Filters out pending loans
                 const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
-                // console.log(pendingLoan);
                 setPendingLoans(pendingLoan);
 
                 const filteredLoans = allLoans
                     .filter(loan => loan.status !== "Pending")
                     .sort((a, b) => new Date( b.updatedAt) - new Date(a.updatedAt));
-
-                    // console.log(filteredLoans);
 
                 setLoans(filteredLoans);
             } else {
@@ -68,13 +61,14 @@ export default function AdminHistory({ adminId }) {
                 return;
             }
 
-            // Admin cannot change active loan to pending if remaining balance is less than loan amount
+            // Admin cannot change status of loan if remaining balance is less than loan amount
             if (
-                newStatus === "Pending" && 
-                loanToUpdate.status === "Active" && 
+                // newStatus === "Pending" && 
+                loanToUpdate.status === "Active" &&
+                // loanToUpdate.remainingBalance < loanToUpdate.loanAmount
                 loanToUpdate.remainingBalance < loanToUpdate.loanAmount
             ) {
-                toast.error("Cannot change active loan to pending if remaining balance is less than loan amount.");
+                toast.error("Cannot change status if remaining balance is less than loan amount.");
                 return;
             }
 
@@ -125,7 +119,6 @@ export default function AdminHistory({ adminId }) {
             }
             return response;
         } catch (err) {
-            // toast.error("Failed to update loan status");
             console.error("Failed to update loan status", err);
             throw err;
         }

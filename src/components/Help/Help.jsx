@@ -8,16 +8,6 @@ export default function Help() {
 
             <h2 className="help-title">Frequently Asked Questions (FAQs)</h2>
 
-            {/* <div className="help-faq">
-                <h3 className="help-faq__title">How do I reset my password?</h3>
-                <p className="help-faq__text">To reset your password, click on the 'Forgot Password' link on the login page, and follow the instructions.</p>
-            </div> */}
-
-            {/* <div className="help-faq">
-                <h3 className="help-faq__title">How do I update my profile information?</h3>
-                <p className="help-faq__text">You can update your profile information by visiting your account settings page.</p>
-            </div> */}
-
             <div className="help-faq">
                 <h3 className="help-faq__title">How do I apply for a loan?</h3>
                 <p className="help-faq__text">To apply for a loan, follow these steps:</p>
@@ -31,7 +21,6 @@ export default function Help() {
 
             <div className="help-faq">
                 <h3 className="help-faq__title">What happens if my loan request is rejected?</h3>
-                {/* <p className="help-faq__text">If your loan request is rejected, you will receive a notification explaining the reason. You can then make necessary adjustments and reapply in the future.</p> */}
                 <p className="help-faq__text">If your loan request is rejected, you can always reapply.</p>
             </div>
 

@@ -66,6 +66,7 @@
         gap: 1rem;
         color: $primary-bg-color;
         margin-top: 2rem;
+        position: relative;
 
         @include tablet-breakpoint {
             @include flex(row, center, center);
@@ -202,14 +203,13 @@
 
         @include tablet-breakpoint {
             position: absolute;
-            bottom: 55px;
+            bottom: -108px;
             z-index: 10;
-            right: 40px;
+            right: 0;
         }
 
         @include desktop-breakpoint {
-            right: 120px;
-            bottom: 35px;
+            right: 50px;
         }
 
         &:hover {
