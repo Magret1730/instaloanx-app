@@ -1,6 +1,18 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .header {
     background-color: $primary-bg-color;
 
@@ -24,6 +36,11 @@
         position: relative;
     }
 
+    &__logo-title {
+        @include flex(row, flex-start, center);
+        gap: 0.5rem;
+    }
+
 
     &__logo {
         width: 30px;
@@ -35,6 +52,25 @@
 
         @include tablet-breakpoint {
             width: 55px;
+        }
+    }
+
+    &__title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: $secondary-text-color; //black
+        color: $secondary-bg-color; //green
+        opacity: 0;
+        cursor: pointer;
+        transform: translateY(-10px);
+        animation: fadeInDown 0.5s ease-in-out forwards;
+
+        @include tablet-breakpoint {
+            font-size: 1.5rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.8rem;
         }
     }
 
@@ -87,7 +123,7 @@
         font-size: .9375rem;
         color: $primary-text-color;
         padding: 0.5rem 1rem;
-        transition: all 2s ease-in-out;
+        // transition: all 2s ease-in-out;
 
         @include tablet-breakpoint {
             font-size: 1.15rem;
@@ -98,10 +134,13 @@
         }
 
         &:hover {
-            background-color: rgb(234 245 243);
-            border-radius: .625rem;
-            display: block;
-            box-sizing: border-box;
+            // background-color: rgb(234 245 243);
+            // border-radius: .625rem;
+            // display: block;
+            // box-sizing: border-box;
+            // top: 2rem;
+            // margin-right: 0.5rem;
+            font-weight: 700;
         }
     }
 }

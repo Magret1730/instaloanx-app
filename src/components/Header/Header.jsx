@@ -68,7 +68,10 @@ export default function Header() {
     return (
         <article className="header">
             <section className="header__container">
-                <img className="header__logo" src={Logo} alt="logo" onClick={HomeLogoClick} />
+                <div className="header__logo-title">
+                    <img className="header__logo" src={Logo} alt="logo" onClick={HomeLogoClick} />
+                    <p className="header__title" onClick={HomeLogoClick}>InstaloanX</p>
+                </div>
 
                 <section className="header__ellipsis"  onClick={handleEllipsisClick}>
                     <img className="header__images" src={ ellipsisCLick ? EllipsisClose : Ellipsis } alt="Ellipsis" />
