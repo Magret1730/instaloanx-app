@@ -4,25 +4,6 @@
 
 ---
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Quick Start](#quick-start)
-- [Sitemap](#sitemap)
-- [Mockups](#mockups)
-- [Database](#database)
-- [Endpoints](#endpoints)
-- [Quick Walkthrough](#quick-walkthrough)
-- [Deployment](#deployment)
-- [Future Implementations](#future-implementations)
-- [How to Contribute](#how-to-contribute)
-- [License](#license)
-- [Contact](#contact)
-
----
-
 ## Overview
 
 InstaLoanX is a **streamlined loan management system** that enables users to apply for loans, track their application status, and make installmental repayments. The platform also includes an **admin dashboard** where loan applications can be reviewed, approved, or rejected, and repayments can be monitored.
@@ -107,20 +88,17 @@ Many individuals and small businesses struggle with accessing and managing loans
 
 ### Figma Designs
 
-<!-- ![](./readme-images/register.png)
-![](./readme-images/login.png)
-![](./readme-images/home-page.png)
-![](./readme-images/user-dashboard.png)
-![](./readme-images/admin-loan-dashboard.png)
-![](./readme-images/admin-user-dashboard.png)
-![](./readme-images/admin-single-user-dashboard.png)
-![](./readme-images/loan-form.png) -->
 **[Link To InstaloanX Design On Figma](https://www.figma.com/design/u2gKS7ifPagYso0AEHiyUq/InstaloanX?node-id=0-1&t=9CRpjgKD7NpSBltD-1)**
 
-![](./readme-images/fig1.png)
-![](./readme-images/fig2.png)
-![](./readme-images/fig3.png)
-![](./readme-images/fig4.png)
+Here are screenshots for a quick glance through:
+
+![](./readme-images/frontpage.png)
+![](./readme-images/usersPage.png)
+![](./readme-images/adminPage.png)
+![](./readme-images/registerPage.png)
+![](./readme-images/loginPage.png)
+![](./readme-images/loanApply.png)
+![](./readme-images/loanRepay.png)
 
 ---
 
@@ -151,8 +129,7 @@ For detailed request and response examples, refer to the [Backend README](https:
 
 ## Quick Walkthrough
 
-For a detailed demonstration of InstaLoanX, check out our **walkthrough video**:
-[Inserting Link to Video Here]
+For a detailed demonstration of InstaLoanX, check out the [Walkthrough Video](https://youtu.be/kvF3to6XBpQ)
 
 ---
 
@@ -160,11 +137,11 @@ For a detailed demonstration of InstaLoanX, check out our **walkthrough video**:
 
 InstaLoanX is deployed and accessible online. Here’s how the deployment is structured:
 
-- **Frontend**: Hosted on [Vercel](https://vercel.com). // Fixing this siin
-- **Backend**: Hosted on [Heroku](https://git.heroku.com/instaloanx.git).
-- **Database**: Managed using [Supabase](https://supabase.com).
+- **Frontend**: Hosted on [Netlify](https://instaloanx.netlify.app/)
+- **Backend**: Hosted on [Heroku](https://instaloanx-3b9381667c7d.herokuapp.com/)
 
-You can access the live application here: [Inserting Live Application Link]
+
+You can access the live application here: [InstaloanX Application](https://instaloanx.netlify.app/)
 
 ---
 
@@ -217,5 +194,5 @@ InstaLoanX is licensed under the [MIT License](./LICENSE). Feel free to use, mod
 For any questions or feedback, please reach out to:
 
 - **Email**: [belloabiodun17@gmail.com](mailto:belloabiodun17@gmail.com)
-- **GitHub**: [Magret1730](https://github.com/Magret1730)
+- **GitHub**: [Magret1730](https://github.com/Magret1730) or via [email](belloabiodun17@gmail.com)
 - **LinkedIn**: [Oyedele Abiodun](https://www.linkedin.com/in/oyedele-abiodun/)
