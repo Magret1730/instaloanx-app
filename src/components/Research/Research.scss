@@ -1,0 +1,147 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.research {
+    padding: 1.5rem 1rem;
+
+    @include tablet-breakpoint {
+        padding: 3.5rem 2.5rem 2rem;
+    }
+
+    @include desktop-breakpoint {
+        padding: 3.5rem 4rem 3rem 4rem;
+    }
+
+    &__header {
+        width: 70%;
+
+        @include tablet-breakpoint {
+            width: 50%;
+        }
+
+        &-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-style: italic;
+            color: $primary-text-color;
+            letter-spacing: 0.01rem;
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
+                letter-spacing: 0.02rem;
+            }
+
+            @include desktop-breakpoint {
+                font-size: 1.5rem;
+                letter-spacing: 0.04rem;
+            }
+        }
+
+        &-subtitle {
+            font-size: 0.8rem;
+            font-weight: 300;
+            font-style: italic;
+            color: $primary-text-color;
+            padding-top: 0.3rem;
+
+            @include tablet-breakpoint {
+                font-size: 1rem;
+            }
+
+            @include desktop-breakpoint {
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    &__container {
+        @include flex(column, center, center);
+        border: 0.05px solid $primary-text-color;
+        margin-top: 1rem;
+
+        @include tablet-breakpoint {
+            @include flex(row, null, center);
+            margin-top: 2rem;
+        }
+    }
+
+    &__box {
+        @include flex(row, flex-start, flex-start);
+        border-top: 0.05px solid $primary-text-color;
+        padding: 1rem 0;
+        width: 100%;
+        gap: 0.5rem;
+
+        @include tablet-breakpoint {
+            padding: 2rem 1rem;
+        }
+
+        @include desktop-breakpoint {
+            padding: 3rem 1rem;
+        }
+
+        &-border {
+            @include tablet-breakpoint {
+                border-right: 0.05px solid $primary-text-color;
+            }
+        }
+
+        &-space:first-child {
+            border-top: none;
+        } 
+
+        &-spaced:first-child {
+            @include tablet-breakpoint {
+                border-top: none;
+            }
+        }
+
+        &-icon {
+            width: 7%;
+            margin-left: 1rem;
+
+            @include tablet-breakpoint {
+                width: 8%;
+            }
+
+            // @include desktop-breakpoint {
+            //     width: 8%;
+            // }
+        }
+
+        &-content {
+            @include desktop-breakpoint {
+                margin-left: 1rem;
+            }
+        }
+
+        &-header {
+            text-decoration: underline;
+            font-size: .6rem;
+
+            @include tablet-breakpoint {
+                font-size: 0.8rem;
+            }
+
+            @include tablet-breakpoint {
+                font-size: 1.2rem;
+            }
+        }
+
+        &-text {
+            font-size: 0.5rem;
+            font-weight: 300;
+            padding-top: 0.2rem;
+
+            @include tablet-breakpoint {
+                font-size: 0.7rem;
+                padding-top: 0.5rem;
+            }
+
+            @include desktop-breakpoint {
+                font-size: 1rem;
+                padding-top: 0.5rem;
+            }
+        }
+    }
+}

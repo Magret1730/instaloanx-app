@@ -1,0 +1,23 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.error-message {
+    @include flex(row, flex-start, center);
+    color: $error-red;
+    margin-top: -0.5rem;
+    border-radius: .375rem;
+    font-size: 11px;
+    line-height: 1rem;
+    font-weight: 400;
+
+    @include tablet-breakpoint {
+        margin-top: -1rem;
+        font-size: .75rem;
+        line-height: 1.125rem;
+    }
+
+    &__icon {
+        width: 1rem;
+        margin-right: 0.25rem;
+    }
+}

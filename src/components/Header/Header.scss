@@ -1,0 +1,146 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    background-color: $primary-bg-color;
+
+    @include tablet-breakpoint {
+        @include flex(row, space-between, center);
+        padding: 1rem 1.5rem;
+    }
+
+    @include desktop-breakpoint {
+        padding: 1.5rem 3rem;
+    }
+
+    &--notHome {
+        background-color: $primary-bgg-color;
+        color: $secondary-text-color;
+    }
+
+    &__container {
+        @include flex(row, space-between, center);
+        padding: 1rem;
+        position: relative;
+    }
+
+    &__logo-title {
+        @include flex(row, flex-start, center);
+        gap: 0.5rem;
+    }
+
+
+    &__logo {
+        width: 30px;
+        cursor: pointer;
+
+        @include tablet-breakpoint {
+            width: 40px;
+        }
+
+        @include tablet-breakpoint {
+            width: 55px;
+        }
+    }
+
+    &__title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: $secondary-text-color; //black
+        color: $secondary-bg-color; //green
+        opacity: 0;
+        cursor: pointer;
+        transform: translateY(-10px);
+        animation: fadeInDown 0.5s ease-in-out forwards;
+
+        @include tablet-breakpoint {
+            font-size: 1.5rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.8rem;
+        }
+    }
+
+    &__ellipsis {
+        cursor: pointer;
+
+        @include tablet-breakpoint {
+            display: none;
+        }
+    }
+
+    &__images {
+        width: 100%;
+        height: 1.5rem;
+    }
+
+    &__links {
+        display: none;
+
+        @include tablet-breakpoint {
+            @include flex(row, space-between, center);
+        }
+
+        @include desktop-breakpoint {
+            gap: 2rem;
+        }
+
+        &--display {
+            @include flex(column, flex-end, center);
+            gap: 0.5rem;
+            transition: all 2s ease-in-out;
+            background-color: $primary-bg-color;
+            padding: 1.5rem 1.2rem 1.5rem 1.2rem;
+            border-bottom-right-radius: .375rem;
+            border-bottom-left-radius: .375rem;
+            position: absolute;
+            right: 0;
+            z-index: 1000;
+            border: 1px solid $primary-text-color;
+
+            @include tablet-breakpoint {
+                display: none;
+            }
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        cursor: pointer;
+        font-size: .9375rem;
+        color: $primary-text-color;
+        padding: 0.5rem 1rem;
+        // transition: all 2s ease-in-out;
+
+        @include tablet-breakpoint {
+            font-size: 1.15rem;
+        }
+
+        @include desktop-breakpoint {
+            font-size: 1.5rem;
+        }
+
+        &:hover {
+            // background-color: rgb(234 245 243);
+            // border-radius: .625rem;
+            // display: block;
+            // box-sizing: border-box;
+            // top: 2rem;
+            // margin-right: 0.5rem;
+            font-weight: 700;
+        }
+    }
+}

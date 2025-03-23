@@ -1,0 +1,99 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.users__history{
+    padding: 1.5rem 0 1.5rem 0;
+
+    &-title {
+        @include flex(row, flex-start, center);
+        width: 100%;
+        font-size: 1.25rem;
+        color: $primary-bg-color;
+        font-weight: 700;
+        padding-bottom: 1rem;
+        color: $secondary-text-color;
+        border-bottom: 1px solid $secondary-bg-color;
+        padding-top: 1.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        @include tablet-breakpoint {
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+            border-bottom: 0;
+            font-size: 1.5rem;
+        }
+
+        @include desktop-breakpoint {
+            padding-left: 4rem;
+            padding-right: 4rem;
+            font-size: 2rem;
+        }
+    }
+
+    &-head {
+        display: none;
+
+        @include tablet-breakpoint {
+            @include flex(row, flex-start, center);
+            padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+            border-bottom: 1px solid $secondary-bg-color;
+            font-style: italic;
+        }
+
+        @include desktop-breakpoint {
+            padding: 2rem 4rem;
+        }
+
+        &-text {
+            width: 20%;
+        }
+    }
+
+    &-container {
+        @include flex(column, center, center);
+        gap: 1rem;
+        border-bottom: 1px solid $secondary-bg-color;
+        padding: 1rem;
+
+        @include tablet-breakpoint {
+            @include flex(row, flex-start, center);
+            padding: 2rem 2.5rem;
+            gap: 0;
+        }
+
+        @include desktop-breakpoint {
+            padding: 2rem 4rem;
+        }
+    }
+
+    &-box {
+        @include flex(column, center, center);
+
+        @include tablet-breakpoint {
+            width: 20%;
+            @include flex(row, flex-start, center);
+            gap: 0;
+        }
+    }
+
+    &-header {
+        font-style: italic;
+        font-size: 1rem;
+        font-size: .6rem;
+
+        @include tablet-breakpoint {
+            display: none;
+        }
+    }
+
+    &-text {
+        font-size: 1rem;
+        padding-top: 0.2rem;
+        font-weight: 700;
+
+        @include tablet-breakpoint {
+            font-size: 1.2rem;
+        }
+    }
+}
