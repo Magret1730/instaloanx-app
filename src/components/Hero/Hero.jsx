@@ -47,7 +47,13 @@ export default function Hero({ isAuthenticated }) {
     }
 
     // Handles if isAdmin is flase i.e "0" or the user has an active or pending loan, don't show the button
-    const shouldShowButton = isAdmin === "0" && filteredLoans && filteredLoans.length >= 0;
+    console.log(filteredLoans);
+    console.log(!filteredLoans);
+    console.log(!filteredLoans === 0);
+    console.log(isAdmin);
+    console.log(typeof(isAdmin));
+    const shouldShowButton = isAdmin === "0" && (!filteredLoans || filteredLoans.length === 0);
+    console.log(shouldShowButton);
 
     return (
         <section className="hero">
