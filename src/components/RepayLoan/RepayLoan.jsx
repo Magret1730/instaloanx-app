@@ -30,7 +30,7 @@ export default function RepayLoan() {
 
                     if (!activeLoan) {
                         setNoActiveLoan(true);
-                        toast.error("You cannot repay on pending loan.");
+                        toast.error("You don't have an active loan.");
                         navigate("/dashboard");
                     } else {
                         setActiveLoan(activeLoan); // Set active loan details

@@ -88,6 +88,12 @@ export default function LoanForm() {
         } else if (isNaN(amount) || Number(amount) <= 0) {
             toast.error("Invalid loan amount.");
             return false;
+        } else if (Number(amount) < 50){
+            toast.error("The minimum loan amount is $50.");
+            return false;
+        } else if (Number(amount) > 1000000) {
+            toast.error("The maximum loan amount is $1,000,000.");
+            return false;
         } else {
             return true;
         }
