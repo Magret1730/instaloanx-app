@@ -53,7 +53,7 @@ Many individuals and small businesses struggle with accessing and managing loans
 
 ---
 
-## Quick Start
+## Installation Guide
 
 1. Clone the repository:
    ```bash
@@ -66,6 +66,7 @@ Many individuals and small businesses struggle with accessing and managing loans
    `npm run dev`
 5. Open your browser and navigate to
    `http://localhost:5173`
+6. To get the backend running, follow the [Backend Readme](https://github.com/Magret1730/instaloanx-api-app) installation guide
 
 ---
 
