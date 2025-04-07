@@ -27,7 +27,10 @@ export default function AdminHistory({ adminId }) {
                 );
 
                 // Filters out pending loans
-                const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
+                const pendingLoan = allLoans
+                    .filter(loan => loan.status === "Pending")
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
                 setPendingLoans(pendingLoan);
 
                 const filteredLoans = allLoans

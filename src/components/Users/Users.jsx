@@ -32,8 +32,11 @@ export default function Users({isAuthenticated}) {
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
-                    const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
+                    const filtered = response.data.data.loans
+                        .filter(loan => !(loan.status === "Active" || loan.status === "Pending"))
+                        .sort((a, b) => new Date( b.updated_at) - new Date(a.updated_at));
                     setFilteredLoans(filtered);
+
                 } else {
                     console.error(response.message);
                 }
@@ -181,7 +184,7 @@ export default function Users({isAuthenticated}) {
                 )
                 }
             </section>
-            <UsersHistory />
+            {/* <UsersHistory /> */}
         </article>
     )
 }
