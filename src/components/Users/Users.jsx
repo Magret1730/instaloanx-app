@@ -66,7 +66,7 @@ export default function Users({isAuthenticated}) {
         <article className="users__box">
             <section className="users__box-header">
                 <section className="users__header">
-                    <p className="users__header-header">Hi {user.first_name},</p>
+                    <p className="users__header-header">Hi {user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)},</p>
                     <div className="users__header-links">
                         {/* condition rendering of apply button based on active or pending loan */}
                         { activeLoan.length === 0 && (
