@@ -32,8 +32,11 @@ export default function Users({isAuthenticated}) {
                     setActiveLoan(active || null);
 
                     // Filter out pending and active loans
-                    const filtered = response.data.data.loans.filter(loan => !(loan.status === "Active" || loan.status === "Pending"));
+                    const filtered = response.data.data.loans
+                        .filter(loan => !(loan.status === "Active" || loan.status === "Pending"))
+                        .sort((a, b) => new Date( b.updated_at) - new Date(a.updated_at));
                     setFilteredLoans(filtered);
+
                 } else {
                     console.error(response.message);
                 }
@@ -63,7 +66,7 @@ export default function Users({isAuthenticated}) {
         <article className="users__box">
             <section className="users__box-header">
                 <section className="users__header">
-                    <p className="users__header-header">Hi {user.first_name},</p>
+                    <p className="users__header-header">Hi {user.first_name.charAt(0).toUpperCase() + user.first_name.slice(1)},</p>
                     <div className="users__header-links">
                         {/* condition rendering of apply button based on active or pending loan */}
                         { activeLoan.length === 0 && (
@@ -181,7 +184,7 @@ export default function Users({isAuthenticated}) {
                 )
                 }
             </section>
-            <UsersHistory />
+            {/* <UsersHistory /> */}
         </article>
     )
 }
