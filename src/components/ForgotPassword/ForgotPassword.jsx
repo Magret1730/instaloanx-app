@@ -43,15 +43,17 @@ export default function ForgotPassword() {
 
             const response = await InstaloanxApi.forgotPassword(email);
 
-                if (response.data.status === 200) {
-                    toast.success("Password reset link sent to your email. Please login with the new password.");
+            if (response.success === false) {
+                toast.error(response.error || response.message || "Error sending password reset link. Please try again.");
+            }
 
-                    setTimeout(() => {
-                        navigate('/login');
-                    }, 2000);
-                } else {
-                    toast.error(response.error || response.message || "Error sending password reset link. Please try again.");
-                }
+            if (response.data.status === 200) {
+                toast.success("Password reset link sent to your email. Please login with the new password.");
+
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
+            } 
             }
         } catch (error) {
             console.error("Error in forgot Password:", error.response?.data?.message);
