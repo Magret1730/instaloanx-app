@@ -27,7 +27,10 @@ export default function AdminHistory({ adminId }) {
                 );
 
                 // Filters out pending loans
-                const pendingLoan = allLoans.filter(loan => loan.status === "Pending");
+                const pendingLoan = allLoans
+                    .filter(loan => loan.status === "Pending")
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
                 setPendingLoans(pendingLoan);
 
                 const filteredLoans = allLoans
@@ -198,7 +201,6 @@ export default function AdminHistory({ adminId }) {
                         <div className="admin__history-box">
                             <p className="admin__history-header">BALANCE</p>
                             <p className="admin__history-text">
-                                {/* {loan.remaining_balance === 0 ? "Fully Repaid" : "Not Yet"} */}
                                 ${loan.remainingBalance}
                             </p>
                         </div>
@@ -217,7 +219,6 @@ export default function AdminHistory({ adminId }) {
                         {/* Dropdown for status update */}
                         {activeDropdown === loan.loanId && (
                             <section className="admin__history-dropdown">
-                                {/* {["Fully Repaid", "Rejected", "Active", "Pending"].map((option, idx) => ( */}
                                 {["Rejected", "Active", "Pending"].map((option, idx) => (
                                     <div
                                         key={idx}

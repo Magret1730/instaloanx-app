@@ -10,6 +10,7 @@ class InstaloanxApi {
     static async register(newUser) {
         try {
             const response = await axios.post(`${this.BASE_URL}/auth/register`, newUser);
+
             if (response.status !== 201) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -53,6 +54,47 @@ class InstaloanxApi {
             return {
                 success: false,
                 message: err.response ? err.response.data.error || err.response.data.message : "Login: Internal server error",
+            };
+        }
+    }
+
+    // Forgot password
+    static async forgotPassword(email) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/forgotPassword`, { email });
+
+            if (response.status !== 200) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Return the response data
+            return { success: true, data: response};
+        } catch (err) {
+            console.error("Login error", err);
+
+            return {
+                success: false,
+                message: err.response ? err.response.data.error || err.response.data.message : "Forgot Password: Internal server error",
+            };
+        }
+    }
+
+    // Reset password
+    static async resetPassword(newPassword, confirmPassword, token) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/resetPassword`, { newPassword, confirmPassword, token });
+
+            if (response.status !== 200) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Return the response data
+            return { success: true, data: response };
+        } catch (err) {
+            console.error("Login error", err);
+            return {
+                success: false,
+                message: err.response ? err.response.data.error || err.response.data.message : "Reset Password: Internal server error",
             };
         }
     }

@@ -18,7 +18,9 @@ export default function UserDetails() {
             try {
                 const loanResponse = await InstaloanxApi.getLoansByUserId(userId);
                 if (loanResponse.success) {
-                    setLoans(loanResponse.data.data.loans);
+                    const userLoans = loanResponse.data.data.loans.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+                    setLoans(userLoans);
+
                     setUser(loanResponse.data.data.user);
                 }
             } catch (err) {
@@ -68,35 +70,33 @@ export default function UserDetails() {
                 </section>
 
                 {loans.map((loan, index) => (
-                <section key={index} className="user-details__loan-history-item">
-                    <div className="user-details__loan-history-group">
-                        <p className="user-details__loan-history-label">Amount</p>
-                        <p className="user-details__loan-history-text">${loan.loan_amount}</p>
-                    </div>
-                    <div className="user-details__loan-history-group">
-                        <p className="user-details__loan-history-label">Borrowed</p>
-                        <p className="user-details__loan-history-text">{new Date(loan.created_at).toLocaleDateString()}</p>
-                    </div>
-                    <div className="user-details__loan-history-group">
-                        <p className="user-details__loan-history-label">Balance</p>
-                        <p className="user-details__loan-history-text">${loan.remaining_balance}</p>
-                    </div>
-                    <div className="user-details__loan-history-group">
-                        <p className="user-details__loan-history-label">Paid</p>
-                        <p className="user-details__loan-history-text">{new Date(loan.updated_at).toLocaleDateString()}</p>
-                    </div>
-                    <div className="user-details__loan-history-group">
-                        <p className="user-details__loan-history-label">Status</p>
-                        <p className="user-details__loan-history-text">{loan.status}</p>
-                    </div>
-                    <div className="user-details__loan-history-group">
-                        <p className="user-details__loan-history-label">Purpose</p>
-                        <p className="user-details__loan-history-text">{loan.loan_purpose}</p>
-                    </div>
-                </section>
+                    <section key={index} className="user-details__loan-history-item">
+                        <div className="user-details__loan-history-group">
+                            <p className="user-details__loan-history-label">Amount</p>
+                            <p className="user-details__loan-history-text">${loan.loan_amount}</p>
+                        </div>
+                        <div className="user-details__loan-history-group">
+                            <p className="user-details__loan-history-label">Borrowed</p>
+                            <p className="user-details__loan-history-text">{new Date(loan.created_at).toLocaleDateString()}</p>
+                        </div>
+                        <div className="user-details__loan-history-group">
+                            <p className="user-details__loan-history-label">Balance</p>
+                            <p className="user-details__loan-history-text">${loan.remaining_balance}</p>
+                        </div>
+                        <div className="user-details__loan-history-group">
+                            <p className="user-details__loan-history-label">Paid</p>
+                            <p className="user-details__loan-history-text">{new Date(loan.updated_at).toLocaleDateString()}</p>
+                        </div>
+                        <div className="user-details__loan-history-group">
+                            <p className="user-details__loan-history-label">Status</p>
+                            <p className="user-details__loan-history-text">{loan.status}</p>
+                        </div>
+                        <div className="user-details__loan-history-group">
+                            <p className="user-details__loan-history-label">Purpose</p>
+                            <p className="user-details__loan-history-text">{loan.loan_purpose}</p>
+                        </div>
+                    </section>
                 ))}
-
-
             </section>
         </section>
     );

@@ -128,6 +128,7 @@ export default function Login() {
                     onClick={handleSubmit}
                 >LOGIN</button>
             </section>
+            <Link className="login__forgot-password" to="/forgotPassword">Forgot Password?</Link>
         </form>
     )
 }
